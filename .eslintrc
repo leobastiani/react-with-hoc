@@ -1,12 +1,13 @@
 {
   "root": true,
   "extends": [
-    "prettier",
-    "plugin:prettier/recommended",
     "eslint:recommended",
     "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "plugin:prettier/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "plugins": [
@@ -24,7 +25,7 @@
   },
   "settings": {
     "react": {
-      "version": "18"
+      "version": "detect"
     }
   },
   "env": {
