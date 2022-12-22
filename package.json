@@ -25,6 +25,10 @@
     "LICENSE",
     "README.md"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leobastiani/react-new-hoc.git"
+  },
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^29.2.4",
