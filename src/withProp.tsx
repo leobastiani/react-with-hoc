@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
-
 import assert from "assert";
 import { ComponentType, FunctionComponent, useMemo } from "react";
 import { newHocNamedWithProps } from "./newHoc";
@@ -40,32 +38,20 @@ export const withProp = ((): WithProp => {
     propName: PropName,
     factory: (props: Props) => PropValue,
     dependencyNames: string[]
-  ): FunctionComponent<
-    Props & {
-      [key in `${PropName}`]?: PropValue;
-    }
-  >;
+  ): FunctionComponent<any>;
 
   function withProp<Props extends {}, PropName extends string, PropValue>(
     Component: ComponentType<Props>,
     propName: PropName,
     value: Exclude<PropValue, Function>
-  ): FunctionComponent<
-    Props & {
-      [key in `${PropName}`]?: PropValue;
-    }
-  >;
+  ): FunctionComponent<any>;
 
   function withProp<Props extends {}, PropName extends string, PropValue>(
     Component: ComponentType<Props>,
     propName: PropName,
     init: ((props: Props) => PropValue) | PropValue,
     dependencyNames?: string[]
-  ): FunctionComponent<
-    Props & {
-      [key in `${PropName}`]?: PropValue;
-    }
-  > {
+  ): FunctionComponent<any> {
     function WithProp<ClosureProps extends Props>(
       props: ClosureProps
     ): JSX.Element {
