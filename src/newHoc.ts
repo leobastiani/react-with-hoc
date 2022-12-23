@@ -44,10 +44,12 @@ export function newHoc<Props, HocArgs extends any[]>(
       if (process.env.NODE_ENV !== "production") {
         console.assert(fn.name);
       }
-      return componentDisplayName.set(
+      const Ret = fn(Component, ...args);
+      componentDisplayName.set(
         getName({ Component, name, dot, fn }, ...args),
-        fn(Component, ...args)
+        Ret
       );
+      return Ret;
     };
 }
 
