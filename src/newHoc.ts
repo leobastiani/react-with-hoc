@@ -15,7 +15,7 @@ function getName<Props, HocArgs extends any[]>(
     fn: Function;
   },
   ...args: HocArgs
-) {
+): string {
   if (name != undefined) {
     return name(Component, ...args);
   }
@@ -40,7 +40,7 @@ export function newHoc<Props, HocArgs extends any[]>(
   } = {}
 ) {
   return (...args: HocArgs) =>
-    (Component: ComponentType<Props>) => {
+    (Component: ComponentType<Props>): ComponentType<Props> => {
       if (process.env.NODE_ENV !== "production") {
         console.assert(fn.name);
       }
@@ -56,11 +56,13 @@ export function newHocNamedWithProps<Props, HocArgs extends any[]>(
     Component: ComponentType<Props>,
     ...args: HocArgs
   ) => ComponentType<Props>
-) {
+): (
+  ...args: HocArgs
+) => (Component: ComponentType<Props>) => ComponentType<Props> {
   return newHoc(fn, {
     dot(_Component, ...args) {
       const props = args[0];
-      const keys = (() => {
+      const keys = ((): string[] => {
         if (Array.isArray(props)) {
           return props as string[];
         }

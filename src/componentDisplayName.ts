@@ -6,7 +6,7 @@ export const componentDisplayName = {
       component.displayName || component.name || "UnkownComponentDisplayName"
     );
   },
-  set<T>(displayName: string, component: ComponentType<T>) {
+  set<T>(displayName: string, component: ComponentType<T>): ComponentType<T> {
     component.displayName = displayName;
     return component;
   },

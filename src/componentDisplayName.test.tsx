@@ -2,14 +2,14 @@ import { componentDisplayName } from "./componentDisplayName";
 
 describe("get", () => {
   it("by .name", () => {
-    function Example() {
+    function Example(): JSX.Element {
       return <div />;
     }
     expect(componentDisplayName.get(Example)).toBe("Example");
   });
 
   it("by .displayName", () => {
-    const SomeComponent = () => <div />;
+    const SomeComponent = (): JSX.Element => <div />;
     SomeComponent.displayName = "Example";
     expect(componentDisplayName.get(SomeComponent)).toBe("Example");
   });
@@ -18,7 +18,7 @@ describe("get", () => {
     const Example = (
       () =>
       // eslint-disable-next-line react/display-name
-      () =>
+      (): JSX.Element =>
         <div />
     )();
     expect(componentDisplayName.get(Example)).toBe(
@@ -31,7 +31,7 @@ it("set", () => {
   const Example = (
     () =>
     // eslint-disable-next-line react/display-name
-    () =>
+    (): JSX.Element =>
       <div />
   )();
   expect(componentDisplayName.get(Example)).not.toBe("Example");

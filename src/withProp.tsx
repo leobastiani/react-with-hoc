@@ -34,27 +34,41 @@ interface WithProp {
   >;
 }
 
-export const withProp = (() => {
+export const withProp = ((): WithProp => {
   function withProp<Props extends {}, PropName extends string, PropValue>(
     Component: ComponentType<Props>,
     propName: PropName,
     factory: (props: Props) => PropValue,
     dependencyNames: string[]
-  ): FunctionComponent<Props & { [key in `${PropName}`]?: PropValue }>;
+  ): FunctionComponent<
+    Props & {
+      [key in `${PropName}`]?: PropValue;
+    }
+  >;
 
   function withProp<Props extends {}, PropName extends string, PropValue>(
     Component: ComponentType<Props>,
     propName: PropName,
     value: Exclude<PropValue, Function>
-  ): FunctionComponent<Props & { [key in `${PropName}`]?: PropValue }>;
+  ): FunctionComponent<
+    Props & {
+      [key in `${PropName}`]?: PropValue;
+    }
+  >;
 
   function withProp<Props extends {}, PropName extends string, PropValue>(
     Component: ComponentType<Props>,
     propName: PropName,
     init: ((props: Props) => PropValue) | PropValue,
     dependencyNames?: string[]
-  ): FunctionComponent<Props & { [key in `${PropName}`]?: PropValue }> {
-    function WithProp<ClosureProps extends Props>(props: ClosureProps) {
+  ): FunctionComponent<
+    Props & {
+      [key in `${PropName}`]?: PropValue;
+    }
+  > {
+    function WithProp<ClosureProps extends Props>(
+      props: ClosureProps
+    ): JSX.Element {
       let newValue: PropValue;
       if (init instanceof Function) {
         if (process.env.NODE_ENV !== "production") {

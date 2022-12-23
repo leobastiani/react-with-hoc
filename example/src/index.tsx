@@ -6,7 +6,7 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
-function Example() {
+function Example(): JSX.Element {
   return <div />;
 }
 

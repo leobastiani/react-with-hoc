@@ -3,9 +3,9 @@ import { isEmpty } from "./isEmpty";
 export function combineProps(
   prop0: { [key: string]: any },
   prop1: { [key: string]: any }
-) {
-  const style = Object.assign({}, prop0.style, prop1.style);
-  const className = (() => {
+): any {
+  const style: object = Object.assign({}, prop0.style, prop1.style);
+  const className = ((): string[] => {
     if (!prop0.className && !prop1.className) {
       return [];
     } else if (prop0.className && prop1.className) {

@@ -2,7 +2,7 @@ import { render } from "@testing-library/react";
 import { componentDisplayName } from "./componentDisplayName";
 import { withProp } from "./withProp";
 
-function Example(props: { someProp: number }) {
+function Example(props: { someProp: number }): JSX.Element {
   return <pre>{JSON.stringify(props)}</pre>;
 }
 

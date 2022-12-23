@@ -1,4 +1,4 @@
-export function isEmpty(obj: object | Array<any>) {
+export function isEmpty(obj: object | Array<any>): boolean {
   if (Array.isArray(obj)) {
     return !obj.length;
   }
