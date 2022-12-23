@@ -41,7 +41,9 @@ export function newHoc<Props, HocArgs extends any[]>(
 ) {
   return (...args: HocArgs) =>
     (Component: ComponentType<Props>) => {
-      console.assert(fn.name);
+      if (process.env.NODE_ENV !== "production") {
+        console.assert(fn.name);
+      }
       return componentDisplayName.set(
         getName({ Component, name, dot, fn }, ...args),
         fn(Component, ...args)
