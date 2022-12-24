@@ -18,14 +18,18 @@ beforeEach(() => {
   };
 });
 
+it("withState name", () => {
+  const Component = withState("someState")(Example);
+  expect(componentDisplayName.get(Component)).toBe(
+    "withState.someState(Example)"
+  );
+});
+
 it("withState", () => {
   const Component = withState("someState", { init: 0 })(Example);
   render(<Component />);
   expect(document.body.children[0].innerHTML).toBe(
     '<pre>{"someState":0}</pre>'
-  );
-  expect(componentDisplayName.get(Component)).toBe(
-    "withState.someState(Example)"
   );
   act(() => {
     setSomeState(1);
