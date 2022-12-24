@@ -3,14 +3,6 @@ import { ComponentType, FunctionComponent, useMemo } from "react";
 import { newHocNamedWithProps } from "./newHoc";
 import { render } from "./render";
 
-type Merge<A, B> = {
-  [K in keyof (A | B)]: K extends keyof B
-    ? K extends keyof A
-      ? A[K] | B[K]
-      : B[K]
-    : A[K];
-};
-
 interface WithProp {
   <Props extends {}, PropName extends string, PropValue>(
     propName: PropName,

@@ -31,11 +31,16 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.20.7",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-react": "^7.18.6",
+    "@babel/preset-typescript": "^7.18.6",
     "@testing-library/react": "^13.4.0",
     "@types/jest": "^29.2.4",
     "@types/react": "^18.0.26",
     "@typescript-eslint/eslint-plugin": "^5.47.0",
     "@typescript-eslint/parser": "^5.47.0",
+    "babel-jest": "^29.3.1",
     "eslint": "^8.30.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
@@ -46,7 +51,6 @@
     "prettier": "^2.8.1",
     "react": ">=18",
     "react-dom": ">=18",
-    "ts-jest": "^29.0.3",
     "typescript": "^4.9.4"
   }
 }
