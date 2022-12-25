@@ -3,10 +3,11 @@ import {
   Dispatch,
   FunctionComponent,
   SetStateAction,
-  useState
+  useState,
 } from "react";
 import { camelCase } from "./camelCase";
 import { newHocNamedWithProps } from "./newHoc";
+import { render } from "./render";
 
 interface WithStateHoc {
   <
@@ -46,14 +47,13 @@ export const withState = ((): WithStateHoc => {
     function WithState(props: any): JSX.Element {
       const [state, setState] = useState(init);
 
-      return (
-        <Component
-          {...{
-            [stateName]: state,
-            [setterName]: setState,
-          }}
-          {...props}
-        />
+      return render(
+        Component,
+        {
+          [stateName]: state,
+          [setterName]: setState,
+        },
+        props
       );
     }
     return WithState;

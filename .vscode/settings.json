@@ -12,9 +12,10 @@
   "[javascript]": {
     "editor.formatOnSave": false
   },
+  "prettier.enable": false,
   "editor.codeActionsOnSave": {
-    "source.organizeImports": true,
     "source.fixAll.eslint": true,
-    "source.fixAll.format": true
+    "source.fixAll.format": true,
+    "source.organizeImports": false,
   },
 }
