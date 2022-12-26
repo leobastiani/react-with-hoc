@@ -32,3 +32,15 @@ it("withProps overridden", () => {
     '<pre>{"someProp":20}</pre>'
   );
 });
+
+it("withProps rewritten", () => {
+  const Component = withProp(
+    "someProp",
+    ({ someProp }: { someProp: number }) => someProp + 10,
+    ["someProp"]
+  )(Example);
+  render(<Component someProp={20} />);
+  expect(document.body.children[0].innerHTML).toBe(
+    '<pre>{"someProp":30}</pre>'
+  );
+});

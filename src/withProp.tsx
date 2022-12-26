@@ -44,6 +44,7 @@ export const withProp = ((): WithProp => {
     init: ((props: Props) => PropValue) | PropValue,
     dependencyNames?: string[]
   ): FunctionComponent<any> {
+    const override = dependencyNames?.includes(propName) ?? false;
     function WithProp<ClosureProps extends Props>(
       props: ClosureProps
     ): JSX.Element {
@@ -62,7 +63,9 @@ export const withProp = ((): WithProp => {
       } else {
         newValue = init;
       }
-      return render(Component, { [propName]: newValue }, props);
+      return override
+        ? render(Component, props, { [propName]: newValue })
+        : render(Component, { [propName]: newValue }, props);
     }
     return WithProp;
   }
