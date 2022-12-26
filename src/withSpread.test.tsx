@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import { componentDisplayName } from "./componentDisplayName";
-import { withObject } from "./withObject";
+import { withSpread } from "./withSpread";
 
 interface ExampleProps {
   a: number;
@@ -11,13 +11,13 @@ function Example(props: ExampleProps): JSX.Element {
   return <pre>{JSON.stringify(props)}</pre>;
 }
 
-it("withObject name", () => {
-  const Component = withObject("obj")(Example);
-  expect(componentDisplayName.get(Component)).toBe("withObject.obj(Example)");
+it("withSpread name", () => {
+  const Component = withSpread("obj")(Example);
+  expect(componentDisplayName.get(Component)).toBe("withSpread.obj(Example)");
 });
 
-it("withObject", () => {
-  const Component = withObject("obj")(Example);
+it("withSpread", () => {
+  const Component = withSpread("obj")(Example);
   render(
     <Component
       obj={{

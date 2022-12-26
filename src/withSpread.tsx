@@ -10,8 +10,8 @@ interface WithObjectHoc {
   ) => FunctionComponent<DestructuringObject<ClosureProps, Key>>;
 }
 
-export const withObject = ((): WithObjectHoc => {
-  function withObject(
+export const withSpread = ((): WithObjectHoc => {
+  function withSpread(
     Component: ComponentType,
     key: string
   ): FunctionComponent {
@@ -26,5 +26,5 @@ export const withObject = ((): WithObjectHoc => {
     return WithObject;
   }
 
-  return newHocNamedWithProps(withObject) as WithObjectHoc;
+  return newHocNamedWithProps(withSpread) as WithObjectHoc;
 })();
