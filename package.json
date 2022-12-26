@@ -1,7 +1,7 @@
 {
   "name": "react-new-hoc",
-  "version": "0.1.0",
-  "description": "Create new HOCs with ease",
+  "version": "0.0.1",
+  "description": "Work with React and HOCs (Higher-Order Components)",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "types": "./dist/esm/index.d.ts",
@@ -9,17 +9,23 @@
     "build": "yarn build:esm && yarn build:cjs",
     "build:esm": "tsc --project tsconfig.build.json",
     "build:cjs": "tsc --project tsconfig.build.json --module commonjs --outDir dist/cjs",
+    "clean": "rimraf dist",
     "prepare": "yarn build",
-    "prepublishOnly": "yarn test && yarn lint",
+    "prepublishOnly": "yarn test && yarn lint && yarn clean",
     "lint": "eslint . --max-warnings=0",
     "test": "jest"
   },
   "keywords": [
     "react",
-    "typescript",
-    "awesome-project"
+    "reactjs",
+    "react-component",
+    "hoc",
+    "hocs",
+    "higher-order",
+    "component",
+    "with"
   ],
-  "author": "Leonardo Guarnieri de Bastiani",
+  "author": "Leonardo Guarnieri de Bastiani (leogbastiani@gmail.com)",
   "files": [
     "dist",
     "LICENSE",
@@ -51,6 +57,7 @@
     "prettier": "^2.8.1",
     "react": ">=18",
     "react-dom": ">=18",
+    "rimraf": "^3.0.2",
     "typescript": "^4.9.4"
   }
 }
