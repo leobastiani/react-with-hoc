@@ -1,6 +1,6 @@
 {
   "name": "react-new-hoc",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Create new HOCs with ease",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
