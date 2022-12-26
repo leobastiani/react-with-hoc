@@ -43,13 +43,15 @@ export function newHoc<Props, HocArgs extends any[]>(
   return (...args: HocArgs) =>
     (Component: ComponentType<Props>): ComponentType<Props> => {
       if (process.env.NODE_ENV !== "production") {
-        assert(fn.name);
+        assert(fn.name, `Trying to create a new hoc without a name: ${fn}`);
       }
       const Ret = fn(Component, ...args);
-      componentDisplayName.set(
-        getName({ Component, name, dot, fn }, ...args),
-        Ret
-      );
+      if (process.env.NODE_ENV !== "production") {
+        componentDisplayName.set(
+          getName({ Component, name, dot, fn }, ...args),
+          Ret
+        );
+      }
       return Ret;
     };
 }
