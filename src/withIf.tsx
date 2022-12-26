@@ -1,3 +1,4 @@
+import assert from "assert";
 import { ComponentType, FunctionComponent, ReactNode, useMemo } from "react";
 import { newHoc } from "./newHoc";
 import { render } from "./render";
@@ -38,7 +39,7 @@ export const withIf = ((): WithIfHoc => {
     } = {}
   ): FunctionComponent {
     if (process.env.NODE_ENV !== "production") {
-      console.assert(
+      assert(
         typeof propNameOrFactory !== "function" || dependencyNames,
         "withIf with function should have dependecyNames assigned"
       );

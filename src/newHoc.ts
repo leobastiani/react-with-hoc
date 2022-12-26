@@ -1,3 +1,4 @@
+import assert from "assert";
 import { ComponentType } from "react";
 import { componentDisplayName } from "./componentDisplayName";
 
@@ -42,7 +43,7 @@ export function newHoc<Props, HocArgs extends any[]>(
   return (...args: HocArgs) =>
     (Component: ComponentType<Props>): ComponentType<Props> => {
       if (process.env.NODE_ENV !== "production") {
-        console.assert(fn.name);
+        assert(fn.name);
       }
       const Ret = fn(Component, ...args);
       componentDisplayName.set(
