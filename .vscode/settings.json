@@ -13,9 +13,10 @@
     "editor.formatOnSave": false
   },
   "prettier.enable": false,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true,
-    "source.fixAll.format": true,
-    "source.organizeImports": false,
-  },
+  "editor.codeActionsOnSave": [
+    "source.organizeImports",
+    "source.addMissingImports",
+    "source.fixAll.eslint",
+    "source.fixAll.format",
+  ],
 }
