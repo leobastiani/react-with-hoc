@@ -29,6 +29,6 @@ it("withProps overridden", () => {
   const Component = withProp("someProp", 10)(Example);
   render(<Component someProp={20} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"someProp":10}</pre>'
+    '<pre>{"someProp":20}</pre>'
   );
 });

@@ -16,18 +16,14 @@ export const withOmit = ((): WithOmitHoc => {
     omitNames: string[]
   ): FunctionComponent {
     function WithOmit(props: any): JSX.Element {
-      const newProps: any = {};
       const omitSet = new Set(omitNames);
       for (const key in props) {
-        if (!omitSet.has(key)) {
-          newProps[key] = props[key];
+        if (omitSet.has(key)) {
+          delete props[key];
         }
       }
-      if ("key" in props) {
-        newProps.key = props.key;
-      }
 
-      return render(Component, newProps);
+      return render(Component, props);
     }
     return WithOmit;
   }

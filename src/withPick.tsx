@@ -16,17 +16,14 @@ export const withPick = ((): WithPickHoc => {
     pickNames: string[]
   ): FunctionComponent {
     function WithPick(props: any): JSX.Element {
-      const newProps: any = {};
-      for (const pickName of pickNames) {
-        if (pickName in props) {
-          newProps[pickName] = props[pickName];
+      const pickSet = new Set(pickNames);
+      for (const key in props) {
+        if (!pickSet.has(key) && key in props) {
+          delete props[key];
         }
       }
-      if ("key" in props) {
-        newProps.key = props.key;
-      }
 
-      return render(Component, newProps);
+      return render(Component, props);
     }
     return WithPick;
   }
