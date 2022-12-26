@@ -3,11 +3,11 @@ import { newHocNamedWithProps } from "./newHoc";
 import { render } from "./render";
 
 interface WithPickHoc {
-  <Props extends {}, PickNames extends string[]>(pickNames: PickNames): <
-    ClosureProps extends Props
-  >(
+  <Props extends {}, PickNames extends readonly string[]>(
+    pickNames: PickNames
+  ): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
-  ) => FunctionComponent<ClosurePick<ClosureProps, ["b"]>>;
+  ) => FunctionComponent<ClosurePick<ClosureProps, PickNames>>;
 }
 
 export const withPick = ((): WithPickHoc => {

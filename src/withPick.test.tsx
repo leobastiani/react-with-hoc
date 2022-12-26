@@ -18,7 +18,7 @@ it("withPick name", () => {
 });
 
 it("withPick", () => {
-  const Component = withPick(["b"])(Example);
+  const Component = withPick(["b"] as const)(Example);
   render(<Component b={1} />);
   expect(document.body.children[0].innerHTML).toBe('<pre>{"b":1}</pre>');
 });
