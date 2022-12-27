@@ -12,9 +12,9 @@ import { render } from "./render";
 interface WithStateHoc {
   <
     PropValue,
-    Props extends {},
     StateName extends string,
-    SetterName extends string = CamelCase<`set_${StateName}`>
+    SetterName extends string = CamelCase<`set_${StateName}`>,
+    Props extends {} = {}
   >(
     stateName: StateName,
     {

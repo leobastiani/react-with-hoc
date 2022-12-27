@@ -19,7 +19,7 @@ beforeEach(() => {
 });
 
 it("withState name", () => {
-  const Component = withState("someState")(Example);
+  const Component = withState<number, "someState">("someState")(Example);
   expect(componentDisplayName.get(Component)).toBe(
     "withState.someState(Example)"
   );
