@@ -1,6 +1,7 @@
 export * from "./componentDisplayName";
 export * from "./newHoc";
 export * from "./withComponent";
+export * from "./withHocs";
 export * from "./withIf";
 export * from "./withMap";
 export * from "./withOmit";
