@@ -56,32 +56,69 @@ export const withComponent = ((): WithComponentHoc => {
       }
     }
 
+    const parseProps = ((): any => {
+      if (options.pick) {
+        if (!(options.pick instanceof Set)) {
+          options.pick = new Set(options.pick);
+        }
+
+        return (props: any) => {
+          const ret: any = {};
+          for (const key in props) {
+            if (options.pick.has(key)) {
+              ret[key] = props[key];
+            }
+          }
+          return ret;
+        };
+      } else if (options.omit) {
+        if (!(options.omit instanceof Set)) {
+          options.omit = new Set(options.omit);
+        }
+
+        return (props: any) => {
+          const ret: any = {};
+          for (const key in props) {
+            if (options.omit.has(key)) {
+              continue;
+            }
+            ret[key] = props[key];
+          }
+          return ret;
+        };
+      }
+
+      return (props: any) => props;
+    })();
+
     return function WithComponent(props: any): JSX.Element {
-      const NewTarget = useMemo(() => {
+      const TargetByProps = useMemo(() => {
         if (typeof props[targetName] === "function") {
-          return (myProps: any): any =>
-            render(props[targetName](Target), props, myProps);
+          return props[targetName](Target);
         }
         if (options.hiddenByDefault) {
           if (!props[targetName]) {
             // eslint-disable-next-line react/display-name
             return (): any => <></>;
           } else if (props[targetName] === true) {
-            return (myProps: any) => render(Target, props, myProps);
+            return Target;
           }
         }
         if (targetName in props) {
           return (): any => props[targetName];
         }
 
-        return (myProps: any) => render(Target, props, myProps);
+        return Target;
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [props[targetName]]);
-
-      componentDisplayName.set(`${targetName}.withComponent`, NewTarget);
+      const CurrTarget = (myProps: any): any =>
+        render(TargetByProps, parseProps(props), myProps);
+      if (process.env.NODE_ENV !== "production") {
+        componentDisplayName.set(`${targetName}.withComponent`, CurrTarget);
+      }
 
       return render(Component, props, {
-        [targetName]: NewTarget,
+        [targetName]: CurrTarget,
       });
     };
   }

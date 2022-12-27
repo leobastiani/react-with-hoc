@@ -11,8 +11,8 @@ import { render } from "./render";
 
 interface WithStateHoc {
   <
-    Props extends {},
     PropValue,
+    Props extends {},
     StateName extends string,
     SetterName extends string = CamelCase<`set_${StateName}`>
   >(
@@ -27,13 +27,16 @@ interface WithStateHoc {
   ): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
   ) => FunctionComponent<
-    Merge<
-      ClosureProps,
-      {
-        [k in StateName]?: PropValue;
-      } & {
-        [k in SetterName]?: Dispatch<SetStateAction<PropValue>>;
-      }
+    ClosurePartial<
+      Merge<
+        ClosureProps,
+        {
+          [k in StateName]: PropValue;
+        } & {
+          [k in SetterName]: Dispatch<SetStateAction<PropValue>>;
+        }
+      >,
+      [StateName, SetterName]
     >
   >;
 }
