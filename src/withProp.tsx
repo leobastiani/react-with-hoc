@@ -10,17 +10,30 @@ interface WithProp {
   ): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
   ) => FunctionComponent<
-    Merge<ClosureProps, { [key in `${PropName}`]?: PropValue }>
+    ClosurePartial<
+      Merge<ClosureProps, { [key in `${PropName}`]: PropValue }>,
+      [PropName]
+    >
   >;
 
-  <Props extends {}, PropName extends string, PropValue>(
+  <
+    Props extends {},
+    DependencyProps extends Props,
+    PropName extends string,
+    PropValue
+  >(
     propName: PropName,
-    factory: (props: Props) => PropValue,
-    dependencyNames: string[]
+    factory: (props: DependencyProps) => PropValue,
+    dependencyNames: keyof DependencyProps extends never
+      ? []
+      : UnionToArray<Extract<keyof DependencyProps, string>>
   ): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
   ) => FunctionComponent<
-    Merge<ClosureProps, { [key in `${PropName}`]?: PropValue }>
+    ClosurePartial<
+      Merge<DependencyProps, { [key in `${PropName}`]: PropValue }>,
+      [PropName]
+    >
   >;
 }
 

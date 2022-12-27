@@ -25,6 +25,26 @@ it("withProps with function", () => {
   expect(document.body.children[0].innerHTML).toBe('<pre>{"someProp":1}</pre>');
 });
 
+it("withProps a new property as value", () => {
+  const Component = withProp("anotherProp", 10)(Example);
+  render(<Component someProp={5} />);
+  expect(document.body.children[0].innerHTML).toBe(
+    '<pre>{"anotherProp":10,"someProp":5}</pre>'
+  );
+});
+
+it("withProps a new property in dependencyNames", () => {
+  const Component = withProp(
+    "someProp",
+    ({ anotherProp }: { anotherProp: number }) => anotherProp + 10,
+    ["anotherProp"]
+  )(Example);
+  render(<Component anotherProp={5} />);
+  expect(document.body.children[0].innerHTML).toBe(
+    '<pre>{"someProp":15,"anotherProp":5}</pre>'
+  );
+});
+
 it("withProps overridden", () => {
   const Component = withProp("someProp", 10)(Example);
   render(<Component someProp={20} />);
