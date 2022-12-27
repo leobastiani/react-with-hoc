@@ -40,5 +40,5 @@ export function withHocs<
 <PropsIn extends {}>(Component: ComponentType<PropsIn>) => ComponentType<any> {
   // @ts-ignore
   return (arg: any) =>
-    (fns as any[]).reduce((acc, fn) => fn(acc), firstFn(arg));
+    ([firstFn, ...fns] as any[]).reduceRight((acc, fn) => fn(acc), arg);
 }

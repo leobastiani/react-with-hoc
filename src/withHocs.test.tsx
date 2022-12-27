@@ -11,3 +11,18 @@ it("withHocs(withProps)", () => {
   render(<Component />);
   expect(document.body.children[0].innerHTML).toBe('<pre>{"someProp":1}</pre>');
 });
+
+it("withHocs uses reduceRight", () => {
+  const Component = withHocs(
+    withProp("someProp", 1),
+    withProp(
+      "someProp",
+      ({ someProp }: { someProp: number }) => someProp + 10,
+      ["someProp"]
+    )
+  )(Example);
+  render(<Component />);
+  expect(document.body.children[0].innerHTML).toBe(
+    '<pre>{"someProp":11}</pre>'
+  );
+});
