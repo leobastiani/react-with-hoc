@@ -1,53 +1,58 @@
 import assert from "assert";
-import { ComponentType, FunctionComponent, useMemo } from "react";
-import { MakeWithComponentProps } from "./@types/MakeWithComponentProps";
+import { ComponentType, FunctionComponent, ReactNode, useMemo } from "react";
 import { componentDisplayName } from "./componentDisplayName";
-import { newHoc } from "./newHoc";
+import { newHocNamedWithProps } from "./newHoc";
 import { render } from "./render";
 
 interface WithComponentHoc {
-  <Props extends {}, Options extends {}>(
-    options: Options & { hiddenByDefault?: boolean } & (
-        | { pick?: string[] }
-        | { omit?: string[] }
-      )
+  <Props extends {}, Name extends string, Target extends ComponentType>(
+    name: Name,
+    component: Target,
+    options?: { hiddenByDefault?: boolean } & (
+      | { pick?: string[] }
+      | { omit?: string[] }
+    )
   ): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
-  ) => FunctionComponent<MakeWithComponentProps<ClosureProps, Options>>;
+  ) => FunctionComponent<
+    {
+      [K in keyof ClosureProps as K extends Name ? never : K]: ClosureProps[K];
+    } & {
+      [K in Name]?:
+        | ((Component: Target) => (props: ClosureProps) => ReactNode)
+        | ReactNode;
+    }
+  >;
 }
 
-const notComponent = new Set(["pick", "omit", "hiddenByDefault"]);
-
-function getComponentDevelopment(options: object): string {
-  const keys = Object.keys(options);
-  const keyComponents = keys.filter((key) => !notComponent.has(key));
-  assert(
-    keyComponents.length == 1,
-    "withComponent({ Component }) should be used with exactly one Component"
-  );
-  return keyComponents[0];
-}
-
-function getComponent(options: object): string {
-  for (const key in options) {
-    if (!notComponent.has(key)) {
-      return key;
+function parsePropsByPick(props: any, pick: any): any {
+  const ret: any = {};
+  for (const key in props) {
+    if (pick.has(key)) {
+      ret[key] = props[key];
     }
   }
-  assert.fail("withComponent could not find Component");
+  return ret;
+}
+
+function parsePropsByOmit(props: any, omit: any): any {
+  const ret: any = {};
+  for (const key in props) {
+    if (omit.has(key)) {
+      continue;
+    }
+    ret[key] = props[key];
+  }
+  return ret;
 }
 
 export const withComponent = ((): WithComponentHoc => {
   function withComponent(
     Component: ComponentType,
-    options: any
+    targetName: string,
+    Target: ComponentType,
+    options: any = {}
   ): FunctionComponent {
-    const targetName =
-      process.env.NODE_ENV === "production"
-        ? getComponent(options)
-        : getComponentDevelopment(options);
-    const Target = options[targetName] as FunctionComponent;
-
     if (process.env.NODE_ENV !== "production") {
       if (options.omit && options.pick) {
         assert.fail(
@@ -62,30 +67,13 @@ export const withComponent = ((): WithComponentHoc => {
           options.pick = new Set(options.pick);
         }
 
-        return (props: any) => {
-          const ret: any = {};
-          for (const key in props) {
-            if (options.pick.has(key)) {
-              ret[key] = props[key];
-            }
-          }
-          return ret;
-        };
+        return (props: any) => parsePropsByPick(props, options.pick);
       } else if (options.omit) {
         if (!(options.omit instanceof Set)) {
           options.omit = new Set(options.omit);
         }
 
-        return (props: any) => {
-          const ret: any = {};
-          for (const key in props) {
-            if (options.omit.has(key)) {
-              continue;
-            }
-            ret[key] = props[key];
-          }
-          return ret;
-        };
+        return (props: any) => parsePropsByOmit(props, options.omit);
       }
 
       return (props: any) => props;
@@ -123,9 +111,5 @@ export const withComponent = ((): WithComponentHoc => {
     };
   }
 
-  return newHoc(withComponent, {
-    dot(_Component, options) {
-      return getComponentDevelopment(options);
-    },
-  }) as WithComponentHoc;
+  return newHocNamedWithProps(withComponent) as WithComponentHoc;
 })();
