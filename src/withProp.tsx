@@ -4,7 +4,7 @@ import { newHocNamedWithProps } from "./newHoc";
 import { render } from "./render";
 
 interface WithProp {
-  <Props extends {}, PropName extends string, PropValue>(
+  <PropValue, PropName extends string, Props extends {} = {}>(
     propName: PropName,
     value: Exclude<PropValue, Function>
   ): <ClosureProps extends Props>(
@@ -17,10 +17,10 @@ interface WithProp {
   >;
 
   <
-    Props extends {},
-    DependencyProps extends Props,
+    PropValue,
     PropName extends string,
-    PropValue
+    Props extends {} = {},
+    DependencyProps extends Props = Props
   >(
     propName: PropName,
     factory: (props: DependencyProps) => PropValue,
@@ -38,14 +38,14 @@ interface WithProp {
 }
 
 export const withProp = ((): WithProp => {
-  function withProp<Props extends {}, PropName extends string, PropValue>(
+  function withProp<PropValue, PropName extends string, Props extends {} = {}>(
     Component: ComponentType<Props>,
     propName: PropName,
     factory: (props: Props) => PropValue,
     dependencyNames: string[]
   ): FunctionComponent<any>;
 
-  function withProp<Props extends {}, PropName extends string, PropValue>(
+  function withProp<PropValue, PropName extends string, Props extends {} = {}>(
     Component: ComponentType<Props>,
     propName: PropName,
     value: Exclude<PropValue, Function>
