@@ -1,4 +1,3 @@
-import assert from "assert";
 import { ComponentType, FunctionComponent, useMemo } from "react";
 import { newHocNamedWithProps } from "./newHoc";
 import { render } from "./render";
@@ -64,7 +63,11 @@ export const withProp = ((): WithProp => {
       let newValue: PropValue;
       if (init instanceof Function) {
         if (process.env.NODE_ENV !== "production") {
-          assert(dependencyNames);
+          if (!dependencyNames) {
+            throw new Error(
+              "withProp used with init function should have dependecyNames defined"
+            );
+          }
         }
         // eslint-disable-next-line react-hooks/rules-of-hooks
         newValue = useMemo(

@@ -1,4 +1,3 @@
-import assert from "assert";
 import { ComponentType, FunctionComponent, ReactNode, useMemo } from "react";
 import { componentDisplayName } from "./componentDisplayName";
 import { newHocNamedWithProps } from "./newHoc";
@@ -55,7 +54,7 @@ export const withComponent = ((): WithComponentHoc => {
   ): FunctionComponent {
     if (process.env.NODE_ENV !== "production") {
       if (options.omit && options.pick) {
-        assert.fail(
+        throw new Error(
           "Don't use withComponent with pick and omit at the same time"
         );
       }

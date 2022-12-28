@@ -1,4 +1,3 @@
-import assert from "assert";
 import { ComponentType } from "react";
 import { componentDisplayName } from "./componentDisplayName";
 
@@ -43,7 +42,11 @@ export function newHoc<Props, HocArgs extends any[]>(
   return (...args: HocArgs) =>
     (Component: ComponentType<Props>): ComponentType<Props> => {
       if (process.env.NODE_ENV !== "production") {
-        assert(fn.name, `Trying to create a new hoc without a name: ${fn}`);
+        if (!fn.name) {
+          throw new Error(`Trying to create a new hoc without a name: ${fn}`, {
+            cause: fn,
+          });
+        }
       }
       const Ret = fn(Component, ...args);
       if (process.env.NODE_ENV !== "production") {
