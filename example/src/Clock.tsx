@@ -17,7 +17,7 @@ const HourMarks = withMap(12)(HourMark);
 type MinuteMarks = typeof MinuteMarks;
 type HourMarks = typeof HourMarks;
 
-const ClockCircle = withHocs(
+export const ClockCircle = withHocs(
   withRename("circleSize", "size"),
   withRename("circleBorder", "border")
 )(Circle);
