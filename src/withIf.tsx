@@ -16,9 +16,13 @@ interface WithIfHoc {
     Component: ComponentType<ClosureProps>
   ) => FunctionComponent<ClosureProps & { [K in PropName]: boolean }>;
 
-  <Props extends {}>(
-    func: (props: Props) => boolean,
-    options: Partial<ThenElse<Props>> & { dependencyNames: string[] }
+  <Props extends {}, DependencyProps extends Props = Props>(
+    func: (props: DependencyProps) => boolean,
+    options: {
+      dependencyNames: keyof DependencyProps extends never
+        ? []
+        : UnionToArray<Extract<keyof DependencyProps, string>>;
+    } & Partial<ThenElse<Props>>
   ): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
   ) => FunctionComponent<ClosureProps>;

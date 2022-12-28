@@ -46,6 +46,25 @@ it("withIf with function", () => {
   expect(document.body.children[0].innerHTML).toBe('<pre>{"a":1}</pre>');
 });
 
+it("withIf with function and no dependecyNames", () => {
+  let calls = 0;
+  const Component = withIf(
+    () => {
+      calls++;
+      return false;
+    },
+    {
+      dependencyNames: [],
+    }
+  )(Example);
+  const { rerender } = render(<Component a={0} />);
+  expect(document.body.children[0].innerHTML).toBe("");
+  expect(calls).toBe(1);
+  rerender(<Component a={1} />);
+  expect(calls).toBe(1);
+  expect(document.body.children[0].innerHTML).toBe("");
+});
+
 it("withIf with Then and Else", () => {
   const Component = withIf("condition", {
     Then: (props: ExampleProps) => <pre id="then">{JSON.stringify(props)}</pre>,
