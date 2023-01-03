@@ -3,7 +3,7 @@ import { NormalizeObject } from "./@types/NormalizeObject";
 import { SpreadObject } from "./@types/SpreadObject";
 import { WithComponent } from "./@types/WithComponent";
 import { componentDisplayName } from "./componentDisplayName";
-import { newHocNamedWithProps } from "./newHoc";
+import { newHoc } from "./newHoc";
 import { render } from "./render";
 
 interface WithComponentsHoc {
@@ -60,5 +60,5 @@ export const withComponents = ((): WithComponentsHoc => {
     };
   }
 
-  return newHocNamedWithProps(withComponents) as WithComponentsHoc;
+  return newHoc(withComponents) as WithComponentsHoc;
 })();

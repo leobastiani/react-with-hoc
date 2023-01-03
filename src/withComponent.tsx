@@ -2,7 +2,7 @@ import { ComponentType, FunctionComponent, useMemo } from "react";
 import { NormalizeObject } from "./@types/NormalizeObject";
 import { WithComponent } from "./@types/WithComponent";
 import { componentDisplayName } from "./componentDisplayName";
-import { newHocNamedWithProps } from "./newHoc";
+import { newHoc } from "./newHoc";
 import { render } from "./render";
 
 interface WithComponentHoc {
@@ -114,5 +114,5 @@ export const withComponent = ((): WithComponentHoc => {
     };
   }
 
-  return newHocNamedWithProps(withComponent) as WithComponentHoc;
+  return newHoc(withComponent) as WithComponentHoc;
 })();

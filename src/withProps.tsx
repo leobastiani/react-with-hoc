@@ -3,7 +3,7 @@ import { BaseProperties } from "./@types/BaseProperties";
 import { ClosurePartial } from "./@types/ClosurePartial";
 import { Merge } from "./@types/Merge";
 import { NormalizeObject } from "./@types/NormalizeObject";
-import { newHocNamedWithProps } from "./newHoc";
+import { newHoc } from "./newHoc";
 import { render } from "./render";
 
 interface WithProps {
@@ -33,5 +33,5 @@ export const withProps = ((): WithProps => {
     return WithProps;
   }
 
-  return newHocNamedWithProps(withProps) as WithProps;
+  return newHoc(withProps) as WithProps;
 })();

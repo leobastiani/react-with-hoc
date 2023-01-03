@@ -1,7 +1,7 @@
 import { ComponentType, FunctionComponent, Key } from "react";
 import { ClosurePartial } from "./@types/ClosurePartial";
 import { NormalizeObject } from "./@types/NormalizeObject";
-import { newHocNamedWithProps } from "./newHoc";
+import { newHoc } from "./newHoc";
 
 interface Options<
   IndexName extends string,
@@ -80,5 +80,5 @@ export const withMap = ((): WithMapHoc => {
     return WithMap;
   }
 
-  return newHocNamedWithProps(withMap) as WithMapHoc;
+  return newHoc(withMap) as WithMapHoc;
 })();

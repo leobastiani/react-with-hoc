@@ -19,11 +19,29 @@ function getName<Props, HocArgs extends any[]>(
   if (name != undefined) {
     return name(Component, ...args);
   }
-  let parsedDot = "";
-  if (dot != undefined) {
-    parsedDot = `.${dot(Component, ...args)}`;
+  const dotResult = dot ? dot(Component, ...args) : "";
+  return `${fn.name}${
+    dotResult ? "." : ""
+  }${dotResult}(${componentDisplayName.get(Component)})`;
+}
+
+function defaultDot(_Component: ComponentType, ...args: any[]): string {
+  const firstArg = args[0];
+  if (typeof firstArg === "string") {
+    return firstArg;
   }
-  return `${fn.name}${parsedDot}(${componentDisplayName.get(Component)})`;
+  if (typeof firstArg === "number") {
+    return firstArg.toString();
+  }
+
+  const keys = ((): string[] => {
+    if (Array.isArray(firstArg)) {
+      return firstArg as string[];
+    }
+    return Object.keys(firstArg);
+  })();
+
+  return keys.join(".");
 }
 
 export function newHoc<Props, HocArgs extends any[]>(
@@ -33,7 +51,7 @@ export function newHoc<Props, HocArgs extends any[]>(
   ) => ComponentType<Props>,
   {
     name,
-    dot,
+    dot = defaultDot as any,
   }: {
     name?: (Component: ComponentType<Props>, ...args: HocArgs) => string;
     dot?: (Component: ComponentType<Props>, ...args: HocArgs) => string;
@@ -57,34 +75,4 @@ export function newHoc<Props, HocArgs extends any[]>(
       }
       return Ret;
     };
-}
-
-export function newHocNamedWithProps<Props, HocArgs extends any[]>(
-  fn: (
-    Component: ComponentType<Props>,
-    ...args: HocArgs
-  ) => ComponentType<Props>
-): (
-  ...args: HocArgs
-) => (Component: ComponentType<Props>) => ComponentType<Props> {
-  return newHoc(fn, {
-    dot(_Component, ...args) {
-      const props = args[0];
-      if (typeof props === "string") {
-        return props;
-      }
-      if (typeof props === "number") {
-        return props.toString();
-      }
-
-      const keys = ((): string[] => {
-        if (Array.isArray(props)) {
-          return props as string[];
-        }
-        return Object.keys(props);
-      })();
-
-      return keys.join(".");
-    },
-  });
 }

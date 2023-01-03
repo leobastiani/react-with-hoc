@@ -1,7 +1,7 @@
 import { ComponentType, FunctionComponent } from "react";
 import { ClosureOmit } from "./@types/ClosureOmit";
 import { NormalizeObject } from "./@types/NormalizeObject";
-import { newHocNamedWithProps } from "./newHoc";
+import { newHoc } from "./newHoc";
 import { render } from "./render";
 
 interface WithOmitHoc {
@@ -30,5 +30,5 @@ export const withOmit = ((): WithOmitHoc => {
     return WithOmit;
   }
 
-  return newHocNamedWithProps(withOmit) as WithOmitHoc;
+  return newHoc(withOmit) as WithOmitHoc;
 })();

@@ -1,7 +1,7 @@
 import { ComponentType, FunctionComponent } from "react";
 import { DestructuringObject } from "./@types/DestructuringObject";
 import { NormalizeObject } from "./@types/NormalizeObject";
-import { newHocNamedWithProps } from "./newHoc";
+import { newHoc } from "./newHoc";
 import { render } from "./render";
 
 interface WithObjectHoc {
@@ -30,5 +30,5 @@ export const withSpread = ((): WithObjectHoc => {
     return WithObject;
   }
 
-  return newHocNamedWithProps(withSpread) as WithObjectHoc;
+  return newHoc(withSpread) as WithObjectHoc;
 })();

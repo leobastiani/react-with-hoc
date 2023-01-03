@@ -81,5 +81,7 @@ export const withStyle = ((): WithStyle => {
     return WithStyle;
   }
 
-  return newHoc(withStyle) as WithStyle;
+  return newHoc(withStyle, {
+    dot: undefined,
+  }) as WithStyle;
 })();

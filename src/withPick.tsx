@@ -1,7 +1,7 @@
 import { ComponentType, FunctionComponent } from "react";
 import { ClosurePick } from "./@types/ClosurePick";
 import { NormalizeObject } from "./@types/NormalizeObject";
-import { newHocNamedWithProps } from "./newHoc";
+import { newHoc } from "./newHoc";
 import { render } from "./render";
 
 interface WithPickHoc {
@@ -30,5 +30,5 @@ export const withPick = ((): WithPickHoc => {
     return WithPick;
   }
 
-  return newHocNamedWithProps(withPick) as WithPickHoc;
+  return newHoc(withPick) as WithPickHoc;
 })();

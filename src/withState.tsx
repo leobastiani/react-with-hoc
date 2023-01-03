@@ -5,7 +5,7 @@ import { Merge } from "./@types/Merge";
 import { NormalizeObject } from "./@types/NormalizeObject";
 import { SetState } from "./@types/SetState";
 import { camelCase } from "./camelCase";
-import { newHocNamedWithProps } from "./newHoc";
+import { newHoc } from "./newHoc";
 import { render } from "./render";
 
 interface WithStateHoc {
@@ -63,5 +63,5 @@ export const withState = ((): WithStateHoc => {
     return WithState;
   }
 
-  return newHocNamedWithProps(withState) as WithStateHoc;
+  return newHoc(withState) as WithStateHoc;
 })();

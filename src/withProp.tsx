@@ -4,7 +4,7 @@ import { Merge } from "./@types/Merge";
 import { NormalizeObject } from "./@types/NormalizeObject";
 import { SpreadObject } from "./@types/SpreadObject";
 import { UnionToArray } from "./@types/UnionToArray";
-import { newHocNamedWithProps } from "./newHoc";
+import { newHoc } from "./newHoc";
 import { render } from "./render";
 
 interface WithProp {
@@ -100,5 +100,5 @@ export const withProp = ((): WithProp => {
     return WithProp;
   }
 
-  return newHocNamedWithProps(withProp) as WithProp;
+  return newHoc(withProp) as WithProp;
 })();
