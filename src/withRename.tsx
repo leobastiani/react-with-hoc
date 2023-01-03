@@ -1,4 +1,5 @@
 import { ComponentType, FunctionComponent } from "react";
+import { ClosureRename } from "./@types/ClosureRename";
 import { NormalizeObject } from "./@types/NormalizeObject";
 import { newHoc } from "./newHoc";
 import { render } from "./render";

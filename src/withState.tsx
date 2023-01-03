@@ -1,4 +1,7 @@
 import { ComponentType, FunctionComponent, useState } from "react";
+import { CamelCase } from "./@types/CamelCase";
+import { ClosurePartial } from "./@types/ClosurePartial";
+import { Merge } from "./@types/Merge";
 import { NormalizeObject } from "./@types/NormalizeObject";
 import { SetState } from "./@types/SetState";
 import { camelCase } from "./camelCase";

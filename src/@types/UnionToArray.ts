@@ -21,7 +21,7 @@ type IsUnion<T extends string> = [T] extends readonly [UnionToIntersection<T>]
   ? false
   : true;
 
-type UnionToArray<
+export type UnionToArray<
   T extends string,
   A extends readonly string[] = []
 > = IsUnion<T> extends true

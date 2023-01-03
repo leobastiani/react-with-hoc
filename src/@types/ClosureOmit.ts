@@ -1,4 +1,4 @@
-type ClosureOmit<
+export type ClosureOmit<
   ClosureProps extends {},
   OmitNames extends readonly string[]
 > = {

@@ -1,5 +1,6 @@
 import { ComponentType, FunctionComponent, ReactNode, useMemo } from "react";
 import { NormalizeObject } from "./@types/NormalizeObject";
+import { UnionToArray } from "./@types/UnionToArray";
 import { newHoc } from "./newHoc";
 import { render } from "./render";
 

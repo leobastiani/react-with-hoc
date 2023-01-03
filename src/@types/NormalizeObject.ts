@@ -1,9 +1,7 @@
-import { ComponentType, CSSProperties, ReactNode } from "react";
+import { CSSProperties, ReactNode } from "react";
 import { WithComponent } from "./WithComponent";
 
-type GetObject<T> = T extends ComponentType<infer R> ? R : never;
-
-type NormalizeObject<T> = T extends CSSProperties
+export type NormalizeObject<T> = T extends CSSProperties
   ? T
   : T extends ReactNode
   ? T

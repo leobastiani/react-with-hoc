@@ -1,4 +1,4 @@
-type ClosureRename<
+export type ClosureRename<
   ClosureProps extends {},
   From extends string,
   To extends string

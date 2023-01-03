@@ -1,4 +1,4 @@
-type ClosurePick<
+export type ClosurePick<
   ClosureProps extends {},
   PickNames extends readonly string[]
 > = {

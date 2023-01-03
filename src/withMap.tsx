@@ -1,4 +1,5 @@
 import { ComponentType, FunctionComponent, Key } from "react";
+import { ClosurePartial } from "./@types/ClosurePartial";
 import { NormalizeObject } from "./@types/NormalizeObject";
 import { newHocNamedWithProps } from "./newHoc";
 
