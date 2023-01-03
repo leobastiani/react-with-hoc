@@ -29,12 +29,8 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Build
-        run: yarn build
-
       - name: Publish
-        run: yarn publish
-
+        run: npm publish
         env:
           # We need this to our NPM account
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

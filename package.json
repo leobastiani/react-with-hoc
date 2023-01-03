@@ -1,6 +1,6 @@
 {
   "name": "react-new-hoc",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Work with React and HOCs (Higher-Order Components)",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
@@ -11,7 +11,7 @@
     "build:cjs": "tsc --project tsconfig.build.json --module commonjs --outDir dist/cjs",
     "clean": "rimraf dist",
     "prepare": "yarn build",
-    "prepublishOnly": "yarn test && yarn lint && yarn clean",
+    "prepublishOnly": "yarn clean && yarn test && yarn lint",
     "lint": "eslint . --max-warnings=0",
     "test": "jest"
   },
