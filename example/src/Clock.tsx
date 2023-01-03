@@ -5,7 +5,7 @@ import {
   withHocs,
   withMap,
   withProp,
-  withRename,
+  withRenames,
   withState,
 } from "react-new-hoc";
 import { Circle } from "./Circle";
@@ -19,10 +19,10 @@ const HourMarks = withMap(12)(HourMark);
 type MinuteMarks = typeof MinuteMarks;
 type HourMarks = typeof HourMarks;
 
-export const ClockCircle = withHocs(
-  withRename("circleSize", "size"),
-  withRename("circleBorder", "border")
-)(Circle);
+export const ClockCircle = withRenames({
+  circleSize: "size",
+  circleBorder: "border",
+} as const)(Circle);
 
 type SecondPointer = typeof SecondPointer;
 type MinutePointer = typeof MinutePointer;
