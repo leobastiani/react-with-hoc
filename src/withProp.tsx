@@ -2,6 +2,7 @@ import { ComponentType, FunctionComponent, useMemo } from "react";
 import { ClosurePartial } from "./@types/ClosurePartial";
 import { Merge } from "./@types/Merge";
 import { NormalizeObject } from "./@types/NormalizeObject";
+import { SpreadObject } from "./@types/SpreadObject";
 import { UnionToArray } from "./@types/UnionToArray";
 import { newHocNamedWithProps } from "./newHoc";
 import { render } from "./render";
@@ -37,10 +38,12 @@ interface WithProp {
   ) => FunctionComponent<
     NormalizeObject<
       ClosurePartial<
-        Merge<
-          ClosureProps,
-          Merge<DependencyProps, { [key in `${PropName}`]: PropValue }>
-        >,
+        PropName extends keyof ClosureProps
+          ? SpreadObject<ClosureProps, DependencyProps>
+          : Merge<
+              ClosureProps,
+              Merge<DependencyProps, { [key in `${PropName}`]: PropValue }>
+            >,
         [PropName]
       >
     >

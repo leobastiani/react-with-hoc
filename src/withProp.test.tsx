@@ -75,6 +75,23 @@ it("withProp rewritten", () => {
   );
 });
 
+fit("withProp rewritten with different type", () => {
+  const Component = withProp(
+    "someProp",
+    ({ someProp }: { someProp: string }) => {
+      if (typeof someProp !== "string") {
+        throw new Error("it should be a string");
+      }
+      return parseInt(someProp) + 10;
+    },
+    ["someProp"]
+  )(Example);
+  render(<Component someProp="20" />);
+  expect(document.body.children[0].innerHTML).toBe(
+    '<pre>{"someProp":30}</pre>'
+  );
+});
+
 it("withProp with className", () => {
   const Component = withProp("className", ["myClass1"])(Example);
   render(<Component className={["myClass2"]} someProp={1} />);

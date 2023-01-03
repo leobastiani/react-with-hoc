@@ -1,1 +1,3 @@
 - withProps
+- withComponents
+- withAs
