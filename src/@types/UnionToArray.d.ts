@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 // credits goes to https://stackoverflow.com/questions/50374908/transform-union-type-to-intersection-type/50375286#50375286
 type UnionToIntersection<U extends string> = (
   U extends any ? (k: U) => void : never

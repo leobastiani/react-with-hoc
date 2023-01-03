@@ -6,5 +6,5 @@ type ClosurePick<
     ? K extends PickNames[number]
       ? K
       : never
-    : never]: ClosureProps[K];
+    : never]: K extends keyof ClosureProps ? ClosureProps[K] : never;
 };
