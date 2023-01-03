@@ -4,6 +4,7 @@ export * from "./componentDisplayName";
 export * from "./newHoc";
 export * from "./withAs";
 export * from "./withComponent";
+export * from "./withComponents";
 export * from "./withHocs";
 export * from "./withIf";
 export * from "./withMap";

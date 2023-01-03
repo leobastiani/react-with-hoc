@@ -70,15 +70,20 @@ export function newHocNamedWithProps<Props, HocArgs extends any[]>(
   return newHoc(fn, {
     dot(_Component, ...args) {
       const props = args[0];
-      const keys = ((): (string | number)[] => {
+      if (typeof props === "string") {
+        return props;
+      }
+      if (typeof props === "number") {
+        return props.toString();
+      }
+
+      const keys = ((): string[] => {
         if (Array.isArray(props)) {
           return props as string[];
         }
-        if (typeof props === "string" || typeof props === "number") {
-          return [props];
-        }
         return Object.keys(props);
       })();
+
       return keys.join(".");
     },
   });
