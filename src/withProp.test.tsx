@@ -8,26 +8,34 @@ function Example(props: { someProp: number }): JSX.Element {
   return <pre>{JSON.stringify(props)}</pre>;
 }
 
-it("withProps name", () => {
+it("withProp name", () => {
   const Component = withProp("someProp", 1)(Example);
   expect(componentDisplayName.get(Component)).toBe(
     "withProp.someProp(Example)"
   );
 });
 
-it("withProps with value", () => {
+it("withProp with value", () => {
   const Component = withProp("someProp", 1)(Example);
   render(<Component />);
   expect(document.body.children[0].innerHTML).toBe('<pre>{"someProp":1}</pre>');
 });
 
-it("withProps with function", () => {
+it("withProp with another value", () => {
+  const Component = withProp("anotherProp", 1)(Example);
+  render(<Component someProp={2} />);
+  expect(document.body.children[0].innerHTML).toBe(
+    '<pre>{"anotherProp":1,"someProp":2}</pre>'
+  );
+});
+
+it("withProp with function", () => {
   const Component = withProp("someProp", () => 1, [])(Example);
   render(<Component />);
   expect(document.body.children[0].innerHTML).toBe('<pre>{"someProp":1}</pre>');
 });
 
-it("withProps a new property as value", () => {
+it("withProp a new property as value", () => {
   const Component = withProp("anotherProp", 10)(Example);
   render(<Component someProp={5} />);
   expect(document.body.children[0].innerHTML).toBe(
@@ -35,7 +43,7 @@ it("withProps a new property as value", () => {
   );
 });
 
-it("withProps a new property in dependencyNames", () => {
+it("withProp a new property in dependencyNames", () => {
   const Component = withProp(
     "someProp",
     ({ anotherProp }: { anotherProp: number }) => anotherProp + 10,
@@ -47,7 +55,7 @@ it("withProps a new property in dependencyNames", () => {
   );
 });
 
-it("withProps overridden", () => {
+it("withProp overridden", () => {
   const Component = withProp("someProp", 10)(Example);
   render(<Component someProp={20} />);
   expect(document.body.children[0].innerHTML).toBe(
@@ -55,7 +63,7 @@ it("withProps overridden", () => {
   );
 });
 
-it("withProps rewritten", () => {
+it("withProp rewritten", () => {
   const Component = withProp(
     "someProp",
     ({ someProp }: { someProp: number }) => someProp + 10,
@@ -67,7 +75,7 @@ it("withProps rewritten", () => {
   );
 });
 
-it("withProps with className", () => {
+it("withProp with className", () => {
   const Component = withProp("className", ["myClass1"])(Example);
   render(<Component className={["myClass2"]} someProp={1} />);
   expect(document.body.children[0].innerHTML).toBe(
@@ -75,7 +83,7 @@ it("withProps with className", () => {
   );
 });
 
-it("withProps with style", () => {
+it("withProp with style", () => {
   const Component = withProp<CSSProperties, "style">("style", {
     background: "black",
   })(Example);
@@ -92,7 +100,7 @@ it("withProps with style", () => {
   );
 });
 
-it("withProps with style twice", () => {
+it("withProp with style twice", () => {
   const Component = withHocs(
     withProp<CSSProperties, "style">("style", {
       background: "black",

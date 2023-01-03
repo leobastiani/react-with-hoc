@@ -37,7 +37,10 @@ interface WithProp {
   ) => FunctionComponent<
     NormalizeObject<
       ClosurePartial<
-        Merge<DependencyProps, { [key in `${PropName}`]: PropValue }>,
+        Merge<
+          ClosureProps,
+          Merge<DependencyProps, { [key in `${PropName}`]: PropValue }>
+        >,
         [PropName]
       >
     >

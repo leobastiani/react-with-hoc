@@ -13,3 +13,4 @@ export * from "./withRename";
 export * from "./withRenames";
 export * from "./withSpread";
 export * from "./withState";
+export * from "./withStyle";
