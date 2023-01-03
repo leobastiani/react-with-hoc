@@ -17,7 +17,7 @@ interface WithProp {
     NormalizeObject<
       ClosurePartial<
         Merge<ClosureProps, { [key in `${PropName}`]: PropValue }>,
-        [PropName]
+        PropName
       >
     >
   >;
@@ -44,7 +44,7 @@ interface WithProp {
               ClosureProps,
               Merge<DependencyProps, { [key in `${PropName}`]: PropValue }>
             >,
-        [PropName]
+        PropName
       >
     >
   >;

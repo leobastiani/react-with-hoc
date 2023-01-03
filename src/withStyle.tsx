@@ -15,7 +15,7 @@ interface WithStyle {
   <Props extends {} = {}>(value: CSSProperties): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
   ) => FunctionComponent<
-    NormalizeObject<ClosurePartial<ClosureProps, ["style"]>>
+    NormalizeObject<ClosurePartial<ClosureProps, "style">>
   >;
 
   <Props extends {} = {}, DependencyProps extends Props = Props>(
@@ -27,7 +27,7 @@ interface WithStyle {
     Component: ComponentType<ClosureProps>
   ) => FunctionComponent<
     NormalizeObject<
-      ClosurePartial<Merge<ClosureProps, DependencyProps>, ["style"]>
+      ClosurePartial<Merge<ClosureProps, DependencyProps>, "style">
     >
   >;
 }

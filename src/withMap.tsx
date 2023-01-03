@@ -24,7 +24,7 @@ interface WithMapHoc {
   ): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
   ) => FunctionComponent<
-    NormalizeObject<ClosurePartial<ClosureProps, [IndexName, ValueName]>>
+    NormalizeObject<ClosurePartial<ClosureProps, IndexName | ValueName>>
   >;
 }
 

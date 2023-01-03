@@ -36,7 +36,7 @@ interface WithStateHoc {
             [k in SetterName]: SetState<PropValue>;
           }
         >,
-        [StateName, SetterName]
+        StateName | SetterName
       >
     >
   >;

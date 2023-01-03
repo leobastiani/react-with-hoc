@@ -75,7 +75,7 @@ it("withProp rewritten", () => {
   );
 });
 
-fit("withProp rewritten with different type", () => {
+it("withProp rewritten with different type", () => {
   const Component = withProp(
     "someProp",
     ({ someProp }: { someProp: string }) => {
