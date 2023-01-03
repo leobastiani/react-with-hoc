@@ -7,7 +7,7 @@ import { newHocNamedWithProps } from "./newHoc";
 import { render } from "./render";
 
 interface WithComponentsHoc {
-  <Props extends {}, Map extends Readonly<Record<string, ComponentType>>>(
+  <Props extends {}, Map extends Readonly<Record<string, ComponentType<any>>>>(
     components: Map
   ): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
