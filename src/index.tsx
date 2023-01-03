@@ -9,6 +9,7 @@ export * from "./withMap";
 export * from "./withOmit";
 export * from "./withPick";
 export * from "./withProp";
+export * from "./withProps";
 export * from "./withRename";
 export * from "./withRenames";
 export * from "./withSpread";
