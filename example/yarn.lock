@@ -454,6 +454,15 @@
   dependencies:
     "@parcel/types" "2.8.2"
 
+"@parcel/reporter-bundle-analyzer@^2.8.2":
+  version "2.8.2"
+  resolved "https://registry.yarnpkg.com/@parcel/reporter-bundle-analyzer/-/reporter-bundle-analyzer-2.8.2.tgz#996986c477911cde5bdb8a4a2fe44ffcdd11e571"
+  integrity sha512-naUFCTNO0WmSyDkpC9T9QiAEfyqVA6ToDm42rTKZ8MXUP0b88yGxMRfWZ4FY4eK0nJIyWGdalj5a5vzTE55nWA==
+  dependencies:
+    "@parcel/plugin" "2.8.2"
+    "@parcel/utils" "2.8.2"
+    nullthrows "^1.1.1"
+
 "@parcel/reporter-cli@2.8.2":
   version "2.8.2"
   resolved "https://registry.yarnpkg.com/@parcel/reporter-cli/-/reporter-cli-2.8.2.tgz#bfd63b8bfb0bd72e483f4de496af6dc8e819a97e"
@@ -1319,10 +1328,10 @@ react-error-overlay@6.0.9:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.9.tgz#3c743010c9359608c375ecd6bc76f35d93995b0a"
   integrity sha512-nQTTcUu+ATDbrSD1BZHr5kgSD4oF8OFjxun8uAaL8RwPBacGBNPf/yAuVVdx17N8XNzRDMrZ9XcKZHCjPW+9ew==
 
-react-new-hoc@>=0.0.15:
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/react-new-hoc/-/react-new-hoc-0.0.15.tgz#46ea73c7da4c756d696b15bbffa4b8783002f46a"
-  integrity sha512-nzPQ8SFa7p4hI7oceWhaWF5kZt5WTdlEIKANn8aUvbLvZkJ1YxJ2Mb20ZVaWcgeZDwe23ezCt4OVq5j2ZcMf3A==
+react-new-hoc@>=0.0.18:
+  version "0.0.18"
+  resolved "https://registry.yarnpkg.com/react-new-hoc/-/react-new-hoc-0.0.18.tgz#e60fbb26299c79f66202d52787fbc97c74ed053f"
+  integrity sha512-8oM8eV3uGNaFMS1ABGfoQi0xTwqXpAOvY+8ap3olMDOSz3BBgYfsmhKXl+N3DwleOc72bRsPtHu/3QJAktAkwA==
 
 react-refresh@^0.9.0:
   version "0.9.0"

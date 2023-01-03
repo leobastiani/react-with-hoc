@@ -1,7 +1,7 @@
 import {
   PartialComponent,
   SetState,
-  withComponent,
+  withComponents,
   withHocs,
   withMap,
   withProp,
@@ -64,11 +64,13 @@ export const Clock = (() => {
     withState("time", { init: () => Date.now() }),
     withProp("circleSize", 400),
     withProp("circleBorder", 3),
-    withComponent("Circle", ClockCircle),
-    withComponent("MinuteMarks", MinuteMarks),
-    withComponent("HourMarks", HourMarks),
-    withComponent("SecondPointer", SecondPointer),
-    withComponent("MinutePointer", MinutePointer),
-    withComponent("HourPointer", HourPointer)
+    withComponents({
+      Circle: ClockCircle,
+      MinuteMarks,
+      HourMarks,
+      SecondPointer,
+      MinutePointer,
+      HourPointer,
+    })
   )(Clock);
 })();
