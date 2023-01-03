@@ -24,6 +24,6 @@ export const Circle = (() => {
       borderRadius: "50%",
       position: "relative",
     }),
-    ["size", "border"]
+    ["border", "size"] as const
   )(Circle);
 })();

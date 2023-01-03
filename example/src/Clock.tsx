@@ -1,4 +1,6 @@
 import {
+  PartialComponent,
+  SetState,
   withComponent,
   withHocs,
   withMap,
@@ -37,13 +39,13 @@ export const Clock = (() => {
     MinutePointer,
     HourPointer,
   }: {
-    setTime: (n: number) => void;
-    Circle: typeof ClockCircle;
-    MinuteMarks: MinuteMarks;
-    HourMarks: HourMarks;
-    SecondPointer: SecondPointer;
-    MinutePointer: MinutePointer;
-    HourPointer: HourPointer;
+    setTime: SetState<number>;
+    Circle: PartialComponent<typeof ClockCircle>;
+    MinuteMarks: PartialComponent<MinuteMarks>;
+    HourMarks: PartialComponent<HourMarks>;
+    SecondPointer: PartialComponent<SecondPointer>;
+    MinutePointer: PartialComponent<MinutePointer>;
+    HourPointer: PartialComponent<HourPointer>;
   }): JSX.Element {
     useAnimationFrame(() => setTime(Date.now()));
 
