@@ -10,5 +10,6 @@ export * from "./withOmit";
 export * from "./withPick";
 export * from "./withProp";
 export * from "./withRename";
+export * from "./withRenames";
 export * from "./withSpread";
 export * from "./withState";
