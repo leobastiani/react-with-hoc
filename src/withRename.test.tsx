@@ -13,7 +13,7 @@ function Example(props: ExampleProps): JSX.Element {
 
 it("withRename name", () => {
   const Component = withRename("c", "b")(Example);
-  expect(componentDisplayName.get(Component)).toBe("withRename.c=>b(Example)");
+  expect(componentDisplayName.get(Component)).toBe("withRename.c→b(Example)");
 });
 
 it("withRename", () => {

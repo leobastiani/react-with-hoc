@@ -35,7 +35,7 @@ export const withRename = ((): WithRenameHoc => {
 
   return newHoc(withRename, {
     dot(_Component, from, to) {
-      return `${from}=>${to}`;
+      return `${from}→${to}`;
     },
   }) as WithRenameHoc;
 })();
