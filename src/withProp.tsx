@@ -1,4 +1,5 @@
 import { ComponentType, FunctionComponent, useMemo } from "react";
+import { NormalizeObject } from "./@types/NormalizeObject";
 import { newHocNamedWithProps } from "./newHoc";
 import { render } from "./render";
 
@@ -9,9 +10,11 @@ interface WithProp {
   ): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
   ) => FunctionComponent<
-    ClosurePartial<
-      Merge<ClosureProps, { [key in `${PropName}`]: PropValue }>,
-      [PropName]
+    NormalizeObject<
+      ClosurePartial<
+        Merge<ClosureProps, { [key in `${PropName}`]: PropValue }>,
+        [PropName]
+      >
     >
   >;
 
@@ -29,9 +32,11 @@ interface WithProp {
   ): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
   ) => FunctionComponent<
-    ClosurePartial<
-      Merge<DependencyProps, { [key in `${PropName}`]: PropValue }>,
-      [PropName]
+    NormalizeObject<
+      ClosurePartial<
+        Merge<DependencyProps, { [key in `${PropName}`]: PropValue }>,
+        [PropName]
+      >
     >
   >;
 }

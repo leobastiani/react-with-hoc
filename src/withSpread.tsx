@@ -1,4 +1,5 @@
 import { ComponentType, FunctionComponent } from "react";
+import { NormalizeObject } from "./@types/NormalizeObject";
 import { newHocNamedWithProps } from "./newHoc";
 import { render } from "./render";
 
@@ -7,7 +8,9 @@ interface WithObjectHoc {
     ClosureProps extends Props
   >(
     Component: ComponentType<ClosureProps>
-  ) => FunctionComponent<DestructuringObject<ClosureProps, Key>>;
+  ) => FunctionComponent<
+    NormalizeObject<DestructuringObject<ClosureProps, Key>>
+  >;
 }
 
 export const withSpread = ((): WithObjectHoc => {

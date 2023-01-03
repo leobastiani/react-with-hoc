@@ -13,7 +13,7 @@ function Example(props: ExampleProps): JSX.Element {
 }
 
 it("withOmit name", () => {
-  const Component = withOmit(["b"])(Example);
+  const Component = withOmit(["b"] as const)(Example);
   expect(componentDisplayName.get(Component)).toBe("withOmit.b(Example)");
 });
 

@@ -1,4 +1,5 @@
 import { ComponentType, FunctionComponent } from "react";
+import { NormalizeObject } from "./@types/NormalizeObject";
 import { newHocNamedWithProps } from "./newHoc";
 import { render } from "./render";
 
@@ -7,7 +8,7 @@ interface WithOmitHoc {
     omitNames: OmitNames
   ): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
-  ) => FunctionComponent<ClosureOmit<ClosureProps, OmitNames>>;
+  ) => FunctionComponent<NormalizeObject<ClosureOmit<ClosureProps, OmitNames>>>;
 }
 
 export const withOmit = ((): WithOmitHoc => {

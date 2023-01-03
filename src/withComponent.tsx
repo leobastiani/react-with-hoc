@@ -1,10 +1,12 @@
-import { ComponentType, FunctionComponent, ReactNode, useMemo } from "react";
+import { ComponentType, FunctionComponent, useMemo } from "react";
+import { NormalizeObject } from "./@types/NormalizeObject";
+import { WithComponent } from "./@types/WithComponent";
 import { componentDisplayName } from "./componentDisplayName";
 import { newHocNamedWithProps } from "./newHoc";
 import { render } from "./render";
 
 interface WithComponentHoc {
-  <Props extends {}, Name extends string, Target extends ComponentType>(
+  <Props extends {}, Name extends string, Target extends ComponentType<any>>(
     name: Name,
     component: Target,
     options?: { hiddenByDefault?: boolean } & (
@@ -14,13 +16,15 @@ interface WithComponentHoc {
   ): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
   ) => FunctionComponent<
-    {
-      [K in keyof ClosureProps as K extends Name ? never : K]: ClosureProps[K];
-    } & {
-      [K in Name]?:
-        | ((Component: Target) => (props: ClosureProps) => ReactNode)
-        | ReactNode;
-    }
+    NormalizeObject<
+      {
+        [K in keyof ClosureProps as K extends Name
+          ? never
+          : K]: ClosureProps[K];
+      } & {
+        [K in Name]?: NormalizeObject<WithComponent<Target, ClosureProps>>;
+      }
+    >
   >;
 }
 

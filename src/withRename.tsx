@@ -1,4 +1,5 @@
 import { ComponentType, FunctionComponent } from "react";
+import { NormalizeObject } from "./@types/NormalizeObject";
 import { newHoc } from "./newHoc";
 import { render } from "./render";
 
@@ -8,7 +9,9 @@ interface WithRenameHoc {
     to: To
   ): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
-  ) => FunctionComponent<ClosureRename<ClosureProps, From, To>>;
+  ) => FunctionComponent<
+    NormalizeObject<ClosureRename<ClosureProps, From, To>>
+  >;
 }
 
 export const withRename = ((): WithRenameHoc => {

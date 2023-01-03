@@ -1,10 +1,6 @@
-import {
-  ComponentType,
-  Dispatch,
-  FunctionComponent,
-  SetStateAction,
-  useState,
-} from "react";
+import { ComponentType, FunctionComponent, useState } from "react";
+import { NormalizeObject } from "./@types/NormalizeObject";
+import { SetState } from "./@types/SetState";
 import { camelCase } from "./camelCase";
 import { newHocNamedWithProps } from "./newHoc";
 import { render } from "./render";
@@ -27,16 +23,18 @@ interface WithStateHoc {
   ): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
   ) => FunctionComponent<
-    ClosurePartial<
-      Merge<
-        ClosureProps,
-        {
-          [k in StateName]: PropValue;
-        } & {
-          [k in SetterName]: Dispatch<SetStateAction<PropValue>>;
-        }
-      >,
-      [StateName, SetterName]
+    NormalizeObject<
+      ClosurePartial<
+        Merge<
+          ClosureProps,
+          {
+            [k in StateName]: PropValue;
+          } & {
+            [k in SetterName]: SetState<PropValue>;
+          }
+        >,
+        [StateName, SetterName]
+      >
     >
   >;
 }

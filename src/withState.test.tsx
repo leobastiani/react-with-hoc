@@ -1,12 +1,13 @@
 import { act, render } from "@testing-library/react";
 import { FunctionComponent } from "react";
+import { WithState } from "./@types/SetState";
 import { componentDisplayName } from "./componentDisplayName";
 import { withState } from "./withState";
 
 let setSomeState: (n: number) => void;
 interface ExampleProps {
   someState: number;
-  setSomeState: typeof setSomeState;
+  setSomeState: WithState<number>;
 }
 let Example: FunctionComponent<ExampleProps>;
 

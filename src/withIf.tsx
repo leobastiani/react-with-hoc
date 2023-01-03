@@ -1,4 +1,5 @@
 import { ComponentType, FunctionComponent, ReactNode, useMemo } from "react";
+import { NormalizeObject } from "./@types/NormalizeObject";
 import { newHoc } from "./newHoc";
 import { render } from "./render";
 
@@ -13,7 +14,9 @@ interface WithIfHoc {
     options?: Partial<ThenElse<Props>>
   ): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
-  ) => FunctionComponent<ClosureProps & { [K in PropName]: boolean }>;
+  ) => FunctionComponent<
+    NormalizeObject<ClosureProps & { [K in PropName]: boolean }>
+  >;
 
   <Props extends {}, DependencyProps extends Props = Props>(
     func: (props: DependencyProps) => boolean,
@@ -24,7 +27,7 @@ interface WithIfHoc {
     } & Partial<ThenElse<Props>>
   ): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
-  ) => FunctionComponent<ClosureProps>;
+  ) => FunctionComponent<NormalizeObject<ClosureProps>>;
 }
 
 export const withIf = ((): WithIfHoc => {

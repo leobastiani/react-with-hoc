@@ -1,9 +1,15 @@
 import { ComponentType, FunctionComponent, Key } from "react";
+import { NormalizeObject } from "./@types/NormalizeObject";
 import { newHocNamedWithProps } from "./newHoc";
 
-interface Options<IndexName extends string, ValueName extends string> {
+interface Options<
+  IndexName extends string,
+  ValueName extends string,
+  Props extends {}
+> {
   indexName?: IndexName;
   valueName?: ValueName;
+  key: (props: Props) => Key;
 }
 
 interface WithMapHoc {
@@ -13,10 +19,12 @@ interface WithMapHoc {
     ValueName extends string = "children"
   >(
     target: number | Array<unknown> | object,
-    options?: Options<IndexName, ValueName>
+    options?: Options<IndexName, ValueName, Props>
   ): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
-  ) => FunctionComponent<ClosurePartial<ClosureProps, [IndexName, ValueName]>>;
+  ) => FunctionComponent<
+    NormalizeObject<ClosurePartial<ClosureProps, [IndexName, ValueName]>>
+  >;
 }
 
 export const withMap = ((): WithMapHoc => {
