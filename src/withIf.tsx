@@ -1,5 +1,6 @@
 import { ComponentType, FunctionComponent, ReactNode, useMemo } from "react";
 import { NormalizeObject } from "./@types/NormalizeObject";
+import { SpreadObject } from "./@types/SpreadObject";
 import { UnionToArray } from "./@types/UnionToArray";
 import { newHoc } from "./newHoc";
 import { render } from "./render";
@@ -19,7 +20,7 @@ interface WithIfHoc {
     NormalizeObject<ClosureProps & { [K in PropName]: boolean }>
   >;
 
-  <Props extends {}, DependencyProps extends Props = Props>(
+  <Props extends {}, DependencyProps extends Props>(
     func: (props: DependencyProps) => boolean,
     options: {
       dependencyNames: keyof DependencyProps extends never
@@ -28,7 +29,9 @@ interface WithIfHoc {
     } & Partial<ThenElse<Props>>
   ): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
-  ) => FunctionComponent<NormalizeObject<ClosureProps>>;
+  ) => FunctionComponent<
+    NormalizeObject<SpreadObject<ClosureProps, DependencyProps>>
+  >;
 }
 
 export const withIf = ((): WithIfHoc => {

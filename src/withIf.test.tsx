@@ -46,6 +46,18 @@ it("withIf with function", () => {
   expect(document.body.children[0].innerHTML).toBe('<pre>{"a":1}</pre>');
 });
 
+it("withIf with function with new dependency", () => {
+  const Component = withIf(({ i }: { i: number }) => i > 0, {
+    dependencyNames: ["i"],
+  })(Example);
+  const { rerender } = render(<Component a={1} i={0} />);
+  expect(document.body.children[0].innerHTML).toBe("");
+  rerender(<Component a={1} i={-1} />);
+  expect(document.body.children[0].innerHTML).toBe("");
+  rerender(<Component a={1} i={1} />);
+  expect(document.body.children[0].innerHTML).toBe('<pre>{"a":1,"i":1}</pre>');
+});
+
 it("withIf with function and no dependecyNames", () => {
   let calls = 0;
   const Component = withIf(
