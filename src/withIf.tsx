@@ -1,19 +1,19 @@
-import { ComponentType, FunctionComponent, ReactNode, useMemo } from "react";
+import { ComponentType, FunctionComponent, useMemo } from "react";
 import { NormalizeObject } from "./@types/NormalizeObject";
 import { SpreadObject } from "./@types/SpreadObject";
 import { UnionToArray } from "./@types/UnionToArray";
 import { newHoc } from "./newHoc";
 import { render } from "./render";
 
-type ThenElse<Props extends {}> = {
-  Then: (props: Props) => ReactNode;
-  Else: (props: Props) => ReactNode;
+type ThenElse = {
+  Then: ComponentType<any>;
+  Else: ComponentType<any>;
 };
 
 interface WithIfHoc {
   <Props extends {}, PropName extends string>(
     propName: PropName,
-    options?: Partial<ThenElse<Props>>
+    options?: Partial<ThenElse>
   ): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
   ) => FunctionComponent<
@@ -26,7 +26,7 @@ interface WithIfHoc {
       dependencyNames: keyof DependencyProps extends never
         ? []
         : UnionToArray<Extract<keyof DependencyProps, string>>;
-    } & Partial<ThenElse<Props>>
+    } & Partial<ThenElse>
   ): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
   ) => FunctionComponent<

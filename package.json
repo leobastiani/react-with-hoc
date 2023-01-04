@@ -1,6 +1,6 @@
 {
   "name": "react-new-hoc",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "description": "Work with React and HOCs (Higher-Order Components)",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",

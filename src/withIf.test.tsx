@@ -49,11 +49,13 @@ it("withIf with function", () => {
 it("withIf with function with new dependency", () => {
   const Component = withIf(({ i }: { i: number }) => i > 0, {
     dependencyNames: ["i"],
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    Else: (_props: { b: number }) => <>null</>,
   })(Example);
   const { rerender } = render(<Component a={1} i={0} />);
-  expect(document.body.children[0].innerHTML).toBe("");
+  expect(document.body.children[0].innerHTML).toBe("null");
   rerender(<Component a={1} i={-1} />);
-  expect(document.body.children[0].innerHTML).toBe("");
+  expect(document.body.children[0].innerHTML).toBe("null");
   rerender(<Component a={1} i={1} />);
   expect(document.body.children[0].innerHTML).toBe('<pre>{"a":1,"i":1}</pre>');
 });
