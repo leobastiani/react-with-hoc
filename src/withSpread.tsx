@@ -4,6 +4,8 @@ import { NormalizeObject } from "./@types/NormalizeObject";
 import { newHoc } from "./newHoc";
 import { render } from "./render";
 
+// TODO: if a component should have "a", "b" and "c" properties, if I use withSpread and set an object with "a" and "b", the final Component should require "c"
+
 interface WithObjectHoc {
   <Props extends {}, Key extends string>(key: Key): <
     ClosureProps extends Props

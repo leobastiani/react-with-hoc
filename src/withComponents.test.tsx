@@ -4,8 +4,8 @@ import { PartialComponent } from "./@types/PartialComponent";
 import { SetState } from "./@types/SetState";
 import { componentDisplayName } from "./componentDisplayName";
 import { withComponents } from "./withComponents";
-import { withHocs } from "./withHocs";
 import { withProp } from "./withProp";
+import { withRevHocs } from "./withRevHocs";
 import { withState } from "./withState";
 
 interface ExampleProps {
@@ -50,7 +50,7 @@ it("withComponents name", () => {
 });
 
 it("withComponents with default behavior", () => {
-  const Component = withHocs(
+  const Component = withRevHocs(
     withState<number, "a">("a"),
     withComponents({ Left, Right })
   )(Example);
@@ -61,7 +61,7 @@ it("withComponents with default behavior", () => {
 });
 
 it("withComponents disabled", () => {
-  const Component = withHocs(
+  const Component = withRevHocs(
     withState<number, "a">("a"),
     withComponents({ Left, Right })
   )(Example);
@@ -72,7 +72,7 @@ it("withComponents disabled", () => {
 });
 
 it("withComponents overridden", () => {
-  const Component = withHocs(
+  const Component = withRevHocs(
     withState<number, "a">("a"),
     withComponents({ Left, Right })
   )(Example);
@@ -83,9 +83,9 @@ it("withComponents overridden", () => {
 });
 
 it("withComponents rerenders when props change", () => {
-  const Component = withHocs(
-    withState("a", { init: 1 }),
-    withComponents({ Left, Right })
+  const Component = withRevHocs(
+    withComponents({ Left, Right }),
+    withState("a", { init: 1 })
   )(Example);
   render(<Component b={2} />);
   expect(document.body.children[0].innerHTML).toBe(
@@ -100,7 +100,7 @@ it("withComponents rerenders when props change", () => {
 });
 
 it("passing a function as an attribute", () => {
-  const Component = withHocs(
+  const Component = withRevHocs(
     withState<number, "a">("a"),
     withComponents({ Left, Right })
   )(Example);

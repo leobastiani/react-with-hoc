@@ -1,25 +1,27 @@
+// TODO: withRevHocs should be withHocs and should use reduceRight to match how it looks on component tree
+// TODO: withRevHocs has many definitions and it would be interesting to have only one definition for an indeterminate number of parameters
 // https://github.com/microsoft/TypeScript/issues/52010
 
 // prettier-ignore
-export function withHocs<PropsIn0 extends {}, PropsOut extends {}>(
+export function withRevHocs<PropsIn0 extends {}, PropsOut extends {}>(
   hoc0: (Component: React.ComponentType<PropsIn0>) => React.FunctionComponent<PropsOut>,
 ): (Component: React.ComponentType<PropsIn0>) => React.ComponentType<PropsOut>;
 
 // prettier-ignore
-export function withHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsOut extends {}>(
+export function withRevHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsOut extends {}>(
   hoc0: (Component: React.ComponentType<PropsIn0>) => React.FunctionComponent<PropsIn1>,
   hoc1: (Component: React.ComponentType<PropsIn1>) => React.FunctionComponent<PropsOut>,
 ): (Component: React.ComponentType<PropsIn0>) => React.ComponentType<PropsOut>;
 
 // prettier-ignore
-export function withHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 extends {}, PropsOut extends {}>(
+export function withRevHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 extends {}, PropsOut extends {}>(
   hoc0: (Component: React.ComponentType<PropsIn0>) => React.FunctionComponent<PropsIn1>,
   hoc1: (Component: React.ComponentType<PropsIn1>) => React.FunctionComponent<PropsIn2>,
   hoc2: (Component: React.ComponentType<PropsIn2>) => React.FunctionComponent<PropsOut>,
 ): (Component: React.ComponentType<PropsIn0>) => React.ComponentType<PropsOut>;
 
 // prettier-ignore
-export function withHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 extends {}, PropsIn3 extends {}, PropsOut extends {}>(
+export function withRevHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 extends {}, PropsIn3 extends {}, PropsOut extends {}>(
   hoc0: (Component: React.ComponentType<PropsIn0>) => React.FunctionComponent<PropsIn1>,
   hoc1: (Component: React.ComponentType<PropsIn1>) => React.FunctionComponent<PropsIn2>,
   hoc2: (Component: React.ComponentType<PropsIn2>) => React.FunctionComponent<PropsIn3>,
@@ -27,7 +29,7 @@ export function withHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 exte
 ): (Component: React.ComponentType<PropsIn0>) => React.ComponentType<PropsOut>;
 
 // prettier-ignore
-export function withHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 extends {}, PropsIn3 extends {}, PropsIn4 extends {}, PropsOut extends {}>(
+export function withRevHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 extends {}, PropsIn3 extends {}, PropsIn4 extends {}, PropsOut extends {}>(
   hoc0: (Component: React.ComponentType<PropsIn0>) => React.FunctionComponent<PropsIn1>,
   hoc1: (Component: React.ComponentType<PropsIn1>) => React.FunctionComponent<PropsIn2>,
   hoc2: (Component: React.ComponentType<PropsIn2>) => React.FunctionComponent<PropsIn3>,
@@ -36,7 +38,7 @@ export function withHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 exte
 ): (Component: React.ComponentType<PropsIn0>) => React.ComponentType<PropsOut>;
 
 // prettier-ignore
-export function withHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 extends {}, PropsIn3 extends {}, PropsIn4 extends {}, PropsIn5 extends {}, PropsOut extends {}>(
+export function withRevHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 extends {}, PropsIn3 extends {}, PropsIn4 extends {}, PropsIn5 extends {}, PropsOut extends {}>(
   hoc0: (Component: React.ComponentType<PropsIn0>) => React.FunctionComponent<PropsIn1>,
   hoc1: (Component: React.ComponentType<PropsIn1>) => React.FunctionComponent<PropsIn2>,
   hoc2: (Component: React.ComponentType<PropsIn2>) => React.FunctionComponent<PropsIn3>,
@@ -46,7 +48,7 @@ export function withHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 exte
 ): (Component: React.ComponentType<PropsIn0>) => React.ComponentType<PropsOut>;
 
 // prettier-ignore
-export function withHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 extends {}, PropsIn3 extends {}, PropsIn4 extends {}, PropsIn5 extends {}, PropsIn6 extends {}, PropsOut extends {}>(
+export function withRevHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 extends {}, PropsIn3 extends {}, PropsIn4 extends {}, PropsIn5 extends {}, PropsIn6 extends {}, PropsOut extends {}>(
   hoc0: (Component: React.ComponentType<PropsIn0>) => React.FunctionComponent<PropsIn1>,
   hoc1: (Component: React.ComponentType<PropsIn1>) => React.FunctionComponent<PropsIn2>,
   hoc2: (Component: React.ComponentType<PropsIn2>) => React.FunctionComponent<PropsIn3>,
@@ -57,7 +59,7 @@ export function withHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 exte
 ): (Component: React.ComponentType<PropsIn0>) => React.ComponentType<PropsOut>;
 
 // prettier-ignore
-export function withHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 extends {}, PropsIn3 extends {}, PropsIn4 extends {}, PropsIn5 extends {}, PropsIn6 extends {}, PropsIn7 extends {}, PropsOut extends {}>(
+export function withRevHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 extends {}, PropsIn3 extends {}, PropsIn4 extends {}, PropsIn5 extends {}, PropsIn6 extends {}, PropsIn7 extends {}, PropsOut extends {}>(
   hoc0: (Component: React.ComponentType<PropsIn0>) => React.FunctionComponent<PropsIn1>,
   hoc1: (Component: React.ComponentType<PropsIn1>) => React.FunctionComponent<PropsIn2>,
   hoc2: (Component: React.ComponentType<PropsIn2>) => React.FunctionComponent<PropsIn3>,
@@ -69,7 +71,7 @@ export function withHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 exte
 ): (Component: React.ComponentType<PropsIn0>) => React.ComponentType<PropsOut>;
 
 // prettier-ignore
-export function withHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 extends {}, PropsIn3 extends {}, PropsIn4 extends {}, PropsIn5 extends {}, PropsIn6 extends {}, PropsIn7 extends {}, PropsIn8 extends {}, PropsOut extends {}>(
+export function withRevHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 extends {}, PropsIn3 extends {}, PropsIn4 extends {}, PropsIn5 extends {}, PropsIn6 extends {}, PropsIn7 extends {}, PropsIn8 extends {}, PropsOut extends {}>(
   hoc0: (Component: React.ComponentType<PropsIn0>) => React.FunctionComponent<PropsIn1>,
   hoc1: (Component: React.ComponentType<PropsIn1>) => React.FunctionComponent<PropsIn2>,
   hoc2: (Component: React.ComponentType<PropsIn2>) => React.FunctionComponent<PropsIn3>,
@@ -82,7 +84,7 @@ export function withHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 exte
 ): (Component: React.ComponentType<PropsIn0>) => React.ComponentType<PropsOut>;
 
 // prettier-ignore
-export function withHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 extends {}, PropsIn3 extends {}, PropsIn4 extends {}, PropsIn5 extends {}, PropsIn6 extends {}, PropsIn7 extends {}, PropsIn8 extends {}, PropsIn9 extends {}, PropsOut extends {}>(
+export function withRevHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 extends {}, PropsIn3 extends {}, PropsIn4 extends {}, PropsIn5 extends {}, PropsIn6 extends {}, PropsIn7 extends {}, PropsIn8 extends {}, PropsIn9 extends {}, PropsOut extends {}>(
   hoc0: (Component: React.ComponentType<PropsIn0>) => React.FunctionComponent<PropsIn1>,
   hoc1: (Component: React.ComponentType<PropsIn1>) => React.FunctionComponent<PropsIn2>,
   hoc2: (Component: React.ComponentType<PropsIn2>) => React.FunctionComponent<PropsIn3>,
@@ -96,7 +98,7 @@ export function withHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 exte
 ): (Component: React.ComponentType<PropsIn0>) => React.ComponentType<PropsOut>;
 
 // prettier-ignore
-export function withHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 extends {}, PropsIn3 extends {}, PropsIn4 extends {}, PropsIn5 extends {}, PropsIn6 extends {}, PropsIn7 extends {}, PropsIn8 extends {}, PropsIn9 extends {}, PropsIn10 extends {}, PropsOut extends {}>(
+export function withRevHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 extends {}, PropsIn3 extends {}, PropsIn4 extends {}, PropsIn5 extends {}, PropsIn6 extends {}, PropsIn7 extends {}, PropsIn8 extends {}, PropsIn9 extends {}, PropsIn10 extends {}, PropsOut extends {}>(
   hoc0: (Component: React.ComponentType<PropsIn0>) => React.FunctionComponent<PropsIn1>,
   hoc1: (Component: React.ComponentType<PropsIn1>) => React.FunctionComponent<PropsIn2>,
   hoc2: (Component: React.ComponentType<PropsIn2>) => React.FunctionComponent<PropsIn3>,
@@ -111,7 +113,7 @@ export function withHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 exte
 ): (Component: React.ComponentType<PropsIn0>) => React.ComponentType<PropsOut>;
 
 // prettier-ignore
-export function withHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 extends {}, PropsIn3 extends {}, PropsIn4 extends {}, PropsIn5 extends {}, PropsIn6 extends {}, PropsIn7 extends {}, PropsIn8 extends {}, PropsIn9 extends {}, PropsIn10 extends {}, PropsIn11 extends {}, PropsOut extends {}>(
+export function withRevHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 extends {}, PropsIn3 extends {}, PropsIn4 extends {}, PropsIn5 extends {}, PropsIn6 extends {}, PropsIn7 extends {}, PropsIn8 extends {}, PropsIn9 extends {}, PropsIn10 extends {}, PropsIn11 extends {}, PropsOut extends {}>(
   hoc0: (Component: React.ComponentType<PropsIn0>) => React.FunctionComponent<PropsIn1>,
   hoc1: (Component: React.ComponentType<PropsIn1>) => React.FunctionComponent<PropsIn2>,
   hoc2: (Component: React.ComponentType<PropsIn2>) => React.FunctionComponent<PropsIn3>,
@@ -127,7 +129,7 @@ export function withHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 exte
 ): (Component: React.ComponentType<PropsIn0>) => React.ComponentType<PropsOut>;
 
 // prettier-ignore
-export function withHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 extends {}, PropsIn3 extends {}, PropsIn4 extends {}, PropsIn5 extends {}, PropsIn6 extends {}, PropsIn7 extends {}, PropsIn8 extends {}, PropsIn9 extends {}, PropsIn10 extends {}, PropsIn11 extends {}, PropsIn12 extends {}, PropsOut extends {}>(
+export function withRevHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 extends {}, PropsIn3 extends {}, PropsIn4 extends {}, PropsIn5 extends {}, PropsIn6 extends {}, PropsIn7 extends {}, PropsIn8 extends {}, PropsIn9 extends {}, PropsIn10 extends {}, PropsIn11 extends {}, PropsIn12 extends {}, PropsOut extends {}>(
   hoc0: (Component: React.ComponentType<PropsIn0>) => React.FunctionComponent<PropsIn1>,
   hoc1: (Component: React.ComponentType<PropsIn1>) => React.FunctionComponent<PropsIn2>,
   hoc2: (Component: React.ComponentType<PropsIn2>) => React.FunctionComponent<PropsIn3>,
@@ -144,7 +146,7 @@ export function withHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 exte
 ): (Component: React.ComponentType<PropsIn0>) => React.ComponentType<PropsOut>;
 
 // prettier-ignore
-export function withHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 extends {}, PropsIn3 extends {}, PropsIn4 extends {}, PropsIn5 extends {}, PropsIn6 extends {}, PropsIn7 extends {}, PropsIn8 extends {}, PropsIn9 extends {}, PropsIn10 extends {}, PropsIn11 extends {}, PropsIn12 extends {}, PropsIn13 extends {}, PropsOut extends {}>(
+export function withRevHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 extends {}, PropsIn3 extends {}, PropsIn4 extends {}, PropsIn5 extends {}, PropsIn6 extends {}, PropsIn7 extends {}, PropsIn8 extends {}, PropsIn9 extends {}, PropsIn10 extends {}, PropsIn11 extends {}, PropsIn12 extends {}, PropsIn13 extends {}, PropsOut extends {}>(
   hoc0: (Component: React.ComponentType<PropsIn0>) => React.FunctionComponent<PropsIn1>,
   hoc1: (Component: React.ComponentType<PropsIn1>) => React.FunctionComponent<PropsIn2>,
   hoc2: (Component: React.ComponentType<PropsIn2>) => React.FunctionComponent<PropsIn3>,
@@ -162,7 +164,7 @@ export function withHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 exte
 ): (Component: React.ComponentType<PropsIn0>) => React.ComponentType<PropsOut>;
 
 // prettier-ignore
-export function withHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 extends {}, PropsIn3 extends {}, PropsIn4 extends {}, PropsIn5 extends {}, PropsIn6 extends {}, PropsIn7 extends {}, PropsIn8 extends {}, PropsIn9 extends {}, PropsIn10 extends {}, PropsIn11 extends {}, PropsIn12 extends {}, PropsIn13 extends {}, PropsIn14 extends {}, PropsOut extends {}>(
+export function withRevHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 extends {}, PropsIn3 extends {}, PropsIn4 extends {}, PropsIn5 extends {}, PropsIn6 extends {}, PropsIn7 extends {}, PropsIn8 extends {}, PropsIn9 extends {}, PropsIn10 extends {}, PropsIn11 extends {}, PropsIn12 extends {}, PropsIn13 extends {}, PropsIn14 extends {}, PropsOut extends {}>(
   hoc0: (Component: React.ComponentType<PropsIn0>) => React.FunctionComponent<PropsIn1>,
   hoc1: (Component: React.ComponentType<PropsIn1>) => React.FunctionComponent<PropsIn2>,
   hoc2: (Component: React.ComponentType<PropsIn2>) => React.FunctionComponent<PropsIn3>,
@@ -181,7 +183,7 @@ export function withHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 exte
 ): (Component: React.ComponentType<PropsIn0>) => React.ComponentType<PropsOut>;
 
 // prettier-ignore
-export function withHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 extends {}, PropsIn3 extends {}, PropsIn4 extends {}, PropsIn5 extends {}, PropsIn6 extends {}, PropsIn7 extends {}, PropsIn8 extends {}, PropsIn9 extends {}, PropsIn10 extends {}, PropsIn11 extends {}, PropsIn12 extends {}, PropsIn13 extends {}, PropsIn14 extends {}, PropsIn15 extends {}, PropsOut extends {}>(
+export function withRevHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 extends {}, PropsIn3 extends {}, PropsIn4 extends {}, PropsIn5 extends {}, PropsIn6 extends {}, PropsIn7 extends {}, PropsIn8 extends {}, PropsIn9 extends {}, PropsIn10 extends {}, PropsIn11 extends {}, PropsIn12 extends {}, PropsIn13 extends {}, PropsIn14 extends {}, PropsIn15 extends {}, PropsOut extends {}>(
   hoc0: (Component: React.ComponentType<PropsIn0>) => React.FunctionComponent<PropsIn1>,
   hoc1: (Component: React.ComponentType<PropsIn1>) => React.FunctionComponent<PropsIn2>,
   hoc2: (Component: React.ComponentType<PropsIn2>) => React.FunctionComponent<PropsIn3>,
@@ -200,7 +202,7 @@ export function withHocs<PropsIn0 extends {}, PropsIn1 extends {}, PropsIn2 exte
   hoc15: (Component: React.ComponentType<PropsIn15>) => React.FunctionComponent<PropsOut>,
 ): (Component: React.ComponentType<PropsIn0>) => React.ComponentType<PropsOut>;
 
-export function withHocs(...fns: any): any {
+export function withRevHocs(...fns: any): any {
   // @ts-ignore
-  return (arg: any) => fns.reduceRight((acc, fn) => fn(acc), arg);
+  return (arg: any) => fns.reduce((acc, fn) => fn(acc), arg);
 }

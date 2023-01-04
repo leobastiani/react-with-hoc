@@ -3,7 +3,7 @@ import { PartialComponent } from "./@types/PartialComponent";
 import { SetState } from "./@types/SetState";
 import { componentDisplayName } from "./componentDisplayName";
 import { withComponent } from "./withComponent";
-import { withHocs } from "./withHocs";
+import { withRevHocs } from "./withRevHocs";
 import { withState } from "./withState";
 
 interface ExampleProps {
@@ -46,7 +46,7 @@ it("withComponent name", () => {
 });
 
 it("withComponent with default behavior", () => {
-  const Component = withHocs(
+  const Component = withRevHocs(
     withState<number, "a">("a"),
     withComponent("Side", Side)
   )(Example);
@@ -57,7 +57,7 @@ it("withComponent with default behavior", () => {
 });
 
 it("withComponent disabled", () => {
-  const Component = withHocs(
+  const Component = withRevHocs(
     withState<number, "a">("a"),
     withComponent("Side", Side)
   )(Example);
@@ -68,7 +68,7 @@ it("withComponent disabled", () => {
 });
 
 it("withComponent overridden", () => {
-  const Component = withHocs(
+  const Component = withRevHocs(
     withState<number, "a">("a"),
     withComponent("Side", Side)
   )(Example);
@@ -79,7 +79,7 @@ it("withComponent overridden", () => {
 });
 
 it("withComponent hiddenByDefault", () => {
-  const Component = withHocs(
+  const Component = withRevHocs(
     withState<number, "a">("a"),
     withComponent("Side", Side, { hiddenByDefault: true })
   )(Example);
@@ -94,7 +94,7 @@ it("withComponent hiddenByDefault", () => {
 });
 
 it("withComponent pick", () => {
-  const Component = withHocs(
+  const Component = withRevHocs(
     withState<number, "a">("a"),
     withComponent("Side", Side, { pick: ["b"] })
   )(Example);
@@ -105,7 +105,7 @@ it("withComponent pick", () => {
 });
 
 it("withComponent omit", () => {
-  const Component = withHocs(
+  const Component = withRevHocs(
     withState<number, "a">("a"),
     withComponent("Side", Side, { omit: ["b"] })
   )(Example);
@@ -116,9 +116,9 @@ it("withComponent omit", () => {
 });
 
 it("withComponent rerenders when props change", () => {
-  const Component = withHocs(
-    withState("a", { init: 1 }),
-    withComponent("Side", Side)
+  const Component = withRevHocs(
+    withComponent("Side", Side),
+    withState("a", { init: 1 })
   )(Example);
   render(<Component b={2} />);
   expect(document.body.children[0].innerHTML).toBe(
@@ -134,7 +134,7 @@ it("withComponent rerenders when props change", () => {
 
 describe("passing a function as an attribute", () => {
   it("hiddenByDefault = false", () => {
-    const Component = withHocs(
+    const Component = withRevHocs(
       withState<number, "a">("a"),
       withComponent("Side", Side)
     )(Example);
@@ -157,7 +157,7 @@ describe("passing a function as an attribute", () => {
   });
 
   it("hiddenByDefault = true", () => {
-    const Component = withHocs(
+    const Component = withRevHocs(
       withState<number, "a">("a"),
       withComponent("Side", Side, { hiddenByDefault: true })
     )(Example);

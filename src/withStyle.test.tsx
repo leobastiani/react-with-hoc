@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import { CSSProperties } from "react";
 import { componentDisplayName } from "./componentDisplayName";
-import { withHocs } from "./withHocs";
+import { withRevHocs } from "./withRevHocs";
 import { withStyle } from "./withStyle";
 
 function Example(props: { style: CSSProperties }): JSX.Element {
@@ -61,14 +61,14 @@ it("withStyle rewritten", () => {
 });
 
 it("withStyle with style twice", () => {
-  const Component = withHocs(
-    withStyle({
-      background: "black",
-      borderColor: "white",
-    }),
+  const Component = withRevHocs(
     withStyle({
       borderColor: "red",
       display: "block",
+    }),
+    withStyle({
+      background: "black",
+      borderColor: "white",
     })
   )(Example);
   render(<Component />);

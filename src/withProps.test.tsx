@@ -1,8 +1,8 @@
 import { render } from "@testing-library/react";
 import { CSSProperties } from "react";
 import { componentDisplayName } from "./componentDisplayName";
-import { withHocs } from "./withHocs";
 import { withProps } from "./withProps";
+import { withRevHocs } from "./withRevHocs";
 
 function Example(props: { someProp: number }): JSX.Element {
   return <pre>{JSON.stringify(props)}</pre>;
@@ -65,17 +65,17 @@ it("withProp with style", () => {
 });
 
 it("withProp with style twice", () => {
-  const Component = withHocs(
-    withProps({
-      style: {
-        background: "black",
-        borderColor: "white",
-      },
-    }),
+  const Component = withRevHocs(
     withProps({
       style: {
         borderColor: "red",
         display: "block",
+      },
+    }),
+    withProps({
+      style: {
+        background: "black",
+        borderColor: "white",
       },
     })
   )(Example);
