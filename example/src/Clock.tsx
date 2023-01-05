@@ -2,10 +2,10 @@ import {
   PartialComponent,
   SetState,
   withComponents,
+  withHocs,
   withMap,
   withProp,
   withRenames,
-  withRevHocs,
   withState,
 } from "react-new-hoc";
 import { Circle } from "./Circle";
@@ -60,7 +60,7 @@ export const Clock = (() => {
     );
   }
 
-  return withRevHocs(
+  return withHocs(
     withState("time", { init: () => Date.now() }),
     withProp("circleSize", 400),
     withProp("circleBorder", 3),

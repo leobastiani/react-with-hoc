@@ -1,4 +1,4 @@
-import { withProp, withRevHocs } from "react-new-hoc";
+import { withHocs, withProp } from "react-new-hoc";
 
 export function Pointer({
   height,
@@ -37,7 +37,7 @@ export function Pointer({
   );
 }
 
-export const SecondPointer = withRevHocs(
+export const SecondPointer = withHocs(
   withProp("height", 1),
   withProp(
     "length",
@@ -51,7 +51,7 @@ export const SecondPointer = withRevHocs(
   )
 )(Pointer);
 
-export const MinutePointer = withRevHocs(
+export const MinutePointer = withHocs(
   withProp("height", 5),
   withProp(
     "length",
@@ -66,7 +66,7 @@ export const MinutePointer = withRevHocs(
   )
 )(Pointer);
 
-export const HourPointer = withRevHocs(
+export const HourPointer = withHocs(
   withProp("height", 10),
   withProp(
     "length",

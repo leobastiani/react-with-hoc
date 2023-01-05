@@ -1,4 +1,4 @@
-import { withProp, withRevHocs } from "react-new-hoc";
+import { withHocs, withProp } from "react-new-hoc";
 
 export function NumberMark({
   rotation = 0,
@@ -37,12 +37,12 @@ export function NumberMark({
   );
 }
 
-export const MinuteMark = withRevHocs(
+export const MinuteMark = withHocs(
   withProp("widthWhenVertical", 1),
   withProp("rotation", ({ i }: { i: number }) => (i * 360) / 60, ["i"])
 )(NumberMark);
 
-export const HourMark = withRevHocs(
+export const HourMark = withHocs(
   withProp("widthWhenVertical", 3),
   withProp("rotation", ({ i }: { i: number }) => (i * 360) / 12, ["i"])
 )(NumberMark);
