@@ -42,14 +42,49 @@ interface WithStateHoc {
   >;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+function noop(): void {}
+
 export const withState = ((): WithStateHoc => {
   function withState(
     Component: ComponentType,
     stateName: string,
     { init, setterName = camelCase(["set", stateName]) }: any = {}
   ): FunctionComponent {
+    let locallyControlled: boolean | undefined;
+    function getUseState(props: any): any {
+      if (
+        process.env.NODE_ENV !== "production" &&
+        locallyControlled !== undefined
+      ) {
+        if (locallyControlled) {
+          if (stateName in props || setterName in props) {
+            throw new Error(
+              `The state "${stateName}" was locally controlled and then it changed`
+            );
+          }
+        } else {
+          if (!(stateName in props)) {
+            throw new Error(
+              `The state "${stateName}" was controlled by its parent and then it changed`
+            );
+          }
+        }
+      }
+
+      if (locallyControlled === true) {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        return useState(init);
+      }
+      if (locallyControlled === false) {
+        return [props[stateName], props[setterName] ?? noop];
+      }
+      locallyControlled = !(stateName in props || setterName in props);
+      return getUseState(props);
+    }
+
     function WithState(props: any): JSX.Element {
-      const [state, setState] = useState(init);
+      const [state, setState] = getUseState(props);
 
       return render(
         Component,
