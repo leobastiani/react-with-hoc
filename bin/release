@@ -1,0 +1,21 @@
+#!/bin/bash
+
+cd "$(dirname "$0")"
+cd ..
+
+set -e -o pipefail
+
+version="v$(jq '.version' package.json -r)"
+
+release() {
+  gh release create "$version"
+}
+
+read -p "release $version? " -r answer
+
+if [[ "$answer" == "y" || "$answer" == "Y" || "$answer" == "1" ]]; then
+  release
+else
+  echo "aborting..."
+  exit 1
+fi
