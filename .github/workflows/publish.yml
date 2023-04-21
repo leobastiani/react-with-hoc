@@ -1,6 +1,7 @@
-name: Unit Test / Lint
-
-on: [pull_request]
+name: Publish
+on:
+  release:
+    types: [published]
 
 jobs:
   build:
