@@ -1,7 +1,7 @@
 {
   "name": "react-with-hoc",
   "description": "React HOCs made easy and great",
-  "version": "0.0.6-wip01",
+  "version": "0.0.6-wip02",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.mjs",
   "umd:main": "dist/index.umd.js",
