@@ -1,0 +1,10 @@
+#!/bin/bash
+
+cd "$(dirname "$0")"
+cd ..
+
+set -e -o pipefail
+
+version="v$(jq '.version' package.json -r)"
+
+gh release create "$version"
