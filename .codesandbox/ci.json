@@ -1,0 +1,9 @@
+{
+  // TODO:
+  "sandboxes": [
+    "react-with-hoc-v7-js-template-quqov",
+    "react-with-hoc-v7-ts-template-4tn8i"
+  ],
+  "node": "14",
+  "silent": true
+}
