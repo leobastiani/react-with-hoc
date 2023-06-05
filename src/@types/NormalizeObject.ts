@@ -1,7 +1,7 @@
 import { CSSProperties, ReactNode } from "react";
 import { WithComponent } from "./WithComponent";
 
-export type NormalizeObject<T> = T extends CSSProperties
+export type SimplifyComponentProps<T> = T extends CSSProperties
   ? T
   : T extends ReactNode
   ? T
@@ -9,4 +9,4 @@ export type NormalizeObject<T> = T extends CSSProperties
   ? T
   : T extends WithComponent<any, any>
   ? T
-  : { [K in keyof T]: NormalizeObject<T[K]> };
+  : { [K in keyof T]: SimplifyComponentProps<T[K]> };

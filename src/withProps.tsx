@@ -2,7 +2,7 @@ import { ComponentType, FunctionComponent } from "react";
 import { BaseProperties } from "./@types/BaseProperties";
 import { ClosurePartial } from "./@types/ClosurePartial";
 import { Merge } from "./@types/Merge";
-import { NormalizeObject } from "./@types/NormalizeObject";
+import { SimplifyComponentProps } from "./@types/NormalizeObject";
 import { newHoc } from "./newHoc";
 import { render } from "./render";
 
@@ -12,7 +12,7 @@ interface WithProps {
   >(
     Component: ComponentType<ClosureProps>
   ) => FunctionComponent<
-    NormalizeObject<
+    SimplifyComponentProps<
       BaseProperties<
         ClosurePartial<Merge<ClosureProps, Map>, Extract<keyof Map, string>>
       >

@@ -1,6 +1,6 @@
 import { Fn, Identity, Pipe } from "hotscript";
 import { ComponentType, FunctionComponent } from "react";
-import { NormalizeObject } from "./@types/NormalizeObject";
+import { SimplifyComponentProps } from "./@types/NormalizeObject";
 
 type WithHocsArg = Fn | ((Component: ComponentType<any>) => ComponentType<any>);
 
@@ -16,7 +16,7 @@ type AsFns<Fns extends WithHocsArg[]> = Fns extends [
 
 type WithHocs<Fns extends WithHocsArg[]> = <ClosureProps extends {}>(
   Component: ComponentType<ClosureProps>
-) => FunctionComponent<NormalizeObject<Pipe<ClosureProps, AsFns<Fns>>>>;
+) => FunctionComponent<SimplifyComponentProps<Pipe<ClosureProps, AsFns<Fns>>>>;
 
 export function withHocs<Fns extends Array<WithHocsArg>>(
   ...fns: Fns

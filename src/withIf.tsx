@@ -1,5 +1,5 @@
 import { ComponentType, FunctionComponent, useMemo } from "react";
-import { NormalizeObject } from "./@types/NormalizeObject";
+import { SimplifyComponentProps } from "./@types/NormalizeObject";
 import { SpreadObject } from "./@types/SpreadObject";
 import { UnionToArray } from "./@types/UnionToArray";
 import { newHoc } from "./newHoc";
@@ -17,7 +17,7 @@ interface WithIfHoc {
   ): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
   ) => FunctionComponent<
-    NormalizeObject<ClosureProps & { [K in PropName]: boolean }>
+    SimplifyComponentProps<ClosureProps & { [K in PropName]: boolean }>
   >;
 
   <Props extends {}, DependencyProps extends Props>(
@@ -30,7 +30,7 @@ interface WithIfHoc {
   ): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
   ) => FunctionComponent<
-    NormalizeObject<SpreadObject<ClosureProps, DependencyProps>>
+    SimplifyComponentProps<SpreadObject<ClosureProps, DependencyProps>>
   >;
 }
 

@@ -1,5 +1,5 @@
 import { ComponentType, FunctionComponent, useMemo } from "react";
-import { NormalizeObject } from "./@types/NormalizeObject";
+import { SimplifyComponentProps } from "./@types/NormalizeObject";
 import { WithComponent } from "./@types/WithComponent";
 import { componentDisplayName } from "./componentDisplayName";
 import { newHoc } from "./newHoc";
@@ -16,13 +16,15 @@ interface WithComponentHoc {
   ): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
   ) => FunctionComponent<
-    NormalizeObject<
+    SimplifyComponentProps<
       {
         [K in keyof ClosureProps as K extends Name
           ? never
           : K]: ClosureProps[K];
       } & {
-        [K in Name]?: NormalizeObject<WithComponent<Target, ClosureProps>>;
+        [K in Name]?: SimplifyComponentProps<
+          WithComponent<Target, ClosureProps>
+        >;
       }
     >
   >;

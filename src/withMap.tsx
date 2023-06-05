@@ -1,6 +1,6 @@
 import { ComponentType, FunctionComponent, Key } from "react";
 import { ClosurePartial } from "./@types/ClosurePartial";
-import { NormalizeObject } from "./@types/NormalizeObject";
+import { SimplifyComponentProps } from "./@types/NormalizeObject";
 import { newHoc } from "./newHoc";
 
 interface Options<
@@ -24,7 +24,7 @@ interface WithMapHoc {
   ): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
   ) => FunctionComponent<
-    NormalizeObject<ClosurePartial<ClosureProps, IndexName | ValueName>>
+    SimplifyComponentProps<ClosurePartial<ClosureProps, IndexName | ValueName>>
   >;
 }
 

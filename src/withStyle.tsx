@@ -6,7 +6,7 @@ import {
 } from "react";
 import { ClosurePartial } from "./@types/ClosurePartial";
 import { Merge } from "./@types/Merge";
-import { NormalizeObject } from "./@types/NormalizeObject";
+import { SimplifyComponentProps } from "./@types/NormalizeObject";
 import { UnionToArray } from "./@types/UnionToArray";
 import { newHoc } from "./newHoc";
 import { render } from "./render";
@@ -15,7 +15,7 @@ interface WithStyle {
   <Props extends {} = {}>(value: CSSProperties): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
   ) => FunctionComponent<
-    NormalizeObject<ClosurePartial<ClosureProps, "style">>
+    SimplifyComponentProps<ClosurePartial<ClosureProps, "style">>
   >;
 
   <Props extends {} = {}, DependencyProps extends Props = Props>(
@@ -26,7 +26,7 @@ interface WithStyle {
   ): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
   ) => FunctionComponent<
-    NormalizeObject<
+    SimplifyComponentProps<
       ClosurePartial<Merge<ClosureProps, DependencyProps>, "style">
     >
   >;

@@ -1,6 +1,6 @@
 import { ComponentType, FunctionComponent } from "react";
 import { DestructuringObject } from "./@types/DestructuringObject";
-import { NormalizeObject } from "./@types/NormalizeObject";
+import { SimplifyComponentProps } from "./@types/NormalizeObject";
 import { newHoc } from "./newHoc";
 import { render } from "./render";
 
@@ -12,7 +12,7 @@ interface WithObjectHoc {
   >(
     Component: ComponentType<ClosureProps>
   ) => FunctionComponent<
-    NormalizeObject<DestructuringObject<ClosureProps, Key>>
+    SimplifyComponentProps<DestructuringObject<ClosureProps, Key>>
   >;
 }
 

@@ -1,7 +1,7 @@
 import { ComponentType, FunctionComponent, useMemo } from "react";
 import { ClosurePartial } from "./@types/ClosurePartial";
 import { Merge } from "./@types/Merge";
-import { NormalizeObject } from "./@types/NormalizeObject";
+import { SimplifyComponentProps } from "./@types/NormalizeObject";
 import { SpreadObject } from "./@types/SpreadObject";
 import { UnionToArray } from "./@types/UnionToArray";
 import { newHoc } from "./newHoc";
@@ -14,7 +14,7 @@ interface WithProp {
   ): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
   ) => FunctionComponent<
-    NormalizeObject<
+    SimplifyComponentProps<
       ClosurePartial<
         Merge<ClosureProps, { [key in `${PropName}`]: PropValue }>,
         PropName
@@ -36,7 +36,7 @@ interface WithProp {
   ): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
   ) => FunctionComponent<
-    NormalizeObject<
+    SimplifyComponentProps<
       ClosurePartial<
         PropName extends keyof ClosureProps
           ? SpreadObject<ClosureProps, DependencyProps>

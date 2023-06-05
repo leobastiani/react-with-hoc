@@ -2,7 +2,7 @@ import { ComponentType, FunctionComponent, useState } from "react";
 import { CamelCase } from "./@types/CamelCase";
 import { ClosurePartial } from "./@types/ClosurePartial";
 import { Merge } from "./@types/Merge";
-import { NormalizeObject } from "./@types/NormalizeObject";
+import { SimplifyComponentProps } from "./@types/NormalizeObject";
 import { SetState } from "./@types/SetState";
 import { camelCase } from "./camelCase";
 import { newHoc } from "./newHoc";
@@ -26,7 +26,7 @@ interface WithStateHoc {
   ): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
   ) => FunctionComponent<
-    NormalizeObject<
+    SimplifyComponentProps<
       ClosurePartial<
         Merge<
           ClosureProps,

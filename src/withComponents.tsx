@@ -1,5 +1,5 @@
 import { ComponentType, FunctionComponent, useMemo } from "react";
-import { NormalizeObject } from "./@types/NormalizeObject";
+import { SimplifyComponentProps } from "./@types/NormalizeObject";
 import { SpreadObject } from "./@types/SpreadObject";
 import { WithComponent } from "./@types/WithComponent";
 import { componentDisplayName } from "./componentDisplayName";
@@ -12,11 +12,11 @@ interface WithComponentsHoc {
   ): <ClosureProps extends Props>(
     Component: ComponentType<ClosureProps>
   ) => FunctionComponent<
-    NormalizeObject<
+    SimplifyComponentProps<
       SpreadObject<
         ClosureProps,
         {
-          [K in keyof Map]?: NormalizeObject<
+          [K in keyof Map]?: SimplifyComponentProps<
             WithComponent<Map[K], ClosureProps>
           >;
         }
