@@ -5,31 +5,26 @@ import { newHoc } from "./newHoc";
 import { render } from "./render";
 import { withHocs } from "./withHocs";
 
-type WithPickHoc = <PickNames extends readonly string[]>(
-  pickNames: PickNames
-) => Hoc<Objects.Pick<PickNames[number]>>;
+type WithPickHoc = <PickNames extends string>(
+  pickNames: PickNames[]
+) => Hoc<Objects.Pick<PickNames>>;
 
-export const withPick = ((): WithPickHoc => {
-  function withPick(
-    Component: ComponentType,
-    pickNames: string[]
-  ): FunctionComponent {
-    function WithPick(props: any): JSX.Element {
-      const pickSet = new Set(pickNames);
-      for (const key in props) {
-        if (!pickSet.has(key) && key in props) {
-          delete props[key];
-        }
+export const withPick = newHoc(function withPick(
+  Component: ComponentType,
+  pickNames: string[]
+): FunctionComponent {
+  function WithPick(props: any): JSX.Element {
+    const pickSet = new Set(pickNames);
+    for (const key in props) {
+      if (!pickSet.has(key) && key in props) {
+        delete props[key];
       }
-
-      return render(Component, props);
     }
-    return WithPick;
+
+    return render(Component, props);
   }
-
-  return newHoc(withPick) as WithPickHoc;
-})();
-
+  return WithPick;
+}) as WithPickHoc;
 function Example({
   a,
   b,
@@ -47,8 +42,8 @@ function Example({
     </div>
   );
 }
-const withPickHoc = withPick(["a", "b"] as const);
-const withPickHoc2 = withPick(["b"] as const);
+const withPickHoc = withPick(["a", "b"]);
+const withPickHoc2 = withPick(["b"]);
 const WithPickExample = withPickHoc(Example);
 <WithPickExample a="a" b={1} />;
 // type ToAPIPayload = Pipe<
