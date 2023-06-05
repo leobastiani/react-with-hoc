@@ -1,32 +1,13 @@
-import { Call, Fn } from "hotscript";
+import { Objects } from "hotscript";
 import { ComponentType, FunctionComponent } from "react";
-import { ClosurePick } from "./@types/ClosurePick";
-import { NormalizeObject } from "./@types/NormalizeObject";
+import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
 import { render } from "./render";
 import { withHocs } from "./withHocs";
 
-interface PickHoc<PickNames extends readonly string[]> extends Fn {
-  return: ClosurePick<this["arg0"], PickNames>;
-}
-
-type HocResult<
-  FnApplier extends Fn,
-  ComponentArg extends [ComponentType] | []
-> = ComponentArg extends [ComponentType<infer Props>]
-  ? FunctionComponent<NormalizeObject<Call<FnApplier, Props>>>
-  : FnApplier &
-      (<Props extends {}>(
-        Component: ComponentType<Props>
-      ) => FunctionComponent<NormalizeObject<Call<FnApplier, Props>>>);
-
-type WithPickHoc = <
-  PickNames extends readonly string[],
-  ComponentArg extends [ComponentType<any>] | []
->(
-  pickNames: PickNames,
-  ...Component: ComponentArg
-) => HocResult<PickHoc<PickNames>, ComponentArg>;
+type WithPickHoc = <PickNames extends readonly string[]>(
+  pickNames: PickNames
+) => Hoc<Objects.Pick<PickNames[number]>>;
 
 export const withPick = ((): WithPickHoc => {
   function withPick(
@@ -66,7 +47,7 @@ function Example({
     </div>
   );
 }
-const withPickHoc = withPick(["a", "b"] as const, Example);
+const withPickHoc = withPick(["a", "b"] as const);
 const withPickHoc2 = withPick(["b"] as const);
 const WithPickExample = withPickHoc(Example);
 <WithPickExample a="a" b={1} />;
@@ -79,4 +60,11 @@ const WithPickExample = withPickHoc(Example);
 //   [typeof withPickHoc]
 // >;
 
-const WithPickExample2 = withHocs(withPickHoc, withPickHoc2)(Example);
+const withHocsResult = withHocs(
+  withPickHoc,
+  withPickHoc2,
+  (Component: any) => Component
+);
+const WithPickExample2 = withHocsResult(Example);
+
+<WithPickExample2 b={1} />;
