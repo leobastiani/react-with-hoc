@@ -13,8 +13,8 @@ function Example(props: ExampleProps): JSX.Element {
 }
 
 it("withPick name", () => {
-  const Component = withPick(["b"])(Example);
-  expect(componentDisplayName.get(Component)).toBe("withPick.b(Example)");
+  const Component = withPick(["b", "a"])(Example);
+  expect(componentDisplayName.get(Component)).toBe("withPick.b.a(Example)");
 });
 
 it("withPick", () => {

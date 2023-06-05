@@ -1,75 +1,56 @@
 import { ComponentType } from "react";
+import { Hoc } from "./Hoc";
 import { componentDisplayName } from "./componentDisplayName";
+import { defaultHocName } from "./defaultHocName";
 
-function getName<Props, HocArgs extends any[]>(
-  {
-    Component,
-    name,
-    dot,
-    fn,
-  }: {
-    Component: ComponentType<Props>;
-    name?: (Component: ComponentType<Props>, ...args: HocArgs) => string;
-    dot?: (Component: ComponentType<Props>, ...args: HocArgs) => string;
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    fn: Function;
-  },
+type Name<Props, HocArgs extends any[]> =
+  | string
+  | ((
+      functions: {
+        Component: ComponentType<Props>;
+        hoc: (...args: any[]) => Hoc<any>;
+      },
+      ...args: HocArgs
+    ) => string);
+
+type HocDefinition<Props, HocArgs extends any[]> = (
+  Component: ComponentType<Props>,
   ...args: HocArgs
-): string {
-  if (name != undefined) {
-    return name(Component, ...args);
-  }
-  const dotResult = dot ? dot(Component, ...args) : "";
-  return `${fn.name}${
-    dotResult ? "." : ""
-  }${dotResult}(${componentDisplayName.get(Component)})`;
-}
+) => ComponentType;
 
-function defaultDot(_Component: ComponentType, ...args: any[]): string {
-  const firstArg = args[0];
-  if (typeof firstArg === "string") {
-    return firstArg;
-  }
-  if (typeof firstArg === "number") {
-    return firstArg.toString();
-  }
-
-  const keys = ((): string[] => {
-    if (Array.isArray(firstArg)) {
-      return firstArg as string[];
-    }
-    return Object.keys(firstArg);
-  })();
-
-  return keys.join(".");
-}
+type FirstArgumentOptional<T extends any[]> = T extends [unknown, ...infer Rest]
+  ? Rest | T
+  : never;
 
 export function newHoc<Props, HocArgs extends any[]>(
-  fn: (
-    Component: ComponentType<Props>,
-    ...args: HocArgs
-  ) => ComponentType<Props>,
-  {
-    name,
-    dot = defaultDot as any,
-  }: {
-    name?: (Component: ComponentType<Props>, ...args: HocArgs) => string;
-    dot?: (Component: ComponentType<Props>, ...args: HocArgs) => string;
-  } = {}
-) {
+  hoc: HocDefinition<Props, HocArgs>
+): unknown;
+export function newHoc<Props, HocArgs extends any[]>(
+  name: Name<Props, HocArgs>,
+  hoc: HocDefinition<Props, HocArgs>
+): unknown;
+
+export function newHoc<Props, HocArgs extends any[]>(
+  ...args: FirstArgumentOptional<
+    [Name<Props, HocArgs>, HocDefinition<Props, HocArgs>]
+  >
+): unknown {
+  const name = args.length === 2 ? args[0] : defaultHocName;
+  const hoc = args.length === 2 ? args[1] : args[0];
+
   return (...args: HocArgs) =>
-    (Component: ComponentType<Props>): ComponentType<Props> => {
+    (Component: ComponentType<Props>): ComponentType => {
       if (process.env.NODE_ENV !== "production") {
-        if (!fn.name) {
-          throw new Error(`Trying to create a new hoc without a name: ${fn}`, {
-            cause: fn,
+        if (!hoc.name) {
+          throw new Error(`Trying to create a new hoc without a name: ${hoc}`, {
+            cause: hoc,
           });
         }
       }
-      const Ret = fn(Component, ...args);
+      const Ret = hoc(Component, ...args);
       if (process.env.NODE_ENV !== "production") {
         componentDisplayName.set(
-          getName({ Component, name, dot, fn }, ...args),
+          typeof name === "string" ? name : name({ Component, hoc }, ...args),
           Ret
         );
       }

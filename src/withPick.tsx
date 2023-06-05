@@ -13,8 +13,8 @@ export const withPick = newHoc(function withPick(
   Component: ComponentType,
   pickNames: string[]
 ): FunctionComponent {
+  const pickSet = new Set(pickNames);
   function WithPick(props: any): JSX.Element {
-    const pickSet = new Set(pickNames);
     for (const key in props) {
       if (!pickSet.has(key) && key in props) {
         delete props[key];
