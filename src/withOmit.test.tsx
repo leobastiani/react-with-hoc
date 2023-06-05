@@ -13,12 +13,12 @@ function Example(props: ExampleProps): JSX.Element {
 }
 
 it("withOmit name", () => {
-  const Component = withOmit(["b"] as const)(Example);
+  const Component = withOmit(["b"])(Example);
   expect(componentDisplayName.get(Component)).toBe("withOmit.b(Example)");
 });
 
 it("withOmit", () => {
-  const Component = withOmit(["b"] as const)(Example);
+  const Component = withOmit(["b"])(Example);
   render(<Component a={1} c={2} />);
   expect(document.body.children[0].innerHTML).toBe('<pre>{"a":1,"c":2}</pre>');
 });

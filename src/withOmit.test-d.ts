@@ -1,7 +1,7 @@
 import { Pipe, Strings, Tuples, Unions } from "hotscript";
 import React, { ComponentType } from "react";
 import { expectType } from "tsd";
-import { withPick } from "./withPick";
+import { withOmit } from "./withOmit";
 
 declare function Example(props: {
   a: string;
@@ -9,16 +9,15 @@ declare function Example(props: {
   c: boolean;
 }): JSX.Element;
 
-const PickedComponent = withPick(["a", "b"])(Example);
+const OmittedComponent = withOmit(["a", "b"])(Example);
 expectType<
   ComponentType<{
-    a: string;
-    b: number;
+    c: boolean;
   }>
->(PickedComponent);
+>(OmittedComponent);
 
-declare const PickedProps: Pipe<
-  keyof React.ComponentProps<typeof PickedComponent>,
+declare const OmittedProps: Pipe<
+  keyof React.ComponentProps<typeof OmittedComponent>,
   [Unions.ToTuple, Tuples.Sort<Strings.LessThan>]
 >;
-expectType<["a", "b"]>(PickedProps);
+expectType<["c"]>(OmittedProps);
