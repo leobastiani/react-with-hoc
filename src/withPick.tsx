@@ -24,7 +24,7 @@ export const withPick = newHoc(function withPick(
     return render(Component, props);
   }
   return WithPick;
-}) as WithPickHoc;
+}) as unknown as WithPickHoc;
 function Example({
   a,
   b,
