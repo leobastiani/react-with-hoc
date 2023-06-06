@@ -1,4 +1,4 @@
-import { ComposeLeft, Objects } from "hotscript";
+import { Call, ComposeLeft, Objects, Strings } from "hotscript";
 import {
   ComponentType,
   Dispatch,
@@ -6,7 +6,6 @@ import {
   SetStateAction,
   useState,
 } from "react";
-import { CamelCase } from "./@types/CamelCase";
 import { PartialBy } from "./@types/PartialBy";
 import { Hoc } from "./Hoc";
 import { camelCase } from "./camelCase";
@@ -15,7 +14,8 @@ import { newHoc } from "./newHoc";
 type WithStateHoc = <
   PropValue,
   StateName extends string,
-  SetterName extends string = CamelCase<`set_${StateName}`>,
+  // @ts-expect-error
+  SetterName extends string = Call<Strings.CamelCase, `set_${StateName}`>,
   Props extends {} = {}
 >(
   stateName: StateName,
