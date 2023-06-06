@@ -1,6 +1,7 @@
 export * from "./@types/PartialComponent";
 export * from "./@types/SetState";
 export * from "./componentDisplayName";
+export * from "./defaultHocName";
 export * from "./newHoc";
 export * from "./withComponent";
 export * from "./withComponents";
@@ -15,4 +16,4 @@ export * from "./withRenames";
 export * from "./withRevHocs";
 export * from "./withSpread";
 export * from "./withState";
-export * from "./withStyle";
+export * from "./withStyleObjectStrategy";

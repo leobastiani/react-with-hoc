@@ -1,6 +1,6 @@
 import { CSSProperties } from "react";
 
-type WithStyle<Props> = "style" extends keyof Props
+type WithStyleObjectStrategy<Props> = "style" extends keyof Props
   ? Props extends { style?: unknown }
     ? { style?: CSSProperties }
     : { style: CSSProperties }
@@ -8,4 +8,4 @@ type WithStyle<Props> = "style" extends keyof Props
 
 export type BaseProperties<Props extends {}> = {
   [K in keyof Props as K extends "style" ? never : K]: Props[K];
-} & WithStyle<Props>;
+} & WithStyleObjectStrategy<Props>;

@@ -1,5 +1,9 @@
 import { Fn } from "hotscript";
 
 export interface PartialBy<Names extends string> extends Fn {
-  return: Omit<this["arg0"], Names> & Partial<Pick<this["arg0"], Names>>;
+  return: Pick<
+    Omit<this["arg0"], Names> & Partial<Pick<this["arg0"], Names>>,
+    // @ts-expect-error
+    keyof this["arg0"]
+  >;
 }
