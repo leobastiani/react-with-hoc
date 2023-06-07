@@ -7,6 +7,6 @@ export type SimplifyComponentProps<T> = T extends CSSProperties
   ? T
   : T extends Function
   ? T
-  : T extends WithComponent<any, any>
+  : T extends WithComponent<any>
   ? T
   : { [K in keyof T]: SimplifyComponentProps<T[K]> };

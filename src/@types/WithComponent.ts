@@ -1,5 +1,11 @@
-import { ComponentType, FunctionComponent, ReactNode } from "react";
+import {
+  ComponentProps,
+  ComponentType,
+  FunctionComponent,
+  ReactNode,
+} from "react";
 
-export type WithComponent<Target extends ComponentType, Props extends {}> =
-  | ((Component: Target) => FunctionComponent<Props>)
+export type WithComponent<Target extends ComponentType> =
+  | ((Component: Target) => FunctionComponent<ComponentProps<Target>>)
+  | Partial<ComponentProps<Target>>
   | ReactNode;

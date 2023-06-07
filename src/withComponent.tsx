@@ -1,36 +1,30 @@
+import { ComposeLeft, Objects } from "hotscript";
 import { ComponentType, FunctionComponent, useMemo } from "react";
-import { SimplifyComponentProps } from "./@types/NormalizeObject";
+import { isElement } from "react-is";
+import { PartialBy } from "./@types/PartialBy";
+import { PartialComponent } from "./@types/PartialComponent";
 import { WithComponent } from "./@types/WithComponent";
+import { Hoc } from "./Hoc";
 import { componentDisplayName } from "./componentDisplayName";
 import { newHoc } from "./newHoc";
-import { render } from "./render";
 
-interface WithComponentHoc {
-  <Props extends {}, Name extends string, Target extends ComponentType<any>>(
-    name: Name,
-    component: Target,
-    options?: { hiddenByDefault?: boolean } & (
-      | { pick?: string[] }
-      | { omit?: string[] }
-    )
-  ): <ClosureProps extends Props>(
-    Component: ComponentType<ClosureProps>
-  ) => FunctionComponent<
-    SimplifyComponentProps<
-      {
-        [K in keyof ClosureProps as K extends Name
-          ? never
-          : K]: ClosureProps[K];
-      } & {
-        [K in Name]?: SimplifyComponentProps<
-          WithComponent<Target, ClosureProps>
-        >;
-      }
-    >
-  >;
-}
+type WithComponentHoc = <
+  Name extends string,
+  TargetComponent extends ComponentType<any>
+>(
+  name: Name,
+  component: TargetComponent,
+  options?: { hiddenByDefault?: boolean } & (
+    | { pick?: string[] }
+    | { omit?: string[] }
+  )
+) => Hoc<
+  ComposeLeft<
+    [Objects.Update<Name, WithComponent<TargetComponent>>, PartialBy<Name>]
+  >
+>;
 
-function parsePropsByPick(props: any, pick: any): any {
+function parsePropsByPick(props: any, pick: Set<string>): any {
   const ret: any = {};
   for (const key in props) {
     if (pick.has(key)) {
@@ -40,7 +34,7 @@ function parsePropsByPick(props: any, pick: any): any {
   return ret;
 }
 
-function parsePropsByOmit(props: any, omit: any): any {
+function parsePropsByOmit(props: any, omit: Set<string>): any {
   const ret: any = {};
   for (const key in props) {
     if (omit.has(key)) {
@@ -51,70 +45,101 @@ function parsePropsByOmit(props: any, omit: any): any {
   return ret;
 }
 
-export const withComponent = ((): WithComponentHoc => {
-  function withComponent(
-    Component: ComponentType,
-    targetName: string,
-    Target: ComponentType,
-    options: any = {}
-  ): FunctionComponent {
-    if (process.env.NODE_ENV !== "production") {
-      if (options.omit && options.pick) {
-        throw new Error(
-          "Don't use withComponent with pick and omit at the same time"
-        );
-      }
+export const withComponent = newHoc(function withComponent(
+  Component: ComponentType,
+  name: string,
+  TargetComponent: ComponentType,
+  options: any = {}
+): FunctionComponent {
+  if (process.env.NODE_ENV !== "production") {
+    if (options.omit && options.pick) {
+      throw new Error(
+        "Don't use withComponent with pick and omit at the same time"
+      );
     }
-
-    const parseProps = ((): any => {
-      if (options.pick) {
-        if (!(options.pick instanceof Set)) {
-          options.pick = new Set(options.pick);
-        }
-
-        return (props: any) => parsePropsByPick(props, options.pick);
-      } else if (options.omit) {
-        if (!(options.omit instanceof Set)) {
-          options.omit = new Set(options.omit);
-        }
-
-        return (props: any) => parsePropsByOmit(props, options.omit);
-      }
-
-      return (props: any) => props;
-    })();
-
-    return function WithComponent(props: any): JSX.Element {
-      const TargetByProps = useMemo(() => {
-        if (typeof props[targetName] === "function") {
-          return props[targetName](Target);
-        }
-        if (options.hiddenByDefault) {
-          if (!props[targetName]) {
-            // eslint-disable-next-line react/display-name
-            return (): any => <></>;
-          } else if (props[targetName] === true) {
-            return Target;
-          }
-        }
-        if (targetName in props) {
-          return (): any => props[targetName];
-        }
-
-        return Target;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [props[targetName]]);
-      const CurrTarget = (myProps: any): any =>
-        render(TargetByProps, parseProps(props), myProps);
-      if (process.env.NODE_ENV !== "production") {
-        componentDisplayName.set(`${targetName}.withComponent`, CurrTarget);
-      }
-
-      return render(Component, props, {
-        [targetName]: CurrTarget,
-      });
-    };
   }
 
-  return newHoc(withComponent) as WithComponentHoc;
-})();
+  let set: Set<string>;
+  if (options.pick) {
+    set = new Set(options.pick);
+  } else if (options.omit) {
+    set = new Set(options.omit);
+  }
+
+  const parseProps = ((): any => {
+    if (options.pick) {
+      return (props: any) => parsePropsByPick(props, set);
+    } else if (options.omit) {
+      return (props: any) => parsePropsByOmit(props, set);
+    }
+    return (props: any) => props;
+  })();
+
+  return function WithComponent(props: any): JSX.Element {
+    const TargetByProps = useMemo(() => {
+      if (typeof props[name] === "function") {
+        return props[name](TargetComponent);
+      }
+      if (
+        typeof props[name] === "object" &&
+        props[name] !== null &&
+        !isElement(props[name])
+      ) {
+        // eslint-disable-next-line react/display-name
+        return (myProps: any): any => (
+          <TargetComponent {...myProps} {...props[name]} />
+        );
+      }
+      if (options.hiddenByDefault) {
+        if (!props[name]) {
+          // eslint-disable-next-line react/display-name
+          return (): any => <></>;
+        } else if (props[name] === true) {
+          return TargetComponent;
+        }
+      }
+      if (name in props) {
+        return (): any => props[name];
+      }
+
+      return TargetComponent;
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props[name]]);
+    const CurrTarget = (myProps: any): any => (
+      <TargetByProps {...parseProps(props)} {...myProps} />
+    );
+    if (process.env.NODE_ENV !== "production") {
+      componentDisplayName.set(`${name}.withComponent`, CurrTarget);
+    }
+
+    return (
+      <Component
+        {...props}
+        {...{
+          [name]: CurrTarget,
+        }}
+      />
+    );
+  };
+}) as WithComponentHoc;
+
+function ButtonComponent(props: { size: "lg" | "md" | "xs" }): JSX.Element {
+  return <button>{props.size}</button>;
+}
+function Example({
+  Button,
+}: {
+  Button: PartialComponent<typeof ButtonComponent>;
+}): JSX.Element {
+  return <Button />;
+}
+
+const withedComponent = withComponent("Button", ButtonComponent);
+const NewExample = withedComponent(Example);
+<NewExample Button={{ size: "lg" }} />;
+<NewExample Button={null} />;
+<NewExample Button={false} />;
+<NewExample Button={true} />;
+<NewExample Button={(Button): typeof Button => Button} />;
+<NewExample Button={10} />;
+<NewExample Button={<ButtonComponent size="lg" />} />;

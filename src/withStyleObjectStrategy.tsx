@@ -11,7 +11,9 @@ import { createHocNameFunction } from "./hocNameForWithStyle";
 import { newHoc } from "./newHoc";
 
 interface WithStyleObjectStrategyHoc {
-  <CSSProperties>(value: CSSProperties): Hoc<PartialBy<"style">>;
+  <CSSProperties>(value: CSSProperties): Hoc<
+    ComposeLeft<[Objects.Assign<{ style: CSSProperties }>, PartialBy<"style">]>
+  >;
 
   <CSSProperties, DependencyProps extends {}>(
     factory: (props: DependencyProps) => CSSProperties,

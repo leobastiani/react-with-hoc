@@ -22,5 +22,5 @@ export function withHocs<Fns extends Array<WithHocsArg>>(
   ...fns: Fns
 ): WithHocs<Fns> {
   // @ts-ignore
-  return (arg: any) => fns.reduce((acc, fn) => fn(acc), arg);
+  return (arg: any) => fns.reduceRight((acc, fn) => fn(acc), arg);
 }
