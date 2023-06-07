@@ -76,35 +76,11 @@ export const withComponent = newHoc(function withComponent(
   })();
 
   return function WithComponent(props: any): JSX.Element {
-    const TargetByProps = useMemo(() => {
-      if (typeof props[name] === "function") {
-        return props[name](TargetComponent);
-      }
-      if (
-        typeof props[name] === "object" &&
-        props[name] !== null &&
-        !isElement(props[name])
-      ) {
-        // eslint-disable-next-line react/display-name
-        return (myProps: any): any => (
-          <TargetComponent {...myProps} {...props[name]} />
-        );
-      }
-      if (options.hiddenByDefault) {
-        if (!props[name]) {
-          // eslint-disable-next-line react/display-name
-          return (): any => <></>;
-        } else if (props[name] === true) {
-          return TargetComponent;
-        }
-      }
-      if (name in props) {
-        return (): any => props[name];
-      }
-
-      return TargetComponent;
+    const TargetByProps = useMemo(
+      () => getTargetByProps({ props, name, TargetComponent, options }),
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props[name]]);
+      [props[name]]
+    );
     const CurrTarget = (myProps: any): any => (
       <TargetByProps {...parseProps(props)} {...myProps} />
     );
@@ -122,6 +98,45 @@ export const withComponent = newHoc(function withComponent(
     );
   };
 }) as WithComponentHoc;
+
+export function getTargetByProps({
+  props,
+  name,
+  TargetComponent,
+  options,
+}: {
+  props: any;
+  name: string;
+  TargetComponent: ComponentType;
+  options: any;
+}): any {
+  if (typeof props[name] === "function") {
+    return props[name](TargetComponent);
+  }
+  if (
+    typeof props[name] === "object" &&
+    props[name] !== null &&
+    !isElement(props[name])
+  ) {
+    // eslint-disable-next-line react/display-name
+    return (myProps: any): any => (
+      <TargetComponent {...myProps} {...props[name]} />
+    );
+  }
+  if (options.hiddenByDefault) {
+    if (!props[name]) {
+      // eslint-disable-next-line react/display-name
+      return (): any => <></>;
+    } else if (props[name] === true) {
+      return TargetComponent;
+    }
+  }
+  if (name in props) {
+    return (): any => props[name];
+  }
+
+  return TargetComponent;
+}
 
 function ButtonComponent(props: { size: "lg" | "md" | "xs" }): JSX.Element {
   return <button>{props.size}</button>;

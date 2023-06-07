@@ -1,64 +1,53 @@
+import { Fn } from "hotscript";
 import { ComponentType, FunctionComponent, useMemo } from "react";
-import { SimplifyComponentProps } from "./@types/NormalizeObject";
-import { SpreadObject } from "./@types/SpreadObject";
 import { WithComponent } from "./@types/WithComponent";
+import { Hoc } from "./Hoc";
 import { componentDisplayName } from "./componentDisplayName";
 import { newHoc } from "./newHoc";
-import { render } from "./render";
+import { getTargetByProps, withComponent } from "./withComponent";
+
+interface Merge<T extends Record<any, any>> extends Fn {
+  return: Omit<this["arg0"], keyof T> & T;
+}
 
 interface WithComponentsHoc {
-  <Props extends {}, Map extends Readonly<Record<string, ComponentType<any>>>>(
-    components: Map
-  ): <ClosureProps extends Props>(
-    Component: ComponentType<ClosureProps>
-  ) => FunctionComponent<
-    SimplifyComponentProps<
-      SpreadObject<
-        ClosureProps,
-        {
-          [K in keyof Map]?: SimplifyComponentProps<
-            WithComponent<Map[K], ClosureProps>
-          >;
-        }
-      >
-    >
+  <Map extends Record<string, ComponentType<any>>>(
+    components: Map,
+    options?: Parameters<typeof withComponent>[2]
+  ): Hoc<
+    Merge<{
+      [K in keyof Map]?: WithComponent<Map[K]>;
+    }>
   >;
 }
 
-export const withComponents = ((): WithComponentsHoc => {
-  function withComponents(
-    Component: ComponentType,
-    object: Record<string, ComponentType>
-  ): FunctionComponent {
-    const map = new Map(Object.entries(object));
-    return function WithComponents(props: any): JSX.Element {
-      const CurrTargets = {} as any;
-      for (const [targetName, Target] of map) {
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        const TargetByProps = useMemo(() => {
-          if (typeof props[targetName] === "function") {
-            return props[targetName](Target);
-          }
-          if (targetName in props) {
-            return (): any => props[targetName];
-          }
-
-          return Target;
-          // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, [props[targetName]]);
-        CurrTargets[targetName] = (myProps: any): any =>
-          render(TargetByProps, props, myProps);
-        if (process.env.NODE_ENV !== "production") {
-          componentDisplayName.set(
-            `${targetName}.withComponents`,
-            CurrTargets[targetName]
-          );
-        }
+export const withComponents = newHoc(function withComponents(
+  Component: ComponentType,
+  object: Record<string, ComponentType>,
+  options: any = {}
+): FunctionComponent {
+  const map = new Map(Object.entries(object));
+  return function WithComponents(props: any): JSX.Element {
+    const CurrTargets = {} as any;
+    for (const [name, TargetComponent] of map) {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const TargetByProps = useMemo(() => {
+        return getTargetByProps({
+          props,
+          name,
+          TargetComponent,
+          options,
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, [props[name]]);
+      CurrTargets[name] = (myProps: any): any => (
+        <TargetByProps {...props} {...myProps} />
+      );
+      if (process.env.NODE_ENV !== "production") {
+        componentDisplayName.set(`${name}.withComponents`, CurrTargets[name]);
       }
+    }
 
-      return render(Component, props, CurrTargets);
-    };
-  }
-
-  return newHoc(withComponents) as WithComponentsHoc;
-})();
+    return <Component {...props} {...CurrTargets} />;
+  };
+}) as WithComponentsHoc;
