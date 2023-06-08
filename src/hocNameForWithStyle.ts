@@ -15,16 +15,21 @@ export function createHocNameFunction<
     },
     ...args: HocArgs
   ): string {
-    const nameByArgs = ((): string | undefined => {
-      const arg = selector(...args);
+    function parseArg(arg: any): string | undefined {
       if (typeof arg === "string") {
         return arg;
       }
       if (typeof arg === "number") {
         return String(arg);
       }
+      if (typeof arg === "function") {
+        return arg.name || "[unnamed function]";
+      }
       if (Array.isArray(arg)) {
-        return arg.join(".");
+        return arg
+          .map((a) => parseArg(a))
+          .filter(Boolean)
+          .join(".");
       }
       if (arg === undefined || typeof arg === "function") {
         return undefined;
@@ -36,6 +41,12 @@ export function createHocNameFunction<
         return Object.keys(arg).join(".");
       }
       return String(arg);
+    }
+
+    const nameByArgs = ((): string | undefined => {
+      const arg = selector(...args);
+
+      return parseArg(arg);
     })();
 
     return `${[hoc.name, nameByArgs]
@@ -44,6 +55,6 @@ export function createHocNameFunction<
   };
 }
 
-// export const defaultHocName = createHocNameFunction(
-//   (firstArg: unknown) => firstArg
-// );
+export const defaultHocName = createHocNameFunction(
+  (firstArg: unknown) => firstArg
+);

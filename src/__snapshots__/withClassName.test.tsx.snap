@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`when className={[ 'someClass1', 'someClass2' ]} with array mixed 1`] = `"<pre>{"className":"someOtherClass1 someOtherClass3 someOtherClass6 someOtherClass7 someClass1 someClass2"}</pre>"`;
+
+exports[`when className={[ 'someClass1', 'someClass2' ]} with array of strings 1`] = `"<pre>{"className":"someOtherClass1 someOtherClass2 someClass1 someClass2"}</pre>"`;
+
+exports[`when className={[ 'someClass1', 'someClass2' ]} with function 1`] = `"<pre>{"className":"someOtherClass2 someClass1 someClass2"}</pre>"`;
+
+exports[`when className={[ 'someClass1', 'someClass2' ]} with no args 1`] = `"<pre>{"className":"someClass1 someClass2"}</pre>"`;
+
+exports[`when className={[ 'someClass1', 'someClass2' ]} with string 1`] = `"<pre>{"className":"someOtherClass someClass1 someClass2"}</pre>"`;
+
+exports[`when className={someClass} with array mixed 1`] = `"<pre>{"className":"someOtherClass1 someOtherClass3 someOtherClass6 someOtherClass7 someClass"}</pre>"`;
+
+exports[`when className={someClass} with array of strings 1`] = `"<pre>{"className":"someOtherClass1 someOtherClass2 someClass"}</pre>"`;
+
+exports[`when className={someClass} with function 1`] = `"<pre>{"className":"someOtherClass2 someClass"}</pre>"`;
+
+exports[`when className={someClass} with no args 1`] = `"<pre>{"className":"someClass"}</pre>"`;
+
+exports[`when className={someClass} with string 1`] = `"<pre>{"className":"someOtherClass someClass"}</pre>"`;
+
+exports[`when className={undefined} with array mixed 1`] = `"<pre>{"className":"someOtherClass1 someOtherClass3 someOtherClass6 someOtherClass7"}</pre>"`;
+
+exports[`when className={undefined} with array of strings 1`] = `"<pre>{"className":"someOtherClass1 someOtherClass2"}</pre>"`;
+
+exports[`when className={undefined} with function 1`] = `"<pre>{"className":"someOtherClass2"}</pre>"`;
+
+exports[`when className={undefined} with no args 1`] = `"<pre>{"className":""}</pre>"`;
+
+exports[`when className={undefined} with string 1`] = `"<pre>{"className":"someOtherClass"}</pre>"`;

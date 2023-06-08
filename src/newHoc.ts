@@ -1,7 +1,7 @@
 import { ComponentType } from "react";
 import { Hoc } from "./Hoc";
 import { componentDisplayName } from "./componentDisplayName";
-import { defaultHocName } from "./defaultHocName";
+import { defaultHocName } from "./hocNameForWithStyle";
 
 type Name<Props, HocArgs extends any[]> =
   | string
