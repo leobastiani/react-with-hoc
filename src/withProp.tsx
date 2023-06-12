@@ -79,7 +79,7 @@ export const withProp = ((): WithProp => {
         if (process.env.NODE_ENV !== "production") {
           if (!dependencyNames) {
             throw new Error(
-              "withProp used with init function should have dependecyNames defined"
+              "withProp used with init function should have dependencyNames defined"
             );
           }
         }

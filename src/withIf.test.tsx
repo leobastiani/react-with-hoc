@@ -16,11 +16,11 @@ it("withIf name with propName", () => {
 });
 
 it("withIf name with function", () => {
-  const Component = withIf(({ a }: ExampleProps) => a > 0, {
+  const Component = withIf<ExampleProps>(({ a }) => a > 0, {
     dependencyNames: ["a"],
   })(Example);
   expect(componentDisplayName.get(Component)).toBe(
-    `withIf.(["a"]) => boolean(Example)`
+    `withIf.[unnamed function](Example)`
   );
 });
 
@@ -35,7 +35,7 @@ it("withIf with propName", () => {
 });
 
 it("withIf with function", () => {
-  const Component = withIf(({ a }: ExampleProps) => a > 0, {
+  const Component = withIf<ExampleProps>(({ a }) => a > 0, {
     dependencyNames: ["a"],
   })(Example);
   const { rerender } = render(<Component a={0} />);
@@ -47,7 +47,7 @@ it("withIf with function", () => {
 });
 
 it("withIf with function with new dependency", () => {
-  const Component = withIf(({ i }: { i: number }) => i > 0, {
+  const Component = withIf<{ i: number }>(({ i }) => i > 0, {
     dependencyNames: ["i"],
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     Else: (_props: { b: number }) => <>null</>,
@@ -60,9 +60,9 @@ it("withIf with function with new dependency", () => {
   expect(document.body.children[0].innerHTML).toBe('<pre>{"a":1,"i":1}</pre>');
 });
 
-it("withIf with function and no dependecyNames", () => {
+it("withIf with function and no dependencyNames", () => {
   let calls = 0;
-  const Component = withIf(
+  const Component = withIf<{}>(
     () => {
       calls++;
       return false;
@@ -81,7 +81,6 @@ it("withIf with function and no dependecyNames", () => {
 
 it("withIf with Then and Else", () => {
   const Component = withIf("condition", {
-    Then: (props: ExampleProps) => <pre id="then">{JSON.stringify(props)}</pre>,
     Else: (props: ExampleProps) => <pre id="else">{JSON.stringify(props)}</pre>,
   })(Example);
   const { rerender } = render(<Component a={0} condition={false} />);
@@ -90,6 +89,6 @@ it("withIf with Then and Else", () => {
   );
   rerender(<Component a={1} condition={true} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre id="then">{"a":1,"condition":true}</pre>'
+    '<pre>{"a":1,"condition":true}</pre>'
   );
 });
