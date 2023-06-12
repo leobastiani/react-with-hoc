@@ -12,7 +12,7 @@ function Example(props: { style: CSSProperties }): JSX.Element {
 it("withStyleObjectStrategy name", () => {
   const Component = withStyleObjectStrategy({
     borderColor: "red",
-  } as CSSProperties)(Example);
+  })(Example);
   expect(componentDisplayName.get(Component)).toBe(
     "withStyleObjectStrategy(Example)"
   );
@@ -21,15 +21,15 @@ it("withStyleObjectStrategy name", () => {
 it("withStyleObjectStrategy name with dependency array", () => {
   const Component = withStyleObjectStrategy({
     borderColor: "red",
-  } as CSSProperties)(Example);
+  })(Example);
   expect(componentDisplayName.get(Component)).toBe(
     "withStyleObjectStrategy(Example)"
   );
 });
 
 it("withStyleObjectStrategy with value", () => {
-  const Component = withStyleObjectStrategy(
-    ({ background }: { background?: string }) => ({
+  const Component = withStyleObjectStrategy<{ background?: string }>(
+    ({ background }) => ({
       background,
     }),
     ["background"]
@@ -41,7 +41,7 @@ it("withStyleObjectStrategy with value", () => {
 });
 
 it("withStyleObjectStrategy with function", () => {
-  const Component = withStyleObjectStrategy(
+  const Component = withStyleObjectStrategy<{}>(
     () => ({ background: "blue" }),
     []
   )(Example);
@@ -52,8 +52,8 @@ it("withStyleObjectStrategy with function", () => {
 });
 
 it("withStyleObjectStrategy a new property in dependencyNames", () => {
-  const Component = withStyleObjectStrategy(
-    ({ background }: { background: string }) => ({ background }),
+  const Component = withStyleObjectStrategy<{ background: string }>(
+    ({ background }) => ({ background }),
     ["background"]
   )(Example);
   render(<Component background="yellow" />);
@@ -71,8 +71,8 @@ it("withStyleObjectStrategy overridden", () => {
 });
 
 it("withStyleObjectStrategy rewritten", () => {
-  const Component = withStyleObjectStrategy(
-    (_props: { style: CSSProperties }) => ({ width: "100%" } as CSSProperties),
+  const Component = withStyleObjectStrategy<{ style: CSSProperties }>(
+    (_props) => ({ width: "100%" }),
     ["style"]
   )(Example);
   render(<Component style={{ background: "black" }} />);
@@ -86,11 +86,11 @@ it("withStyleObjectStrategy with style twice", () => {
     withStyleObjectStrategy({
       background: "black",
       borderColor: "white",
-    } as CSSProperties),
+    }),
     withStyleObjectStrategy({
       borderColor: "red",
       display: "block",
-    } as CSSProperties)
+    })
   )(Example);
   render(<Component />);
   expect(document.body.children[0].innerHTML).toBe(

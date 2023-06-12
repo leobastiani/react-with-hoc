@@ -11,26 +11,15 @@ import { createHocNameFunction } from "./hocNameForWithStyle";
 import { newHoc } from "./newHoc";
 
 interface WithStyleObjectStrategyHoc {
-  <CSSProperties>(value: CSSProperties): Hoc<
-    ComposeLeft<[Objects.Assign<{ style: CSSProperties }>, PartialBy<"style">]>
-  >;
+  (value: CSSProperties): Hoc<ComposeLeft<[PartialBy<"style">]>>;
 
-  <CSSProperties, DependencyProps extends {}>(
+  <DependencyProps extends {}>(
     factory: (props: DependencyProps) => CSSProperties,
-    dependencyNames: keyof DependencyProps extends never
-      ? []
-      : Pipe<
-          DependencyProps,
-          [Objects.Keys, Unions.ToTuple, Tuples.Sort<Strings.LessThan>]
-        >
-  ): Hoc<
-    ComposeLeft<
-      [
-        Objects.Assign<DependencyProps, { style: CSSProperties }>,
-        PartialBy<"style">
-      ]
+    dependencyNames: Pipe<
+      DependencyProps,
+      [Objects.Keys, Unions.ToTuple, Tuples.Sort<Strings.LessThan>]
     >
-  >;
+  ): Hoc<ComposeLeft<[Objects.Assign<DependencyProps>, PartialBy<"style">]>>;
 }
 
 export const withStyleObjectStrategy = newHoc(

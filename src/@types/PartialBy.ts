@@ -1,9 +1,6 @@
 import { Fn } from "hotscript";
+import { SetOptional } from "type-fest";
 
 export interface PartialBy<Names extends string | number | symbol> extends Fn {
-  return: Pick<
-    Omit<this["arg0"], Names> & Partial<Pick<this["arg0"], Names>>,
-    // @ts-expect-error
-    keyof this["arg0"]
-  >;
+  return: SetOptional<this["arg0"], Names>;
 }
