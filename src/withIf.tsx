@@ -1,6 +1,5 @@
-import { ComposeLeft, Objects, Pipe, Strings, Tuples, Unions } from "hotscript";
+import { Identity, Objects, Pipe, Strings, Tuples, Unions } from "hotscript";
 import { ComponentType, Fragment, FunctionComponent, useMemo } from "react";
-import { PartialBy } from "./@types/PartialBy";
 import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
 
@@ -10,7 +9,7 @@ interface WithIfHoc {
     options?: {
       Else?: ComponentType<any>;
     }
-  ): Hoc<ComposeLeft<[Objects.Update<Name, boolean>, PartialBy<Name>]>>;
+  ): Hoc<Identity>;
 
   <DependencyProps extends {}>(
     factory: (props: DependencyProps) => boolean,

@@ -1,41 +1,33 @@
+import { Fn } from "hotscript";
 import { ComponentType, FunctionComponent } from "react";
-import { ClosureRename } from "./@types/ClosureRename";
-import { SimplifyComponentProps } from "./@types/NormalizeObject";
+import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
-import { render } from "./render";
 
-interface WithRenameHoc {
-  <Props extends {}, From extends string, To extends string>(
-    from: From,
-    to: To
-  ): <ClosureProps extends Props>(
-    Component: ComponentType<ClosureProps>
-  ) => FunctionComponent<
-    SimplifyComponentProps<ClosureRename<ClosureProps, From, To>>
-  >;
+interface WithRenameFn<NewProp extends string, OldProp extends string>
+  extends Fn {
+  return: {
+    [K in NewProp]: this["arg0"][OldProp];
+  } & Omit<this["arg0"], OldProp>;
 }
 
-export const withRename = ((): WithRenameHoc => {
-  function withRename(
-    Component: ComponentType,
-    from: string,
-    to: string
-  ): FunctionComponent {
-    function WithRename(props: any): JSX.Element {
-      const newProps: any = { ...props };
-      newProps[to] = newProps[from];
-      if (from in newProps) {
-        delete newProps[from];
-      }
+interface WithRenameHoc {
+  <NewProp extends string, OldProp extends string>(
+    newProp: NewProp,
+    oldProp: OldProp
+  ): Hoc<WithRenameFn<NewProp, OldProp>>;
+}
 
-      return render(Component, newProps);
+export const withRename = newHoc(function withRename(
+  Component: ComponentType,
+  newProp: string,
+  oldProp: string
+): FunctionComponent {
+  return function WithRename(props: any): JSX.Element {
+    props[oldProp] = props[newProp];
+    if (newProp in props) {
+      delete props[newProp];
     }
-    return WithRename;
-  }
 
-  return newHoc(withRename, {
-    dot(_Component, from, to) {
-      return `${from}→${to}`;
-    },
-  }) as WithRenameHoc;
-})();
+    return <Component {...props} />;
+  };
+}) as WithRenameHoc;

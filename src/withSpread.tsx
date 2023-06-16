@@ -1,36 +1,32 @@
+import { Fn } from "hotscript";
 import { ComponentType, FunctionComponent } from "react";
-import { DestructuringObject } from "./@types/DestructuringObject";
-import { SimplifyComponentProps } from "./@types/NormalizeObject";
+import { RequiredKeysOf, SetOptional } from "type-fest";
+import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
 import { render } from "./render";
 
-// TODO: if a component should have "a", "b" and "c" properties, if I use withSpread and set an object with "a" and "b", the final Component should require "c"
+interface WithSpreadFn<PropName extends string, Object extends {}> extends Fn {
+  return: {
+    [K in PropName]: Object;
+  } & SetOptional<this["arg0"], RequiredKeysOf<Object>>;
+}
 
-interface WithObjectHoc {
-  <Props extends {}, Key extends string>(key: Key): <
-    ClosureProps extends Props
-  >(
-    Component: ComponentType<ClosureProps>
-  ) => FunctionComponent<
-    SimplifyComponentProps<DestructuringObject<ClosureProps, Key>>
+interface WithSpreadHoc {
+  <PropName extends string, Object extends {}>(propName: PropName): Hoc<
+    WithSpreadFn<PropName, Object>
   >;
 }
 
-export const withSpread = ((): WithObjectHoc => {
-  function withSpread(
-    Component: ComponentType,
-    key: string
-  ): FunctionComponent {
-    function WithObject(props: any): JSX.Element {
-      const newProps: any = {
-        ...props[key],
-        ...props,
-      };
+export const withSpread = newHoc(function withSpread(
+  Component: ComponentType,
+  key: string
+): FunctionComponent {
+  return function WithObject(props: any): JSX.Element {
+    const newProps: any = {
+      ...props[key],
+      ...props,
+    };
 
-      return render(Component, newProps);
-    }
-    return WithObject;
-  }
-
-  return newHoc(withSpread) as WithObjectHoc;
-})();
+    return render(Component, newProps);
+  };
+}) as WithSpreadHoc;

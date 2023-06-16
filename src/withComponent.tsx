@@ -1,7 +1,6 @@
 import { ComposeLeft, Objects } from "hotscript";
 import { ComponentType, FunctionComponent, useMemo } from "react";
 import { isElement } from "react-is";
-import { PartialBy } from "./@types/PartialBy";
 import { PartialComponent } from "./@types/PartialComponent";
 import { WithComponent } from "./@types/WithComponent";
 import { Hoc } from "./Hoc";
@@ -20,7 +19,10 @@ type WithComponentHoc = <
   )
 ) => Hoc<
   ComposeLeft<
-    [Objects.Update<Name, WithComponent<TargetComponent>>, PartialBy<Name>]
+    [
+      Objects.Omit<Name>,
+      Objects.Assign<{ [K in Name]?: WithComponent<TargetComponent> }>
+    ]
   >
 >;
 

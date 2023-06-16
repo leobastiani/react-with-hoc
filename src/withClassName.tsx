@@ -1,6 +1,5 @@
 import { ComposeLeft, Objects } from "hotscript";
 import { ComponentType, FunctionComponent } from "react";
-import { PartialBy } from "./@types/PartialBy";
 import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
 
@@ -13,9 +12,8 @@ interface WithClassNameHoc {
   <DependencyProps extends {}>(className?: ClassNameArg<DependencyProps>): Hoc<
     ComposeLeft<
       [
-        Objects.Assign<DependencyProps>,
-        Objects.Update<"className", string | string[]>,
-        PartialBy<"className">
+        Objects.Omit<"className">,
+        Objects.Assign<DependencyProps & { className?: string | string[] }>
       ]
     >
   >;

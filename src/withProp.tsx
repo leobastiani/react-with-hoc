@@ -1,104 +1,76 @@
+import { ComposeLeft, Objects, Pipe, Strings, Tuples, Unions } from "hotscript";
 import { ComponentType, FunctionComponent, useMemo } from "react";
-import { ClosurePartial } from "./@types/ClosurePartial";
 import { Merge } from "./@types/Merge";
-import { SimplifyComponentProps } from "./@types/NormalizeObject";
-import { SpreadObject } from "./@types/SpreadObject";
-import { UnionToArray } from "./@types/UnionToArray";
+import { PartialBy } from "./@types/PartialBy";
+import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
-import { render } from "./render";
 
-interface WithProp {
-  <PropValue, PropName extends string, Props extends {} = {}>(
+interface WithPropHoc {
+  <PropValue, PropName extends string>(
     propName: PropName,
     value: Exclude<PropValue, Function>
-  ): <ClosureProps extends Props>(
-    Component: ComponentType<ClosureProps>
-  ) => FunctionComponent<
-    SimplifyComponentProps<
-      ClosurePartial<
-        Merge<ClosureProps, { [key in `${PropName}`]: PropValue }>,
-        PropName
-      >
+  ): Hoc<
+    ComposeLeft<
+      [
+        PartialBy<PropName>,
+        Objects.Assign<{
+          [K in PropName]?: PropValue;
+        }>
+      ]
     >
   >;
 
-  <
-    PropValue,
-    PropName extends string,
-    Props extends {} = {},
-    DependencyProps extends Props = Props
-  >(
+  <PropValue, PropName extends string, DependencyProps extends {}>(
     propName: PropName,
     factory: (props: DependencyProps) => PropValue,
-    dependencyNames: keyof DependencyProps extends never
-      ? []
-      : UnionToArray<Extract<keyof DependencyProps, string>>
-  ): <ClosureProps extends Props>(
-    Component: ComponentType<ClosureProps>
-  ) => FunctionComponent<
-    SimplifyComponentProps<
-      ClosurePartial<
-        PropName extends keyof ClosureProps
-          ? SpreadObject<ClosureProps, DependencyProps>
-          : Merge<
-              ClosureProps,
-              Merge<DependencyProps, { [key in `${PropName}`]: PropValue }>
-            >,
-        PropName
-      >
+    dependencyNames: Pipe<
+      DependencyProps,
+      [Objects.Keys, Unions.ToTuple, Tuples.Sort<Strings.LessThan>]
+    >
+  ): Hoc<
+    ComposeLeft<
+      [
+        PartialBy<PropName>,
+        Merge<
+          DependencyProps & {
+            [K in PropName]?: PropValue;
+          }
+        >
+      ]
     >
   >;
 }
 
-export const withProp = ((): WithProp => {
-  function withProp<PropValue, PropName extends string, Props extends {} = {}>(
-    Component: ComponentType<Props>,
-    propName: PropName,
-    factory: (props: Props) => PropValue,
-    dependencyNames: string[]
-  ): FunctionComponent<any>;
-
-  function withProp<PropValue, PropName extends string, Props extends {} = {}>(
-    Component: ComponentType<Props>,
-    propName: PropName,
-    value: Exclude<PropValue, Function>
-  ): FunctionComponent<any>;
-
-  function withProp<Props extends {}, PropName extends string, PropValue>(
-    Component: ComponentType<Props>,
-    propName: PropName,
-    init: ((props: Props) => PropValue) | PropValue,
-    dependencyNames?: string[]
-  ): FunctionComponent<any> {
-    const override = dependencyNames?.includes(propName) ?? false;
-    function WithProp<ClosureProps extends Props>(
-      props: ClosureProps
-    ): JSX.Element {
-      let newValue: PropValue;
-      if (init instanceof Function) {
-        if (process.env.NODE_ENV !== "production") {
-          if (!dependencyNames) {
-            throw new Error(
-              "withProp used with init function should have dependencyNames defined"
-            );
-          }
+export const withProp = newHoc(function withProp(
+  Component: ComponentType,
+  propName: string,
+  init: ((props: any) => any) | unknown,
+  dependencyNames?: string[]
+): FunctionComponent {
+  const override = dependencyNames?.includes(propName) ?? false;
+  return function WithProp(props: any): JSX.Element {
+    let newValue: any;
+    if (init instanceof Function) {
+      if (process.env.NODE_ENV !== "production") {
+        if (!dependencyNames) {
+          throw new Error(
+            "withProp used with init function should have dependencyNames defined"
+          );
         }
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        newValue = useMemo(
-          () => init(props),
-          // @ts-expect-error
-          // eslint-disable-next-line react-hooks/exhaustive-deps
-          dependencyNames!.map((dependencyName) => props[dependencyName])
-        );
-      } else {
-        newValue = init;
       }
-      return override
-        ? render(Component, props, { [propName]: newValue })
-        : render(Component, { [propName]: newValue }, props);
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      newValue = useMemo(
+        () => init(props),
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        dependencyNames!.map((dependencyName) => props[dependencyName])
+      );
+    } else {
+      newValue = init;
     }
-    return WithProp;
-  }
-
-  return newHoc(withProp) as WithProp;
-})();
+    return override ? (
+      <Component {...props} {...{ [propName]: newValue }} />
+    ) : (
+      <Component {...{ [propName]: newValue }} {...props} />
+    );
+  };
+}) as WithPropHoc;
