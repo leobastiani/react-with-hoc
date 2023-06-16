@@ -1,44 +1,49 @@
+import { Fn } from "hotscript";
 import { ComponentType, FunctionComponent } from "react";
-import { ClosureRenames } from "./@types/ClosureRenames";
-import { SimplifyComponentProps } from "./@types/NormalizeObject";
+import { Hoc } from "./Hoc";
+import { createHocNameFunction } from "./hocNameForWithStyle";
 import { newHoc } from "./newHoc";
-import { render } from "./render";
 
-interface WithRenameHoc {
-  <Props extends {}, Map extends Readonly<Record<string, string>>>(map: Map): <
-    ClosureProps extends Props
-  >(
-    Component: ComponentType<ClosureProps>
-  ) => FunctionComponent<
-    SimplifyComponentProps<ClosureRenames<ClosureProps, Map>>
+interface WithRenamesFn<Map extends Record<string, string>> extends Fn {
+  return: {
+    [K in keyof this["arg0"] as K extends keyof Map
+      ? Map[K]
+      : K]: this["arg0"][K];
+  };
+}
+
+type AsRecord<T> = T extends Record<string, string> ? T : never;
+
+interface WithRenamesHoc {
+  <Map extends Record<string, string>>(map: Map): Hoc<
+    WithRenamesFn<
+      AsRecord<{
+        [K in keyof Map as K extends keyof Map ? Map[K] : never]: K;
+      }>
+    >
   >;
 }
 
-export const withRenames = ((): WithRenameHoc => {
+export const withRenames = newHoc(
+  createHocNameFunction((map: object) =>
+    Object.entries(map)
+      .map(([from, to]) => `${from}→${to}`)
+      .join(".")
+  ),
   function withRenames(
     Component: ComponentType,
     map: Record<string, string>
   ): FunctionComponent {
-    function WithRename(props: any): JSX.Element {
-      const newProps: any = { ...props };
-      for (const from in map) {
-        const to = map[from];
-        newProps[to] = newProps[from];
-        if (from in newProps) {
-          delete newProps[from];
+    return function WithRenames(props: any): JSX.Element {
+      for (const newProp in map) {
+        const oldProp = map[newProp];
+        if (newProp in map) {
+          map[oldProp] = map[newProp];
+          delete map[newProp];
         }
       }
 
-      return render(Component, newProps);
-    }
-    return WithRename;
+      return <Component {...props} />;
+    };
   }
-
-  return newHoc(withRenames, {
-    dot(_Component, map) {
-      return Object.entries(map)
-        .map(([from, to]) => `${from}→${to}`)
-        .join(".");
-    },
-  }) as WithRenameHoc;
-})();
+) as WithRenamesHoc;
