@@ -1,4 +1,4 @@
-import { Identity, Objects, Pipe, Strings, Tuples, Unions } from "hotscript";
+import { Objects, Pipe, Strings, Tuples, Unions } from "hotscript";
 import { ComponentType, Fragment, FunctionComponent, useMemo } from "react";
 import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
@@ -9,7 +9,7 @@ interface WithIfHoc {
     options?: {
       Else?: ComponentType<any>;
     }
-  ): Hoc<Identity>;
+  ): Hoc<Objects.Assign<{ [key in Name]: boolean }>>;
 
   <DependencyProps extends {}>(
     factory: (props: DependencyProps) => boolean,

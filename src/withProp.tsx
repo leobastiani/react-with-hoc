@@ -1,6 +1,6 @@
 import { ComposeLeft, Objects, Pipe, Strings, Tuples, Unions } from "hotscript";
 import { ComponentType, FunctionComponent, useMemo } from "react";
-import { Merge } from "./@types/Merge";
+import { AcceptBoth } from "./@types/AcceptBoth";
 import { PartialBy } from "./@types/PartialBy";
 import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
@@ -30,12 +30,10 @@ interface WithPropHoc {
   ): Hoc<
     ComposeLeft<
       [
-        PartialBy<PropName>,
-        Merge<
-          DependencyProps & {
-            [K in PropName]?: PropValue;
-          }
-        >
+        AcceptBoth<{
+          [K in PropName]?: PropValue;
+        }>,
+        AcceptBoth<DependencyProps>
       ]
     >
   >;

@@ -3,7 +3,6 @@ import { ComponentType, FunctionComponent } from "react";
 import { RequiredKeysOf, SetOptional } from "type-fest";
 import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
-import { render } from "./render";
 
 interface WithSpreadFn<PropName extends string, Object extends {}> extends Fn {
   return: {
@@ -27,6 +26,6 @@ export const withSpread = newHoc(function withSpread(
       ...props,
     };
 
-    return render(Component, newProps);
+    return <Component {...newProps} />;
   };
 }) as WithSpreadHoc;

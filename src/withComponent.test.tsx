@@ -1,6 +1,5 @@
 import { act, render } from "@testing-library/react";
 import { PartialComponent } from "./@types/PartialComponent";
-import { SetState } from "./@types/SetState";
 import { componentDisplayName } from "./componentDisplayName";
 import { withComponent } from "./withComponent";
 import { withHocs } from "./withHocs";
@@ -9,11 +8,11 @@ import { withState } from "./withState";
 interface ExampleProps {
   a: number;
   b: number;
-  setA: SetState<number>;
+  setA: React.Dispatch<React.SetStateAction<number>>;
   Side: PartialComponent<typeof Side>;
 }
 
-let setA: SetState<number>;
+let setA: React.Dispatch<React.SetStateAction<number>>;
 
 function Example1({
   a,
