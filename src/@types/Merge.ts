@@ -1,13 +1,13 @@
 import { Fn } from "hotscript";
 
-export interface Merge<A> extends Fn {
+export interface Merge<Map> extends Fn {
   return: {
-    [K in keyof A]: K extends keyof this["arg0"]
-      ? A[K] | this["arg0"][K]
-      : A[K];
-  } & {
-    [K in keyof this["arg0"]]: K extends keyof A
-      ? A[K] | this["arg0"][K]
-      : this["arg0"][K];
+    [K in keyof Map | keyof this["arg0"]]: K extends keyof this["arg0"]
+      ? K extends keyof Map
+        ? this["arg0"][K] | Map[K]
+        : this["arg0"][K]
+      : K extends keyof Map
+      ? Map[K]
+      : never;
   };
 }

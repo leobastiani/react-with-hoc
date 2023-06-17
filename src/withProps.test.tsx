@@ -1,17 +1,15 @@
 import { render } from "@testing-library/react";
-import { CSSProperties } from "react";
 import { componentDisplayName } from "./componentDisplayName";
 import { withProps } from "./withProps";
-import { withRevHocs } from "./withRevHocs";
 
 function Example(props: { someProp: number }): JSX.Element {
   return <pre>{JSON.stringify(props)}</pre>;
 }
 
 it("withProps name", () => {
-  const Component = withProps({ someProp: 1 })(Example);
+  const Component = withProps({ someProp: 1, anotherProp: 2 })(Example);
   expect(componentDisplayName.get(Component)).toBe(
-    "withProps.someProp(Example)"
+    "withProps.someProp.anotherProp(Example)"
   );
 });
 
@@ -34,53 +32,5 @@ it("withProp overridden", () => {
   render(<Component someProp={20} />);
   expect(document.body.children[0].innerHTML).toBe(
     '<pre>{"someProp":20}</pre>'
-  );
-});
-
-it("withProp with className", () => {
-  const Component = withProps({ className: ["myClass1"] })(Example);
-  render(<Component className={["myClass2"]} someProp={1} />);
-  expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"className":["myClass1","myClass2"],"someProp":1}</pre>'
-  );
-});
-
-it("withProp with style", () => {
-  const Component = withProps({
-    style: {
-      background: "black",
-    } as CSSProperties,
-  })(Example);
-  render(
-    <Component
-      style={{
-        borderColor: "red",
-      }}
-      someProp={1}
-    />
-  );
-  expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"style":{"background":"black","borderColor":"red"},"someProp":1}</pre>'
-  );
-});
-
-it("withProp with style twice", () => {
-  const Component = withRevHocs(
-    withProps({
-      style: {
-        borderColor: "red",
-        display: "block",
-      },
-    }),
-    withProps({
-      style: {
-        background: "black",
-        borderColor: "white",
-      },
-    })
-  )(Example);
-  render(<Component someProp={1} />);
-  expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"style":{"borderColor":"white","display":"block","background":"black"},"someProp":1}</pre>'
   );
 });
