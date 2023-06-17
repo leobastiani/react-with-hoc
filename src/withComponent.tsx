@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { ComposeLeft, Objects } from "hotscript";
-import { ComponentType, FunctionComponent, useMemo } from "react";
+import { ComponentType, Fragment, FunctionComponent, useMemo } from "react";
 import { isElement } from "react-is";
+import { PartialBy } from "./@types/PartialBy";
 import { PartialComponent } from "./@types/PartialComponent";
 import { WithComponent } from "./@types/WithComponent";
 import { Hoc } from "./Hoc";
@@ -20,8 +22,13 @@ type WithComponentHoc = <
 ) => Hoc<
   ComposeLeft<
     [
-      Objects.Omit<Name>,
-      Objects.Assign<{ [K in Name]?: WithComponent<TargetComponent> }>
+      Objects.Update<
+        Name,
+        WithComponent<
+          TargetComponent extends ComponentType<infer P> ? P : never
+        >
+      >,
+      PartialBy<Name>
     ]
   >
 >;
@@ -143,6 +150,18 @@ export function getTargetByProps({
 function ButtonComponent(props: { size: "lg" | "md" | "xs" }): JSX.Element {
   return <button>{props.size}</button>;
 }
+function ButtonComponent2(props: {
+  size: "lg" | "md" | "xs";
+  disabled?: boolean;
+}): JSX.Element {
+  return <button>{props.size}</button>;
+}
+function ButtonComponent3(props: {
+  size: "lg" | "md" | "xs";
+  disabled: boolean;
+}): JSX.Element {
+  return <button>{props.size}</button>;
+}
 function Example({
   Button,
 }: {
@@ -157,6 +176,14 @@ const NewExample = withedComponent(Example);
 <NewExample Button={null} />;
 <NewExample Button={false} />;
 <NewExample Button={true} />;
-<NewExample Button={(Button): typeof Button => Button} />;
+<NewExample Button={() => ButtonComponent2} />;
+<NewExample Button={() => ButtonComponent} />;
+<NewExample Button={(Button) => Button} />;
+// @ts-expect-error
+<NewExample Button={() => ButtonComponent3} />;
+// @ts-expect-error
+<NewExample Button={() => Fragment} />;
+const NoneComponent: React.FC = () => <></>;
+<NewExample Button={() => NoneComponent} />;
 <NewExample Button={10} />;
 <NewExample Button={<ButtonComponent size="lg" />} />;

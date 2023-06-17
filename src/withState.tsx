@@ -13,8 +13,10 @@ import { newHoc } from "./newHoc";
 type WithStateHoc = <
   PropValue,
   StateName extends string,
-  // @ts-expect-error
-  SetterName extends string = Call<Strings.CamelCase, `set_${StateName}`>,
+  SetterName extends string = Extract<
+    Call<Strings.CamelCase, `set_${StateName}`>,
+    string
+  >,
   Props extends {} = {}
 >(
   stateName: StateName,
