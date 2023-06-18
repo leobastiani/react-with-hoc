@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { expectError, expectType } from "tsd";
+import { expectType } from "tsd";
 import { withState } from "../src/withState";
 
 {
@@ -8,14 +8,16 @@ import { withState } from "../src/withState";
   const BeforeHoc: React.FC<{
     someState: number;
     setSomeState: React.Dispatch<React.SetStateAction<number>>;
-    oldProp?: string;
+    oldProp: string;
+    oldPropOptional?: symbol;
   }> = undefined as any;
   const AfterHoc = withState<number, "someState">("someState")(BeforeHoc);
   expectType<
     FunctionComponent<{
       someState?: number;
       setSomeState?: React.Dispatch<React.SetStateAction<number>>;
-      oldProp?: string;
+      oldProp: string;
+      oldPropOptional?: symbol;
     }>
   >(AfterHoc);
 }
@@ -27,6 +29,7 @@ import { withState } from "../src/withState";
     someState: number;
     setSomeState: React.Dispatch<React.SetStateAction<number>>;
     oldProp: string;
+    oldPropOptional?: symbol;
   }> = undefined as any;
   const AfterHoc = withState<number, "someState">("someState")(BeforeHoc);
   expectType<
@@ -34,18 +37,9 @@ import { withState } from "../src/withState";
       someState?: number;
       setSomeState?: React.Dispatch<React.SetStateAction<number>>;
       oldProp: string;
+      oldPropOptional?: symbol;
     }>
   >(AfterHoc);
-}
-
-{
-  // when it has previous setter
-
-  const BeforeHoc: React.FC<{
-    setSomeState: React.Dispatch<React.SetStateAction<number>>;
-    oldProp: string;
-  }> = undefined as any;
-  expectError(withState<number, "someState">("someState")(BeforeHoc));
 }
 
 {
@@ -55,9 +49,17 @@ import { withState } from "../src/withState";
     someState: string;
     setSomeState: React.Dispatch<React.SetStateAction<string>>;
     oldProp: string;
+    oldPropOptional?: symbol;
   }> = undefined as any;
-  // no error for string
-  withState<string, "someState">("someState")(BeforeHoc);
-  // error when using a different type
-  expectError(withState<number, "someState">("someState")(BeforeHoc));
+  const AfterHoc = withState<number, "someState">("someState")(BeforeHoc);
+  expectType<
+    FunctionComponent<{
+      someState?: string | number;
+      setSomeState?:
+        | React.Dispatch<React.SetStateAction<number>>
+        | React.Dispatch<React.SetStateAction<string>>;
+      oldProp: string;
+      oldPropOptional?: symbol;
+    }>
+  >(AfterHoc);
 }

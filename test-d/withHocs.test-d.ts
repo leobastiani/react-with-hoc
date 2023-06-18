@@ -1,5 +1,5 @@
 import { ComponentType, FunctionComponent } from "react";
-import { expectError, expectType } from "tsd";
+import { expectType } from "tsd";
 import { withHocs } from "../src/withHocs";
 import { withState } from "../src/withState";
 
@@ -54,19 +54,4 @@ import { withState } from "../src/withState";
       oldProp: string;
     }>
   >(AfterHoc);
-
-  const DoesNotMatchRequirementHoc: React.FC<{
-    // someStateOne: number;
-    setSomeStateOne: React.Dispatch<React.SetStateAction<number>>;
-    someStateTwo: number;
-    setSomeStateTwo: React.Dispatch<React.SetStateAction<number>>;
-    oldProp: string;
-  }> = undefined as any;
-  expectError(
-    withHocs(
-      withState<number, "someStateOne">("someStateOne"),
-      withState<number, "someStateTwo">("someStateTwo"),
-      (C: ComponentType<any>) => withNotStdHoc(C)
-    )(DoesNotMatchRequirementHoc)
-  );
 }
