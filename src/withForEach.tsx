@@ -1,4 +1,5 @@
 import { ComponentType, FunctionComponent, Key } from "react";
+import { IsLiteral } from "type-fest";
 import { PartialBy } from "./@types/PartialBy";
 import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
@@ -6,14 +7,19 @@ import { newHoc } from "./newHoc";
 interface Options<IndexName extends string, ValueName extends string> {
   indexName?: IndexName;
   valueName?: ValueName;
-  key: (props: object) => Key;
+  key?: (props: object) => Key;
 }
 
 interface WithForEachHoc {
-  <IndexName extends string = "i", ValueName extends string = "children">(
+  <IndexName extends string, ValueName extends string>(
     target: number | Array<unknown> | object,
     options?: Options<IndexName, ValueName>
-  ): Hoc<PartialBy<IndexName | ValueName>>;
+  ): Hoc<
+    PartialBy<
+      | (IsLiteral<IndexName> extends true ? IndexName : "i")
+      | (IsLiteral<ValueName> extends true ? ValueName : "children")
+    >
+  >;
 }
 
 export const withForEach = newHoc(function withForEach(
@@ -26,7 +32,7 @@ export const withForEach = newHoc(function withForEach(
   } = {}
 ): FunctionComponent {
   return function WithForEach(props: any): JSX.Element {
-    let ret;
+    let ret: any;
     if (typeof target === "number") {
       ret = Array.from({ length: target }).map((_v, i) => (
         <Component
@@ -63,6 +69,6 @@ export const withForEach = newHoc(function withForEach(
       );
     }
 
-    return <>{ret}</>;
+    return ret;
   };
 }) as WithForEachHoc;

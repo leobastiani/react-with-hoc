@@ -19,12 +19,13 @@ export const withOmit = newHoc(function withOmit(
   const omitSet = new Set(omitNames);
 
   return function WithOmit(props: any): JSX.Element {
-    for (const key in props) {
+    const newProps = { ...props };
+    for (const key in newProps) {
       if (omitSet.has(key)) {
-        delete props[key];
+        delete newProps[key];
       }
     }
 
-    return <Component {...props} />;
+    return <Component {...newProps} />;
   };
 }) as WithOmitHoc;

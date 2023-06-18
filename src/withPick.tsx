@@ -18,12 +18,13 @@ export const withPick = newHoc(function withPick(
   const pickSet = new Set(pickNames);
 
   return function WithPick(props: any): JSX.Element {
-    for (const key in props) {
-      if (!pickSet.has(key) && key in props) {
-        delete props[key];
+    const newProps = { ...props };
+    for (const key in newProps) {
+      if (!pickSet.has(key) && key in newProps) {
+        delete newProps[key];
       }
     }
 
-    return <Component {...props} />;
+    return <Component {...newProps} />;
   };
 }) as WithPickHoc;

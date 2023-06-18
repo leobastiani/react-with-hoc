@@ -93,6 +93,6 @@ it("withStyleObjectStrategy with style twice", () => {
   )(Example);
   render(<Component />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"style":{"background":"black","borderColor":"red","display":"block"}}</pre>'
+    '<pre>{"style":{"borderColor":"white","display":"block","background":"black"}}</pre>'
   );
 });
