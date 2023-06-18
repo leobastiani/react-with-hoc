@@ -5,7 +5,7 @@ import { Hoc } from "./Hoc";
 import { createHocNameFunction } from "./hocNameForWithStyle";
 import { newHoc } from "./newHoc";
 
-interface WithRenameFn<NewProp extends string, OldProp extends string>
+export interface WithRenameFn<NewProp extends string, OldProp extends string>
   extends Fn {
   return: OldProp extends keyof this["arg0"]
     ? SetOptional<
