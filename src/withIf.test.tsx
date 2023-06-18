@@ -49,7 +49,6 @@ it("withIf with function", () => {
 it("withIf with function with new dependency", () => {
   const Component = withIf<{ i: number }>(({ i }) => i > 0, {
     dependencyNames: ["i"],
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     Else: (_props: { b: number }) => <>null</>,
   })(Example);
   const { rerender } = render(<Component a={1} i={0} />);

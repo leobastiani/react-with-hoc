@@ -1,4 +1,4 @@
-import { Call, ComposeLeft, Objects, Strings } from "hotscript";
+import { Call, ComposeLeft, Strings } from "hotscript";
 import {
   ComponentType,
   Dispatch,
@@ -32,9 +32,8 @@ type WithStateHoc = <
 ) => Hoc<
   ComposeLeft<
     [
-      Objects.Assign<Props>,
       AcceptBoth<
-        {
+        Props & {
           [k in StateName]: PropValue;
         } & {
           [k in SetterName]: Dispatch<SetStateAction<PropValue>>;
