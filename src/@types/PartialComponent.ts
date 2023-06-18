@@ -1,6 +1,6 @@
 import { ComponentProps, ComponentType } from "react";
-import { SimplifyComponentProps } from "./NormalizeObject";
+import { Simplify } from "type-fest";
 
 export type PartialComponent<T extends ComponentType<any>> = ComponentType<
-  SimplifyComponentProps<Partial<ComponentProps<T>>>
+  Simplify<Partial<ComponentProps<T>>>
 >;
