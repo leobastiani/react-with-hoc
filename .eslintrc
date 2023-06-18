@@ -6,6 +6,7 @@
     "plugin:react/jsx-runtime",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:jest/recommended",
     "prettier",
     "plugin:prettier/recommended"
   ],
@@ -14,7 +15,8 @@
     "@typescript-eslint",
     "prettier",
     "react",
-    "react-hooks"
+    "react-hooks",
+    "jest"
   ],
   "rules": {
     "react-hooks/rules-of-hooks": "error",

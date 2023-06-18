@@ -1,5 +1,5 @@
 import { Objects, Pipe, Strings, Tuples, Unions } from "hotscript";
-import { ComponentType, Fragment, FunctionComponent, useMemo } from "react";
+import { ComponentType, FunctionComponent, useMemo } from "react";
 import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
 
@@ -42,8 +42,6 @@ export const withIf = newHoc(function withIf(
     }
   }
 
-  Else ??= Fragment;
-
   return function WithIf(props: any): JSX.Element {
     let condition: boolean;
     if (typeof propNameOrFactory === "string") {
@@ -61,8 +59,11 @@ export const withIf = newHoc(function withIf(
     if (condition) {
       return <Component {...props} />;
     } else {
-      // @ts-expect-error Else is valid
-      return <Else {...props} />;
+      if (Else) {
+        return <Else {...props} />;
+      }
+      // @ts-expect-error null is valid
+      return null;
     }
   };
 }) as WithIfHoc;
