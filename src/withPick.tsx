@@ -1,11 +1,15 @@
-import { Objects } from "hotscript";
+import { Fn } from "hotscript";
 import { ComponentType, FunctionComponent } from "react";
 import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
 
+interface PickFn<Names extends string> extends Fn {
+  return: Pick<this["arg0"], Extract<Names, keyof this["arg0"]>>;
+}
+
 type WithPickHoc = <PickNames extends string>(
   pickNames: PickNames[]
-) => Hoc<Objects.Pick<PickNames>>;
+) => Hoc<PickFn<PickNames>>;
 
 export const withPick = newHoc(function withPick(
   Component: ComponentType,

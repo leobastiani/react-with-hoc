@@ -6,9 +6,10 @@ import { withPick } from "../src/withPick";
   // with empty list
 
   const BeforeHoc: React.FC<{
-    a: string;
-    b: number;
-    c: boolean;
+    ignored: string;
+    ignoredOptional?: number;
+    included: boolean;
+    includedOptional?: symbol;
   }> = undefined as any;
   const AfterHoc = withPick([])(BeforeHoc);
   expectType<FunctionComponent<{}>>(AfterHoc);
@@ -18,11 +19,12 @@ import { withPick } from "../src/withPick";
   // with elements outside of the list
 
   const BeforeHoc: React.FC<{
-    a: string;
-    b: number;
-    c: boolean;
+    ignored: string;
+    ignoredOptional?: number;
+    included: boolean;
+    includedOptional?: symbol;
   }> = undefined as any;
-  const AfterHoc = withPick(["d"])(BeforeHoc);
+  const AfterHoc = withPick(["a", "b", "c"])(BeforeHoc);
   expectType<FunctionComponent<{}>>(AfterHoc);
 }
 
@@ -30,22 +32,38 @@ import { withPick } from "../src/withPick";
   // with elements inside the list
 
   const BeforeHoc: React.FC<{
-    a: string;
-    b: number;
-    c: boolean;
+    ignored: string;
+    ignoredOptional?: number;
+    included: boolean;
+    includedOptional?: symbol;
   }> = undefined as any;
-  const AfterHoc = withPick(["a", "b"])(BeforeHoc);
-  expectType<FunctionComponent<{ a: string; b: number }>>(AfterHoc);
+  const AfterHoc = withPick(["included", "includedOptional"])(BeforeHoc);
+  expectType<
+    FunctionComponent<{ included: boolean; includedOptional?: symbol }>
+  >(AfterHoc);
 }
 
 {
   // with elements inside and outside of the list
 
   const BeforeHoc: React.FC<{
-    a: string;
-    b: number;
-    c: boolean;
+    ignored: string;
+    ignoredOptional?: number;
+    included: boolean;
+    includedOptional?: symbol;
   }> = undefined as any;
-  const AfterHoc = withPick(["a", "b", "d"])(BeforeHoc);
-  expectType<FunctionComponent<{ a: string; b: number }>>(AfterHoc);
+  const AfterHoc = withPick([
+    "ignored",
+    "ignoredOptional",
+    "included",
+    "includedOptional",
+  ])(BeforeHoc);
+  expectType<
+    FunctionComponent<{
+      ignored: string;
+      ignoredOptional?: number;
+      included: boolean;
+      includedOptional?: symbol;
+    }>
+  >(AfterHoc);
 }
