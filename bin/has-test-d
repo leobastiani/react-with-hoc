@@ -7,7 +7,7 @@ for file in "$src_dir"/with*; do
   base_name=$(basename "$file")
   if [[ "$base_name" != *".test."* ]]; then
     with_no_extension="${base_name%%.*}"
-    test_d_file="$test_d_dir/$with_no_extension.test-d.ts"
+    test_d_file="$test_d_dir/$with_no_extension.test-d.tsx"
     if [[ ! -f "$test_d_file" ]]; then
       echo "$with_no_extension ❌"
     else
