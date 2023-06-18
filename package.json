@@ -2,18 +2,6 @@
   "name": "react-new-hoc",
   "version": "0.0.23",
   "description": "Work with React and HOCs (Higher-Order Components)",
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
-  "types": "./dist/esm/index.d.ts",
-  "scripts": {
-    "build": "yarn build:esm && yarn build:cjs",
-    "build:esm": "tsc --project tsconfig.build.json",
-    "build:cjs": "tsc --project tsconfig.build.json --module commonjs --outDir dist/cjs",
-    "clean": "rimraf dist",
-    "prepublishOnly": "yarn clean && yarn test && yarn lint",
-    "lint": "eslint . --max-warnings=0",
-    "test": "jest"
-  },
   "keywords": [
     "react",
     "reactjs",
@@ -24,18 +12,33 @@
     "component",
     "with"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leobastiani/react-new-hoc.git"
+  },
+  "license": "MIT",
   "author": "Leonardo Guarnieri de Bastiani (leogbastiani@gmail.com)",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
   "files": [
     "src",
     "dist",
     "LICENSE",
     "README.md"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/leobastiani/react-new-hoc.git"
+  "scripts": {
+    "build": "yarn build:esm && yarn build:cjs",
+    "build:cjs": "tsc --project tsconfig.build.json --module commonjs --outDir dist/cjs",
+    "build:esm": "tsc --project tsconfig.build.json",
+    "clean": "rimraf dist",
+    "lint": "eslint . --max-warnings=0",
+    "prepublishOnly": "yarn clean && yarn test && yarn lint",
+    "test": "jest"
   },
-  "license": "MIT",
+  "dependencies": {
+    "react-is": "^18.2.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.22.5",
     "@babel/preset-env": "^7.22.5",
@@ -65,7 +68,7 @@
     "type-fest": "^3.12.0",
     "typescript": "^5.1.3"
   },
-  "dependencies": {
-    "react-is": "^18.2.0"
+  "tsd": {
+    "directory": "test-d"
   }
 }

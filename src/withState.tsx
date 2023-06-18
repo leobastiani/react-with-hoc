@@ -6,6 +6,7 @@ import {
   SetStateAction,
   useState,
 } from "react";
+import { PartialBy } from "./@types/PartialBy";
 import { Hoc } from "./Hoc";
 import { camelCase } from "./camelCase";
 import { newHoc } from "./newHoc";
@@ -30,18 +31,23 @@ type WithStateHoc = <
 ) => Hoc<
   ComposeLeft<
     [
-      Objects.Omit<StateName | SetterName>,
       Objects.Assign<
         {
-          [k in StateName]?: PropValue;
+          [k in StateName]: PropValue;
         },
         {
-          [k in SetterName]?: Dispatch<SetStateAction<PropValue>>;
+          [k in SetterName]: Dispatch<SetStateAction<PropValue>>;
         },
         Props
-      >
+      >,
+      PartialBy<StateName | SetterName>
     ]
-  >
+  >,
+  {
+    [k in StateName]: PropValue;
+  } & {
+    [k in SetterName]: Dispatch<SetStateAction<PropValue>>;
+  }
 >;
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
