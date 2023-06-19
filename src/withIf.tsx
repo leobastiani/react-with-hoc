@@ -1,15 +1,23 @@
-import { Objects, Pipe, Strings, Tuples, Unions } from "hotscript";
+import { Fn, Objects, Pipe, Strings, Tuples, Unions } from "hotscript";
 import { ComponentType, FunctionComponent, useMemo } from "react";
 import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
 
+interface WithIfFn<PropName extends string> extends Fn {
+  return: PropName extends keyof this["arg0"]
+    ? this["arg0"]
+    : this["arg0"] & {
+        [K in PropName]: boolean;
+      };
+}
+
 interface WithIfHoc {
-  <Name extends string>(
-    propName: Name,
+  <PropName extends string>(
+    propName: PropName,
     options?: {
       Else?: ComponentType<any>;
     }
-  ): Hoc<Objects.Assign<{ [key in Name]: boolean }>>;
+  ): Hoc<WithIfFn<PropName>>;
 
   <DependencyProps extends {}>(
     factory: (props: DependencyProps) => boolean,
