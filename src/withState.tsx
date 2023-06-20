@@ -6,7 +6,7 @@ import {
   SetStateAction,
   useState,
 } from "react";
-import { AcceptBoth } from "./@types/AcceptBoth";
+import { MergeByIntersection } from "./@types/MergeByIntersection";
 import { PartialBy } from "./@types/PartialBy";
 import { Hoc } from "./Hoc";
 import { camelCase } from "./camelCase";
@@ -32,7 +32,7 @@ type WithStateHoc = <
 ) => Hoc<
   ComposeLeft<
     [
-      AcceptBoth<
+      MergeByIntersection<
         Props & {
           [k in StateName]: PropValue;
         } & {

@@ -81,7 +81,7 @@ it("withStyleObjectStrategy rewritten", () => {
 });
 
 it("withStyleObjectStrategy with style twice", () => {
-  const Component = withHocs(
+  const Component = withHocs([
     withStyleObjectStrategy({
       background: "black",
       borderColor: "white",
@@ -89,8 +89,8 @@ it("withStyleObjectStrategy with style twice", () => {
     withStyleObjectStrategy({
       borderColor: "red",
       display: "block",
-    })
-  )(Example);
+    }),
+  ])(Example);
   render(<Component />);
   expect(document.body.children[0].innerHTML).toBe(
     '<pre>{"style":{"borderColor":"white","display":"block","background":"black"}}</pre>'

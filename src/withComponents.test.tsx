@@ -49,10 +49,10 @@ it("withComponents name", () => {
 });
 
 it("withComponents with default behavior", () => {
-  const Component = withHocs(
+  const Component = withHocs([
     withState<number, "a">("a"),
-    withComponents({ Left, Right })
-  )(Example);
+    withComponents({ Left, Right }),
+  ])(Example);
   render(<Component a={1} b={2} />);
   expect(document.body.children[0].innerHTML).toBe(
     '<pre id="left">{"a":1,"b":2}</pre><pre id="main">{"a":1,"b":2}</pre><pre id="right">{"a":1,"b":2}</pre>'
@@ -60,10 +60,10 @@ it("withComponents with default behavior", () => {
 });
 
 it("withComponents disabled", () => {
-  const Component = withHocs(
+  const Component = withHocs([
     withState<number, "a">("a"),
-    withComponents({ Left, Right })
-  )(Example);
+    withComponents({ Left, Right }),
+  ])(Example);
   render(<Component a={1} b={2} Left={null} />);
   expect(document.body.children[0].innerHTML).toBe(
     '<pre id="main">{"a":1,"b":2}</pre><pre id="right">{"a":1,"b":2,"Left":null}</pre>'
@@ -71,10 +71,10 @@ it("withComponents disabled", () => {
 });
 
 it("withComponents overridden", () => {
-  const Component = withHocs(
+  const Component = withHocs([
     withState<number, "a">("a"),
-    withComponents({ Left, Right })
-  )(Example);
+    withComponents({ Left, Right }),
+  ])(Example);
   render(<Component a={1} b={2} Left={10} />);
   expect(document.body.children[0].innerHTML).toBe(
     '10<pre id="main">{"a":1,"b":2}</pre><pre id="right">{"a":1,"b":2,"Left":10}</pre>'
@@ -82,10 +82,10 @@ it("withComponents overridden", () => {
 });
 
 it("withComponents rerenders when props change", () => {
-  const Component = withHocs(
+  const Component = withHocs([
     withState("a", { init: 1 }),
-    withComponents({ Left, Right })
-  )(Example);
+    withComponents({ Left, Right }),
+  ])(Example);
   render(<Component b={2} />);
   expect(document.body.children[0].innerHTML).toBe(
     '<pre id="left">{"a":1,"b":2}</pre><pre id="main">{"a":1,"b":2}</pre><pre id="right">{"a":1,"b":2}</pre>'
@@ -99,10 +99,10 @@ it("withComponents rerenders when props change", () => {
 });
 
 it("passing a function as an attribute", () => {
-  const Component = withHocs(
+  const Component = withHocs([
     withState<number, "a">("a"),
-    withComponents({ Left, Right })
-  )(Example);
+    withComponents({ Left, Right }),
+  ])(Example);
 
   function Pre(props: object): JSX.Element {
     return <pre>{JSON.stringify(props)}</pre>;

@@ -1,25 +1,26 @@
-import { Fn, Identity, Pipe } from "hotscript";
+import { Call } from "hotscript";
 import { ComponentType, FunctionComponent } from "react";
-import { Simplify } from "type-fest";
 import { Hoc } from "./Hoc";
 
 type WithHocsArg =
   | Hoc<any>
   | ((Component: ComponentType<any>) => ComponentType<any>);
 
-type AsFns<Fns extends WithHocsArg[]> = Fns extends [
-  infer Fn0,
-  ...infer FnsRest extends WithHocsArg[]
+type MyPipe<acc, xs extends readonly WithHocsArg[]> = xs extends readonly [
+  infer first extends WithHocsArg,
+  ...infer rest extends readonly WithHocsArg[]
 ]
-  ? [Fn0 extends Fn ? Fn0 : Identity, ...AsFns<FnsRest>]
-  : [];
+  ? first extends Hoc<infer fn>
+    ? MyPipe<Call<fn, acc>, rest>
+    : MyPipe<acc, rest>
+  : acc;
 
-type WithHocs<Hocs extends WithHocsArg[]> = <Props extends {}>(
+type WithHocs<Hocs extends readonly WithHocsArg[]> = <Props extends {}>(
   Component: ComponentType<Props>
-) => FunctionComponent<Simplify<Pipe<Props, AsFns<Hocs>>>>;
+) => FunctionComponent<MyPipe<Props, Hocs>>;
 
-export function withHocs<Hocs extends WithHocsArg[]>(
-  ...fns: Hocs
+export function withHocs<const Hocs extends readonly WithHocsArg[]>(
+  fns: Hocs
 ): WithHocs<Hocs> {
   return (arg: any) => fns.reduceRight((acc, fn) => fn(acc), arg);
 }

@@ -54,10 +54,9 @@ import { withState } from "../src/withState";
   const AfterHoc = withState<number, "someState">("someState")(BeforeHoc);
   expectType<
     FunctionComponent<{
-      someState?: string | number;
+      someState: never;
       setSomeState?:
-        | React.Dispatch<React.SetStateAction<number>>
-        | React.Dispatch<React.SetStateAction<string>>;
+        | Dispatch<SetStateAction<string>> & Dispatch<SetStateAction<number>>;
       oldProp: string;
       oldPropOptional?: symbol;
     }>
@@ -86,17 +85,18 @@ import { withState } from "../src/withState";
   })(BeforeHoc);
   expectType<
     FunctionComponent<{
-      nonConflictProp: string;
-      nonConflictPropOptional?: symbol | undefined;
       newProp: symbol;
+      nonConflictProp: string;
+      nonConflictPropOptional?: symbol;
+
+      conflictPropSameRequirement: never;
+      conflictPropOptionalSameRequirement?: undefined;
+
+      conflictProp: never;
+      conflictPropOptional: never;
+
       someState?: number;
       setSomeState?: Dispatch<SetStateAction<number>>;
-
-      conflictPropSameRequirement: number | string;
-      conflictPropOptionalSameRequirement?: boolean | symbol;
-
-      conflictProp?: boolean | symbol;
-      conflictPropOptional: number | object;
     }>
   >(AfterHoc);
 }
