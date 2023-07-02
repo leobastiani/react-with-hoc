@@ -26,5 +26,6 @@
     "**/.parcel-cache": true,
     "**/dist": true,
     "**/coverage": true
-  }
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
