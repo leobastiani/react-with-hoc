@@ -1,28 +1,23 @@
-import { ComponentType } from "react";
-import { Config, Hoc } from "./Hoc";
+import { Call } from "hotscript";
+import { ComponentType, FunctionComponent } from "react";
+import { Hoc } from "./Hoc";
 
 type WithHocsArg =
   | Hoc<any>
   | ((Component: ComponentType<any>) => ComponentType<any>);
 
-type Pipe<
-  xs extends readonly WithHocsArg[],
-  acc extends Config = {
-    optional: never;
-  }
-> = xs extends readonly [
+type MyPipe<acc, xs extends readonly WithHocsArg[]> = xs extends readonly [
   infer first extends WithHocsArg,
   ...infer rest extends readonly WithHocsArg[]
 ]
-  ? first extends Hoc<infer config>
-    ? Pipe<rest, acc | config>
-    : acc
+  ? first extends Hoc<infer fn>
+    ? MyPipe<Call<fn, acc>, rest>
+    : MyPipe<acc, rest>
   : acc;
 
-// prettier-ignore
-type WithHocs<Hocs extends readonly WithHocsArg[]> =
-  (...args: any) => Pipe<Hocs>
-// Hoc<Pipe<Hocs>>;
+type WithHocs<Hocs extends readonly WithHocsArg[]> = <Props extends {}>(
+  Component: ComponentType<Props>
+) => FunctionComponent<MyPipe<Props, Hocs>>;
 
 export function withHocs<const Hocs extends readonly WithHocsArg[]>(
   fns: Hocs
