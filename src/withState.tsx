@@ -1,6 +1,14 @@
-import { Call, Strings } from "hotscript";
-import { ComponentType, FunctionComponent, useState } from "react";
-import { Hoc } from "./HocConfig";
+import { Call, ComposeLeft, Strings } from "hotscript";
+import {
+  ComponentType,
+  Dispatch,
+  FunctionComponent,
+  SetStateAction,
+  useState,
+} from "react";
+import { MergeByIntersection } from "./@types/MergeByIntersection";
+import { PartialBy } from "./@types/PartialBy";
+import { Hoc } from "./Hoc";
 import { camelCase } from "./camelCase";
 import { newHoc } from "./newHoc";
 
@@ -21,7 +29,20 @@ type WithStateHoc = <
     init?: Exclude<PropValue, Function> | ((props: Props) => PropValue);
     setterName?: SetterName;
   }
-) => Hoc<{}, { a: number }, never, never, never>;
+) => Hoc<
+  ComposeLeft<
+    [
+      MergeByIntersection<
+        Props & {
+          [k in StateName]: PropValue;
+        } & {
+          [k in SetterName]: Dispatch<SetStateAction<PropValue>>;
+        }
+      >,
+      PartialBy<StateName | SetterName>
+    ]
+  >
+>;
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 function noop(): void {}
