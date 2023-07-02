@@ -1,24 +1,18 @@
-import { Call, ComposeLeft, Strings } from "hotscript";
-import {
-  ComponentType,
-  Dispatch,
-  FunctionComponent,
-  SetStateAction,
-  useState,
-} from "react";
-import { MergeByIntersection } from "./@types/MergeByIntersection";
-import { PartialBy } from "./@types/PartialBy";
+import { ComponentType, FunctionComponent, useState } from "react";
+import { CamelCase } from "type-fest";
+import { Fn } from "./@types/Fn";
 import { Hoc } from "./Hoc";
 import { camelCase } from "./camelCase";
 import { newHoc } from "./newHoc";
 
+interface OmitFn extends Fn {
+  return: this["arg0"];
+}
+
 type WithStateHoc = <
   PropValue,
   StateName extends string,
-  SetterName extends string = Extract<
-    Call<Strings.CamelCase, `set_${StateName}`>,
-    string
-  >,
+  SetterName extends string = CamelCase<`set_${StateName}`>,
   Props extends {} = {}
 >(
   stateName: StateName,
@@ -29,20 +23,9 @@ type WithStateHoc = <
     init?: Exclude<PropValue, Function> | ((props: Props) => PropValue);
     setterName?: SetterName;
   }
-) => Hoc<
-  ComposeLeft<
-    [
-      MergeByIntersection<
-        Props & {
-          [k in StateName]: PropValue;
-        } & {
-          [k in SetterName]: Dispatch<SetStateAction<PropValue>>;
-        }
-      >,
-      PartialBy<StateName | SetterName>
-    ]
-  >
->;
+) => Hoc<{
+  optional: StateName | SetterName;
+}>;
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 function noop(): void {}
