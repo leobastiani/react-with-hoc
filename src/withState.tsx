@@ -1,4 +1,4 @@
-import { Call, ComposeLeft, Strings } from "hotscript";
+import { Call, Strings } from "hotscript";
 import {
   ComponentType,
   Dispatch,
@@ -6,8 +6,7 @@ import {
   SetStateAction,
   useState,
 } from "react";
-import { MergeByIntersection } from "./@types/MergeByIntersection";
-import { PartialBy } from "./@types/PartialBy";
+import { IntersectionFn, IntersectionObjectFn, UnionFn } from "./Fn";
 import { Hoc } from "./Hoc";
 import { camelCase } from "./camelCase";
 import { newHoc } from "./newHoc";
@@ -30,18 +29,13 @@ type WithStateHoc = <
     setterName?: SetterName;
   }
 ) => Hoc<
-  ComposeLeft<
-    [
-      MergeByIntersection<
-        Props & {
-          [k in StateName]: PropValue;
-        } & {
-          [k in SetterName]: Dispatch<SetStateAction<PropValue>>;
-        }
-      >,
-      PartialBy<StateName | SetterName>
-    ]
-  >
+  [
+    IntersectionObjectFn<Props>,
+    IntersectionFn<StateName, PropValue>,
+    IntersectionFn<SetterName, Dispatch<SetStateAction<PropValue>>>,
+    UnionFn<StateName, undefined>,
+    UnionFn<SetterName, undefined>
+  ]
 >;
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function

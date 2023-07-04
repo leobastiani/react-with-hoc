@@ -1,7 +1,7 @@
-import { Call, Fn } from "hotscript";
 import { ComponentType, FunctionComponent } from "react";
 import { Simplify } from "type-fest";
+import { Fn, Pipe } from "./Fn";
 
-export type Hoc<FnApplier extends Fn> = <Props extends {}>(
+export type Hoc<Fns extends Fn[]> = <Props extends {}>(
   Component: ComponentType<Props>
-) => FunctionComponent<Simplify<Call<FnApplier, Props>>>;
+) => FunctionComponent<Simplify<Pipe<Props, Fns>>>;
