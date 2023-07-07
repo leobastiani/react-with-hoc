@@ -1,4 +1,3 @@
-import { Call, Strings } from "hotscript";
 import { ComponentType, FunctionComponent, useState } from "react";
 import { IntersectionFn, IntersectionObjectFn, SetOptionalFn } from "./Fn";
 import { Hoc } from "./Hoc";
@@ -8,10 +7,7 @@ import { newHoc } from "./newHoc";
 type WithStateHoc = <
   PropValue,
   StateName extends string,
-  SetterName extends string = Extract<
-    Call<Strings.CamelCase, `set_${StateName}`>,
-    string
-  >,
+  SetterName extends string = `set${Capitalize<StateName>}`,
   Props extends {} = {}
 >(
   stateName: StateName,

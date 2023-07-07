@@ -1,5 +1,5 @@
-import { Fn } from "hotscript";
 import { ComponentType } from "react";
+import { Fn } from "./Fn";
 import { Hoc } from "./Hoc";
 
 type WithHocsArg =
