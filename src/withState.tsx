@@ -1,6 +1,7 @@
 import { Call, Strings } from "hotscript";
 import { ComponentType, FunctionComponent, useState } from "react";
 import { IntersectionFn } from "./Fn";
+import { Hoc } from "./Hoc";
 import { camelCase } from "./camelCase";
 import { newHoc } from "./newHoc";
 
@@ -21,7 +22,15 @@ type WithStateHoc = <
     init?: Exclude<PropValue, Function> | ((props: Props) => PropValue);
     setterName?: SetterName;
   }
-) => IntersectionFn<StateName, PropValue>;
+) => Hoc<
+  [
+    // IntersectionObjectFn<Props>,
+    IntersectionFn<StateName, PropValue>
+    // IntersectionFn<SetterName, Dispatch<SetStateAction<PropValue>>>,
+    // UnionFn<StateName, undefined>,
+    // UnionFn<SetterName, undefined>
+  ]
+>;
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 function noop(): void {}

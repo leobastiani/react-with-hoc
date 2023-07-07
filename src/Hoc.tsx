@@ -1,7 +1,6 @@
-import { Fn, Pipe } from "hotscript";
 import { ComponentType } from "react";
-import { FromSchema, ToSchema } from "./Fn";
+import { Fn, FromSchema, Pipe, ToSchema } from "./Fn";
 
-export type Hoc<Fns extends Fn[]> = <Props extends {}, TFns extends Fn[] = Fns>(
+export type Hoc<Fns extends Fn[]> = <Props extends {}>(
   Component: ComponentType<Props>
-) => FromSchema<Extract<Pipe<ToSchema<Props>, TFns>, [string, any]>>;
+) => FromSchema<Extract<Pipe<ToSchema<Props>, Fns>, [string, any]>>;

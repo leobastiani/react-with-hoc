@@ -1,19 +1,18 @@
-import { Call, Fn } from "hotscript";
 import { Simplify } from "type-fest";
 
-// export interface Fn {
-//   arg0: unknown;
-//   return: any;
-// }
+export interface Fn {
+  arg0: unknown;
+  return: any;
+}
 
-// export type Call<MyFn extends Fn, T> = (MyFn & { arg0: T })["return"];
+export type Call<MyFn extends Fn, T> = (MyFn & { arg0: T })["return"];
 
-// export type Pipe<acc, xs extends readonly Fn[]> = xs extends [
-//   infer first extends Fn,
-//   ...infer rest extends readonly Fn[]
-// ]
-//   ? Pipe<Call<first, acc>, rest>
-//   : acc;
+export type Pipe<acc, xs extends Fn[]> = xs extends [
+  infer first extends Fn,
+  ...infer rest extends Fn[]
+]
+  ? Pipe<Call<first, acc>, rest>
+  : acc;
 
 export interface IntersectionObjectFn<MyObject> extends Fn {
   return: [keyof MyObject] extends [never]
