@@ -12,16 +12,11 @@ type WithHocsFlat<
 > = Hocs extends [infer first, ...infer rest extends WithHocsArg[]]
   ? first extends Hoc<infer Fns extends Fn[]>
     ? WithHocsFlat<rest, [...Acc, ...Fns]>
-    : Acc
+    : WithHocsFlat<rest, Acc>
   : Acc;
-
-// prettier-ignore
-type WithHocs<Hocs extends WithHocsArg[]> =
-// (...args: any[]) =>
-Hoc<WithHocsFlat<Hocs>>;
 
 export function withHocs<const Hocs extends readonly WithHocsArg[]>(
   fns: Hocs
-): WithHocs<[...Hocs]> {
+): Hoc<WithHocsFlat<[...Hocs]>> {
   return (arg: any) => fns.reduceRight((acc, fn) => fn(acc), arg);
 }

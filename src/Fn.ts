@@ -1,4 +1,4 @@
-import { Fn, Call } from "hotscript";
+import { Call, Fn } from "hotscript";
 import { Simplify } from "type-fest";
 
 // export interface Fn {
@@ -15,18 +15,16 @@ import { Simplify } from "type-fest";
 //   ? Pipe<Call<first, acc>, rest>
 //   : acc;
 
-export interface IntersectionObjectFn<MyObject> extends Fn {
-  return: [keyof MyObject] extends [never]
-    ? this["arg0"]
-    : {
-        [Name in
-          | Extract<this["arg0"], any[]>[0]
-          | keyof MyObject]: Name extends Extract<this["arg0"], any[]>[0]
-          ? Name extends keyof MyObject
-            ? [Name, MyObject[Name] & Extract<this["arg0"], [Name, any]>[1]]
-            : Extract<this["arg0"], [Name, any]>
-          : [Name, MyObject[Name]];
-      }[Extract<this["arg0"], any[]>[0] | keyof MyObject];
+export interface IntersectionObjectFn<MyObject extends {}> extends Fn {
+  return: {
+    [Name in
+      | Extract<this["arg0"], any[]>[0]
+      | keyof MyObject]: Name extends Extract<this["arg0"], any[]>[0]
+      ? Name extends keyof MyObject
+        ? [Name, MyObject[Name] & Extract<this["arg0"], [Name, any]>[1]]
+        : Extract<this["arg0"], [Name, any]>
+      : [Name, MyObject[Name]];
+  }[Extract<this["arg0"], any[]>[0] | keyof MyObject];
 }
 
 export interface OmitFn<Name extends string> extends Fn {
@@ -45,8 +43,8 @@ export interface IntersectionFn<Name extends string, MyType> extends Fn {
     : this["arg0"] | [Name, MyType];
 }
 
-export interface UnionFn<Name extends string, MyType> extends Fn {
-  return: this["arg0"] | [Name, MyType];
+export interface UnionFn<T extends [string, any]> extends Fn {
+  return: this["arg0"] | T;
 }
 
 export interface ReplaceFn<Name extends string, MyType> extends Fn {
