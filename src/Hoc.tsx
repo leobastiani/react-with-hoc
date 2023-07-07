@@ -1,6 +1,11 @@
+import { Fn, Pipe } from "hotscript";
 import { ComponentType } from "react";
-import { Fn, FromSchema, Pipe, ToSchema } from "./Fn";
+import { FromSchema, ToSchema } from "./Fn";
 
-export type Hoc<Fns extends Fn[]> = <Props extends {}>(
+export type Hoc<TFns extends Fn[]> = <
+  Props extends {},
+  // without would trigger Type instantiation is excessively deep and possibly infinite
+  Fns extends Fn[] = TFns
+>(
   Component: ComponentType<Props>
 ) => FromSchema<Extract<Pipe<ToSchema<Props>, Fns>, [string, any]>>;

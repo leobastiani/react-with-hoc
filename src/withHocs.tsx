@@ -1,5 +1,5 @@
+import { Fn } from "hotscript";
 import { ComponentType } from "react";
-import { Fn } from "./Fn";
 import { Hoc } from "./Hoc";
 
 type WithHocsArg =
@@ -19,12 +19,12 @@ type WithHocsFlat<
   : Acc;
 
 // prettier-ignore
-type WithHocs<Hocs extends readonly WithHocsArg[]> =
+type WithHocs<Hocs extends Fn[]> =
 // (...args: any[]) =>
-Hoc<WithHocsFlat<Hocs>>;
+Hoc<Hocs>;
 
-export function withHocs<const Hocs extends readonly WithHocsArg[]>(
+export function withHocs<const Hocs extends readonly Fn[]>(
   fns: Hocs
-): WithHocs<Hocs> {
+): WithHocs<[...Hocs]> {
   return (arg: any) => fns.reduceRight((acc, fn) => fn(acc), arg);
 }
