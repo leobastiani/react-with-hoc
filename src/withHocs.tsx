@@ -19,11 +19,11 @@ type WithHocsFlat<
   : Acc;
 
 // prettier-ignore
-type WithHocs<Hocs extends readonly WithHocsArg[]> =
+type WithHocs<Hocs extends readonly Fn[]> =
 // (...args: any[]) =>
-Hoc<WithHocsFlat<Hocs>>;
+Hoc<Hocs>;
 
-export function withHocs<const Hocs extends readonly WithHocsArg[]>(
+export function withHocs<const Hocs extends readonly Fn[]>(
   fns: Hocs
 ): WithHocs<Hocs> {
   return (arg: any) => fns.reduceRight((acc, fn) => fn(acc), arg);
