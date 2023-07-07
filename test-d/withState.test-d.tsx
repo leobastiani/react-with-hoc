@@ -55,10 +55,10 @@ import { withState } from "../src/withState";
   expectType<
     FunctionComponent<{
       someState: never;
-      setSomeState?:
-        | Dispatch<SetStateAction<string>> & Dispatch<SetStateAction<number>>;
+      setSomeState?: Dispatch<SetStateAction<number>> &
+        Dispatch<SetStateAction<string>>;
       oldProp: string;
-      oldPropOptional?: symbol;
+      oldPropOptional?: symbol | undefined;
     }>
   >(AfterHoc);
 }
@@ -73,6 +73,7 @@ import { withState } from "../src/withState";
     conflictPropOptionalSameRequirement?: boolean;
     conflictProp: symbol;
     conflictPropOptional?: object;
+    someState: number;
   }> = undefined as any;
   const AfterHoc = withState("someState", {
     init: (_props: {
@@ -81,6 +82,7 @@ import { withState } from "../src/withState";
       conflictPropOptionalSameRequirement?: symbol;
       conflictProp?: boolean;
       conflictPropOptional: number;
+      someState: string;
     }) => 0 as number,
   })(BeforeHoc);
   expectType<
@@ -95,7 +97,7 @@ import { withState } from "../src/withState";
       conflictProp: never;
       conflictPropOptional: never;
 
-      someState?: number;
+      someState: never;
       setSomeState?: Dispatch<SetStateAction<number>>;
     }>
   >(AfterHoc);

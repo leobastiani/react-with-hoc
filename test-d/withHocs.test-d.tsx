@@ -13,10 +13,10 @@ import { withState } from "../src/withState";
     setSomeStateTwo: React.Dispatch<React.SetStateAction<number>>;
     oldProp: string;
   }> = undefined as any;
-  const AfterHoc = withHocs([
+  const AfterHoc = withHocs(
     withState<number, "someStateOne">("someStateOne"),
-    withState<number, "someStateTwo">("someStateTwo"),
-  ])(BeforeHoc);
+    withState<number, "someStateTwo">("someStateTwo")
+  )(BeforeHoc);
   expectType<
     FunctionComponent<{
       oldProp: string;
@@ -40,12 +40,12 @@ import { withState } from "../src/withState";
   }> = undefined as any;
   const withNotStdHoc: (Component: ComponentType<any>) => ComponentType<any> =
     undefined as any;
-  const AfterHoc = withHocs([
+  const AfterHoc = withHocs(
     withState<number, "someStateOne">("someStateOne"),
     withState<number, "someStateTwo">("someStateTwo"),
     withNotStdHoc,
-    withHocs([withState<number, "someStateThree">("someStateThree")]),
-  ])(BeforeHoc);
+    withHocs(withState<number, "someStateThree">("someStateThree"))
+  )(BeforeHoc);
   expectType<
     FunctionComponent<{
       someStateOne?: number;
