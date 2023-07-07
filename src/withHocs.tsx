@@ -16,7 +16,7 @@ type WithHocsFlat<
   : Acc;
 
 export function withHocs<const Hocs extends readonly WithHocsArg[]>(
-  ...fns: Hocs
+  fns: Hocs
 ): Hoc<WithHocsFlat<[...Hocs]>> {
   return (arg: any) => fns.reduceRight((acc, fn) => fn(acc), arg);
 }
