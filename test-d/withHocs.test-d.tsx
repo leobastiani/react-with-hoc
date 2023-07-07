@@ -16,6 +16,25 @@ import { withState } from "../src/withState";
   const AfterHoc = withHocs([
     withState<number, "someStateOne">("someStateOne"),
     withState<number, "someStateTwo">("someStateTwo"),
+    withState<number, "someStateTwo">("someStateTwo"),
+    withState<number, "someStateTwo">("someStateTwo"),
+    withState<number, "someStateTwo">("someStateTwo"),
+    withState<number, "someStateTwo">("someStateTwo"),
+    withState<number, "someStateTwo">("someStateTwo"),
+    withState<number, "someStateTwo">("someStateTwo"),
+    withState<number, "someStateTwo">("someStateTwo"),
+    withState<number, "someStateTwo">("someStateTwo"),
+    withState<number, "someStateTwo">("someStateTwo"),
+    withState<number, "someStateTwo">("someStateTwo"),
+    withState<number, "someStateTwo">("someStateTwo"),
+    withState<number, "someStateTwo">("someStateTwo"),
+    withState<number, "someStateTwo">("someStateTwo"),
+    withState<number, "someStateTwo">("someStateTwo"),
+    withState<number, "someStateTwo">("someStateTwo"),
+    withState<number, "someStateTwo">("someStateTwo"),
+    withState<number, "someStateTwo">("someStateTwo"),
+    withState<number, "someStateTwo">("someStateTwo"),
+    withState<number, "someStateTwo">("someStateTwo"),
   ])(BeforeHoc);
   expectType<
     FunctionComponent<{

@@ -1,12 +1,6 @@
 import { Call, Strings } from "hotscript";
-import {
-  ComponentType,
-  Dispatch,
-  FunctionComponent,
-  SetStateAction,
-  useState,
-} from "react";
-import { IntersectionFn, IntersectionObjectFn, UnionFn } from "./Fn";
+import { ComponentType, FunctionComponent, useState } from "react";
+import { IntersectionFn } from "./Fn";
 import { Hoc } from "./Hoc";
 import { camelCase } from "./camelCase";
 import { newHoc } from "./newHoc";
@@ -30,11 +24,11 @@ type WithStateHoc = <
   }
 ) => Hoc<
   [
-    IntersectionObjectFn<Props>,
-    IntersectionFn<StateName, PropValue>,
-    IntersectionFn<SetterName, Dispatch<SetStateAction<PropValue>>>,
-    UnionFn<StateName, undefined>,
-    UnionFn<SetterName, undefined>
+    // IntersectionObjectFn<Props>,
+    IntersectionFn<StateName, PropValue>
+    // IntersectionFn<SetterName, Dispatch<SetStateAction<PropValue>>>,
+    // UnionFn<StateName, undefined>,
+    // UnionFn<SetterName, undefined>
   ]
 >;
 

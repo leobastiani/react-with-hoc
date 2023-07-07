@@ -1,7 +1,6 @@
-import { ComponentType, FunctionComponent } from "react";
-import { Simplify } from "type-fest";
-import { Fn, Pipe } from "./Fn";
+import { ComponentType } from "react";
+import { Fn, FromSchema, Pipe, ToSchema } from "./Fn";
 
 export type Hoc<Fns extends Fn[]> = <Props extends {}>(
   Component: ComponentType<Props>
-) => FunctionComponent<Simplify<Pipe<Props, Fns>>>;
+) => FromSchema<Extract<Pipe<ToSchema<Props>, Fns>, [string, any]>>;

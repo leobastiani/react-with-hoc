@@ -14,23 +14,18 @@ export type Pipe<acc, xs extends Fn[]> = xs extends [
   ? Pipe<Call<first, acc>, rest>
   : acc;
 
-export interface IntersectionObjectFn<
-  MyObject,
-  MySchema extends [string, any] = Extract<ToSchema<MyObject>, [string, any]>
-> extends Fn {
-  return: {
-    [Name in
-      | Extract<this["arg0"], any[]>[0]
-      | MySchema[0]]: Name extends Extract<this["arg0"], any[]>[0]
-      ? Name extends MySchema[0]
-        ? [
-            Name,
-            Extract<MySchema, [Name, any]>[1] &
-              Extract<this["arg0"], [Name, any]>[1]
-          ]
-        : Extract<this["arg0"], [Name, any]>
-      : Extract<MySchema, [Name, any]>;
-  }[Extract<this["arg0"], any[]>[0] | MySchema[0]];
+export interface IntersectionObjectFn<MyObject> extends Fn {
+  return: [keyof MyObject] extends [never]
+    ? this["arg0"]
+    : {
+        [Name in
+          | Extract<this["arg0"], any[]>[0]
+          | keyof MyObject]: Name extends Extract<this["arg0"], any[]>[0]
+          ? Name extends keyof MyObject
+            ? [Name, MyObject[Name] & Extract<this["arg0"], [Name, any]>[1]]
+            : Extract<this["arg0"], [Name, any]>
+          : [Name, MyObject[Name]];
+      }[Extract<this["arg0"], any[]>[0] | keyof MyObject];
 }
 
 export interface OmitFn<Name extends string> extends Fn {
