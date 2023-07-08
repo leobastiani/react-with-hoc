@@ -1,15 +1,8 @@
-import { Fn, Objects, Pipe, Strings, Tuples, Unions } from "hotscript";
+import { Objects, Pipe, Strings, Tuples, Unions } from "hotscript";
 import { ComponentType, FunctionComponent, useMemo } from "react";
+import { IntersectionFn, IntersectionObjectFn } from "./Fn";
 import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
-
-interface WithIfFn<PropName extends string> extends Fn {
-  return: PropName extends keyof this["arg0"]
-    ? this["arg0"]
-    : this["arg0"] & {
-        [K in PropName]: boolean;
-      };
-}
 
 interface WithIfHoc {
   <PropName extends string>(
@@ -17,7 +10,7 @@ interface WithIfHoc {
     options?: {
       Else?: ComponentType<any>;
     }
-  ): Hoc<WithIfFn<PropName>>;
+  ): Hoc<[IntersectionFn<PropName, boolean>]>;
 
   <DependencyProps extends {}>(
     factory: (props: DependencyProps) => boolean,
@@ -28,7 +21,11 @@ interface WithIfHoc {
         [Objects.Keys, Unions.ToTuple, Tuples.Sort<Strings.LessThan>]
       >;
     }
-  ): Hoc<Objects.Assign<DependencyProps>>;
+  ): Hoc<
+    [keyof DependencyProps] extends [never]
+      ? []
+      : [IntersectionObjectFn<DependencyProps>]
+  >;
 }
 
 export const withIf = newHoc(function withIf(

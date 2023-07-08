@@ -22,7 +22,7 @@ type WithStateHoc = <
   [
     IntersectionFn<StateName, PropValue>,
     IntersectionFn<SetterName, React.Dispatch<React.SetStateAction<PropValue>>>,
-    SetOptionalFn<[StateName, SetterName]>,
+    SetOptionalFn<StateName | SetterName>,
     ...([keyof Props] extends [never] ? [] : [IntersectionObjectFn<Props>])
   ]
 >;

@@ -1,6 +1,5 @@
 import { ComponentType, FunctionComponent, Key } from "react";
-import { IsLiteral } from "type-fest";
-import { PartialBy } from "./@types/PartialBy";
+import { SetOptionalFn } from "./Fn";
 import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
 
@@ -15,10 +14,12 @@ interface WithForEachHoc {
     target: number | Array<unknown> | object,
     options?: Options<IndexName, ValueName>
   ): Hoc<
-    PartialBy<
-      | (IsLiteral<IndexName> extends true ? IndexName : "i")
-      | (IsLiteral<ValueName> extends true ? ValueName : "children")
-    >
+    [
+      SetOptionalFn<
+        | ([IndexName & ""] extends [never] ? IndexName : "i")
+        | ([ValueName & ""] extends [never] ? ValueName : "children")
+      >
+    ]
   >;
 }
 

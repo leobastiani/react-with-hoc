@@ -1,23 +1,23 @@
-import { Fn } from "hotscript";
 import { ComponentType, FunctionComponent, useMemo } from "react";
 import { WithComponent } from "./@types/WithComponent";
+import { ReplaceFn } from "./Fn";
 import { Hoc } from "./Hoc";
 import { componentDisplayName } from "./componentDisplayName";
 import { newHoc } from "./newHoc";
 import { getTargetByProps, withComponent } from "./withComponent";
-
-interface Merge<T extends Record<any, any>> extends Fn {
-  return: Omit<this["arg0"], keyof T> & T;
-}
 
 interface WithComponentsHoc {
   <Map extends Record<string, ComponentType<any>>>(
     components: Map,
     options?: Parameters<typeof withComponent>[2]
   ): Hoc<
-    Merge<{
-      [K in keyof Map]?: WithComponent<Map[K]>;
-    }>
+    [
+      ReplaceFn<
+        {
+          [K in keyof Map]: [K, WithComponent<Map[K]> | undefined];
+        }[keyof Map]
+      >
+    ]
   >;
 }
 

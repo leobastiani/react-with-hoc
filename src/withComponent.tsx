@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { ComposeLeft, Objects } from "hotscript";
 import { ComponentType, Fragment, FunctionComponent, useMemo } from "react";
 import { isElement } from "react-is";
-import { PartialBy } from "./@types/PartialBy";
 import { PartialComponent } from "./@types/PartialComponent";
 import { WithComponent } from "./@types/WithComponent";
+import { ReplaceFn } from "./Fn";
 import { Hoc } from "./Hoc";
 import { componentDisplayName } from "./componentDisplayName";
 import { newHoc } from "./newHoc";
@@ -20,17 +19,19 @@ type WithComponentHoc = <
     | { omit?: string[] }
   )
 ) => Hoc<
-  ComposeLeft<
-    [
-      Objects.Update<
+  [
+    ReplaceFn<
+      [
         Name,
-        WithComponent<
-          TargetComponent extends ComponentType<infer P> ? P : never
-        >
-      >,
-      PartialBy<Name>
-    ]
-  >
+        (
+          | WithComponent<
+              TargetComponent extends ComponentType<infer P> ? P : never
+            >
+          | undefined
+        )
+      ]
+    >
+  ]
 >;
 
 function parsePropsByPick(props: any, pick: Set<string>): any {

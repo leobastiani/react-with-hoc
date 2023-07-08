@@ -46,21 +46,19 @@ export interface UnionFn<T extends [string, any]> extends Fn {
   return: this["arg0"] | T;
 }
 
-export interface SetOptionalFn<Names extends string[]> extends Fn {
+export interface SetOptionalFn<Names extends string> extends Fn {
   return:
     | this["arg0"]
     | {
-        [K in Names[number]]: [
+        [K in Extract<this["arg0"], any[] | [string, never]>[0] & Names]: [
           K,
           Call<PickFn<K>, this["arg0"]> extends [K, never] ? never : undefined
         ];
-      }[Names[number]];
+      }[Extract<this["arg0"], any[] | [string, never]>[0] & Names];
 }
 
-export interface ReplaceFn<Name extends string, MyType> extends Fn {
-  return: Name extends Extract<this["arg0"], Array<any>>[0]
-    ? Exclude<this["arg0"], [Name, any]> | [Name, MyType]
-    : this["arg0"] | [Name, MyType];
+export interface ReplaceFn<Props extends [any, any]> extends Fn {
+  return: Exclude<this["arg0"], [Props[0], any]> | Props;
 }
 
 export type PartialOnUndefined<T> = {
