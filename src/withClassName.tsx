@@ -1,5 +1,5 @@
-import { ComposeLeft, Fn, Objects } from "hotscript";
 import { ComponentType, FunctionComponent } from "react";
+import { IntersectionFn, KeepNeversFn, ReplaceFn, ToSchema } from "./Fn";
 import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
 
@@ -8,19 +8,12 @@ type ClassNameArg<DependencyProps extends {}> =
   | ((props: DependencyProps) => string | string[])
   | (string | ((props: DependencyProps) => string | string[]))[];
 
-// https://github.com/gvergnaud/hotscript/issues/103
-interface OmitFn<Names extends string> extends Fn {
-  return: Omit<this["arg0"], Names>;
-}
-
 interface WithClassNameHoc {
   <DependencyProps extends {}>(className?: ClassNameArg<DependencyProps>): Hoc<
-    ComposeLeft<
-      [
-        OmitFn<"className">,
-        Objects.Assign<DependencyProps & { className?: string | string[] }>
-      ]
-    >
+    [
+      IntersectionFn<ToSchema<DependencyProps>>,
+      KeepNeversFn<ReplaceFn<["className", string | string[] | undefined]>>
+    ]
   >;
 }
 

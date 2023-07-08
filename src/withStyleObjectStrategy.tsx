@@ -1,25 +1,25 @@
-import { ComposeLeft, Objects, Pipe, Strings, Tuples, Unions } from "hotscript";
 import {
   CSSProperties,
   ComponentType,
   FunctionComponent,
   useMemo,
 } from "react";
-import { PartialBy } from "./@types/PartialBy";
+import { DependencyNames } from "./DependencyNames";
+import { IntersectionFn, SetOptionalFn, ToSchema } from "./Fn";
 import { Hoc } from "./Hoc";
 import { createHocNameFunction } from "./hocNameForWithStyle";
 import { newHoc } from "./newHoc";
 
 interface WithStyleObjectStrategyHoc {
-  (value: CSSProperties): Hoc<ComposeLeft<[PartialBy<"style">]>>;
+  (value: CSSProperties): Hoc<[SetOptionalFn<"style">]>;
 
-  <DependencyProps extends {}>(
+  <
+    DependencyProps extends {},
+    TDependencyNames extends DependencyNames<DependencyProps> = DependencyNames<DependencyProps>
+  >(
     factory: (props: DependencyProps) => CSSProperties,
-    dependencyNames: Pipe<
-      DependencyProps,
-      [Objects.Keys, Unions.ToTuple, Tuples.Sort<Strings.LessThan>]
-    >
-  ): Hoc<ComposeLeft<[Objects.Assign<DependencyProps>, PartialBy<"style">]>>;
+    dependencyNames: TDependencyNames
+  ): Hoc<[IntersectionFn<ToSchema<DependencyProps>>, SetOptionalFn<"style">]>;
 }
 
 export const withStyleObjectStrategy = newHoc(

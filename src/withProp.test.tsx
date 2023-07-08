@@ -80,13 +80,13 @@ it("withProp rewritten", () => {
 it("withProp rewritten with different type", () => {
   const Component = withProp(
     "someProp",
-    ({ someProp }: { someProp?: string }) => {
+    ({ someProp }: { someProp?: string; x?: number }) => {
       if (typeof someProp !== "string") {
         throw new Error("it should be a string");
       }
       return parseInt(someProp) + 10;
     },
-    ["someProp"]
+    ["someProp", "x"]
   )(Example);
   render(<Component someProp="20" />);
   expect(document.body.children[0].innerHTML).toBe(

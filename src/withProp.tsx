@@ -1,5 +1,5 @@
-import { Objects, Pipe, Strings, Tuples, Unions } from "hotscript";
 import { ComponentType, FunctionComponent, useMemo } from "react";
+import { DependencyNames } from "./DependencyNames";
 import {
   IntersectionFn,
   KeepNeversFn,
@@ -9,11 +9,6 @@ import {
 } from "./Fn";
 import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
-
-type DependencyNames<T> = Pipe<
-  T,
-  [Objects.Keys, Unions.ToTuple, Tuples.Sort<Strings.LessThan>]
->;
 
 interface WithPropHoc {
   <PropValue, PropName extends string>(
