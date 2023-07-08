@@ -17,7 +17,7 @@ it("withSpread name", () => {
 });
 
 it("withSpread", () => {
-  const Component = withSpread<"obj", Pick<ExampleProps, "a">>("obj")(Example);
+  const Component = withSpread<"obj", "a">("obj")(Example);
   render(
     <Component
       obj={{

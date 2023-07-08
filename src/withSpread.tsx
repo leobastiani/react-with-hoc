@@ -1,24 +1,19 @@
-import { Fn } from "hotscript";
 import { ComponentType, FunctionComponent } from "react";
-import { RequiredKeysOf, SetOptional, Simplify } from "type-fest";
+import { Call, Fn, FromSchema, IntersectionFn, SetOptionalFn } from "./Fn";
 import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
 
-interface WithSpreadFn<PropName extends string, Object extends {}> extends Fn {
-  return: {
-    [K in PropName]: Simplify<
-      Pick<Object, Extract<keyof this["arg0"], keyof Object>> &
-        Pick<this["arg0"], Extract<keyof this["arg0"], keyof Object>>
-    >;
-  } & SetOptional<
-    this["arg0"],
-    Extract<keyof this["arg0"], RequiredKeysOf<Object>>
+interface WithSpreadFn<PropName extends string, Names extends string>
+  extends Fn {
+  return: Call<
+    IntersectionFn<[PropName, FromSchema<Extract<this["arg0"], [Names, any]>>]>,
+    this["arg0"]
   >;
 }
 
 interface WithSpreadHoc {
-  <PropName extends string, Object extends {}>(propName: PropName): Hoc<
-    WithSpreadFn<PropName, Object>
+  <PropName extends string, Names extends string>(propName: PropName): Hoc<
+    [WithSpreadFn<PropName, Names>, SetOptionalFn<Names>]
   >;
 }
 

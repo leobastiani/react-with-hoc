@@ -10,14 +10,9 @@ import { withSpread } from "../src/withSpread";
     age: number;
     address: string;
   }> = undefined as any;
-  const AfterHoc = withSpread<
-    "user",
-    {
-      name: string;
-      age: number;
-      address: string;
-    }
-  >("user")(BeforeHoc);
+  const AfterHoc = withSpread<"user", "name" | "age" | "address">("user")(
+    BeforeHoc
+  );
   expectType<
     FunctionComponent<{
       user: {
@@ -40,13 +35,7 @@ import { withSpread } from "../src/withSpread";
     age: number;
     address: string;
   }> = undefined as any;
-  const AfterHoc = withSpread<
-    "user",
-    {
-      name: string;
-      address: string;
-    }
-  >("user")(BeforeHoc);
+  const AfterHoc = withSpread<"user", "name" | "address">("user")(BeforeHoc);
   expectType<
     FunctionComponent<{
       user: {
@@ -67,48 +56,23 @@ import { withSpread } from "../src/withSpread";
     name: string;
     age: number;
     address: string;
-    someUnmatchedProp: string;
-    someUnmatchedOptionalProp?: string;
-    someOptionalProp?: string;
-    someOptionalPropInUser?: string;
   }> = undefined as any;
   const AfterHoc = withSpread<
     "user",
-    {
-      name: string;
-      // the component does not use phone
-      phone: number;
-      address: string;
-      someOptionalPropInUser?: string;
-      someUnmatchedProp: number;
-      someUnmatchedOptionalProp?: number;
-    }
+    | "name"
+    // the component does not use phone
+    | "phone"
+    | "age"
   >("user")(BeforeHoc);
   expectType<
     FunctionComponent<{
+      name?: string;
+      age?: number;
+      address: string;
       user: {
         name: string;
-        address: string;
-        // has no phone
-
-        someOptionalPropInUser?: string;
-        // it's never for erroring
-        someUnmatchedProp: never;
-        // should never be used
-        someUnmatchedOptionalProp?: undefined;
+        age: number;
       };
-      // age is still required
-      age: number;
-
-      name?: string;
-      address?: string;
-      // has no phone
-
-      // keeps optional prop
-      someUnmatchedProp?: string;
-      someUnmatchedOptionalProp?: string;
-      someOptionalProp?: string;
-      someOptionalPropInUser?: string;
     }>
   >(AfterHoc);
 }

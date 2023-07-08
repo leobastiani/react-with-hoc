@@ -72,7 +72,7 @@ export type PartialOnUndefined<T> = {
   [K in keyof T as undefined extends T[K] ? K : never]?: T[K];
 };
 
-export type FromSchema<T extends [string, any]> = Simplify<
+export type FromSchema<T extends [string | number | symbol, any]> = Simplify<
   PartialOnUndefined<{
     [K in T[0]]: Call<PickFn<K>, T>[1];
   }>
