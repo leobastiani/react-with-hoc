@@ -1,6 +1,6 @@
 import { ComponentType } from "react";
-import { Hoc } from "./Hoc";
 import { componentDisplayName } from "./componentDisplayName";
+import { HocDefinition } from "./newHoc";
 
 export function createHocNameFunction<
   SelectorArgs extends (...args: any[]) => unknown | undefined
@@ -11,7 +11,7 @@ export function createHocNameFunction<
       hoc,
     }: {
       Component: ComponentType<Props>;
-      hoc: (...args: any[]) => Hoc<any>;
+      hoc: HocDefinition<Props, any>;
     },
     ...args: HocArgs
   ): string {

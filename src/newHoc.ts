@@ -1,5 +1,4 @@
 import { ComponentType } from "react";
-import { Hoc } from "./Hoc";
 import { componentDisplayName } from "./componentDisplayName";
 import { defaultHocName } from "./hocNameForWithStyle";
 
@@ -8,15 +7,15 @@ type Name<Props, HocArgs extends any[]> =
   | ((
       functions: {
         Component: ComponentType<Props>;
-        hoc: (...args: any[]) => Hoc<any>;
+        hoc: HocDefinition<Props, HocArgs>;
       },
       ...args: HocArgs
     ) => string);
 
-type HocDefinition<Props, HocArgs extends any[]> = (
+export type HocDefinition<Props, HocArgs extends any[]> = (
   Component: ComponentType<Props>,
   ...args: HocArgs
-) => ComponentType;
+) => ComponentType<any>;
 
 type FirstArgumentOptional<T extends any[]> = T extends [unknown, ...infer Rest]
   ? Rest | T
@@ -35,7 +34,8 @@ export function newHoc<Props, HocArgs extends any[]>(
     [Name<Props, HocArgs>, HocDefinition<Props, HocArgs>]
   >
 ): unknown {
-  const name = args.length === 2 ? args[0] : defaultHocName;
+  const name =
+    args.length === 2 ? args[0] : (defaultHocName as Name<Props, HocArgs>);
   const hoc = args.length === 2 ? args[1] : args[0];
 
   return (...args: HocArgs) =>
