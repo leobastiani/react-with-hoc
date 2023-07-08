@@ -1,4 +1,3 @@
-import { Identity } from "hotscript";
 import { ComponentType, FunctionComponent } from "react";
 import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
@@ -13,7 +12,7 @@ interface WithWrapperHoc {
       | {
           omitProps: string[];
         }
-  ): Hoc<Identity>;
+  ): Hoc<[]>;
 }
 
 export const withWrapper = newHoc(function withWrapper(
