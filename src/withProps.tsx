@@ -1,13 +1,11 @@
-import { ComposeLeft } from "hotscript";
 import { ComponentType, FunctionComponent } from "react";
-import { Merge } from "./@types/Merge";
-import { PartialBy } from "./@types/PartialBy";
+import { IntersectionFn, SetOptionalFn, ToSchema } from "./Fn";
 import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
 
 interface WithPropsHoc {
   <Map extends Record<string, unknown>>(map: Map): Hoc<
-    ComposeLeft<[Merge<Map>, PartialBy<keyof Map>]>
+    [IntersectionFn<ToSchema<Map>>, SetOptionalFn<keyof Map>]
   >;
 }
 
