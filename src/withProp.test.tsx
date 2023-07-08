@@ -78,9 +78,9 @@ it("withProp rewritten", () => {
 });
 
 it("withProp rewritten with different type", () => {
-  const Component = withProp<number, "someProp", { someProp?: string }>(
+  const Component = withProp(
     "someProp",
-    ({ someProp }) => {
+    ({ someProp }: { someProp?: string }) => {
       if (typeof someProp !== "string") {
         throw new Error("it should be a string");
       }

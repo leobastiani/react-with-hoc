@@ -29,7 +29,7 @@ export interface IntersectionFn<T extends [string | number | symbol, any]>
     | {
         [K in T[0]]: [
           K,
-          [K, any] extends this["arg0"]
+          K extends Extract<this["arg0"], any[]>[0]
             ? Extract<this["arg0"], [K, any]>[1] & Extract<T, [K, any]>[1]
             : Extract<T, [K, any]>[1]
         ];
@@ -45,11 +45,20 @@ export interface SetOptionalFn<Names extends string | number | symbol>
   return:
     | this["arg0"]
     | {
-        [K in Extract<this["arg0"], any[] | [string, never]>[0] & Names]: [
+        [K in Extract<this["arg0"], any[]>[0] & Names]: [
           K,
           Call<PickFn<K>, this["arg0"]> extends [K, never] ? never : undefined
         ];
-      }[Extract<this["arg0"], any[] | [string, never]>[0] & Names];
+      }[Extract<this["arg0"], any[]>[0] & Names];
+}
+
+export interface KeepNeversFn<TFn extends Fn> extends Fn {
+  return:
+    | Exclude<
+        Call<TFn, this["arg0"]>,
+        [Extract<this["arg0"], [string, never]>[0], any]
+      >
+    | Extract<this["arg0"], [string, never]>;
 }
 
 export interface ReplaceFn<Props extends [string | number | symbol, any]>

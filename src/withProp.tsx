@@ -1,41 +1,41 @@
-import { ComposeLeft, Objects, Pipe, Strings, Tuples, Unions } from "hotscript";
+import { Objects, Pipe, Strings, Tuples, Unions } from "hotscript";
 import { ComponentType, FunctionComponent, useMemo } from "react";
-import { AcceptBoth } from "./@types/AcceptBoth";
-import { PartialBy } from "./@types/PartialBy";
+import {
+  IntersectionFn,
+  KeepNeversFn,
+  ReplaceFn,
+  SetOptionalFn,
+  ToSchema,
+} from "./Fn";
 import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
+
+type DependencyNames<T> = Pipe<
+  T,
+  [Objects.Keys, Unions.ToTuple, Tuples.Sort<Strings.LessThan>]
+>;
 
 interface WithPropHoc {
   <PropValue, PropName extends string>(
     propName: PropName,
     value: Exclude<PropValue, Function>
-  ): Hoc<
-    ComposeLeft<
-      [
-        PartialBy<PropName>,
-        Objects.Assign<{
-          [K in PropName]?: PropValue;
-        }>
-      ]
-    >
-  >;
+  ): Hoc<[IntersectionFn<[PropName, PropValue]>, SetOptionalFn<PropName>]>;
 
-  <PropValue, PropName extends string, DependencyProps extends {}>(
+  <
+    PropValue,
+    PropName extends string,
+    DependencyProps extends {},
+    TDependencyName extends DependencyNames<DependencyProps> = DependencyNames<DependencyProps>
+  >(
     propName: PropName,
     factory: (props: DependencyProps) => PropValue,
-    dependencyNames: Pipe<
-      DependencyProps,
-      [Objects.Keys, Unions.ToTuple, Tuples.Sort<Strings.LessThan>]
-    >
+    dependencyNames: TDependencyName
   ): Hoc<
-    ComposeLeft<
-      [
-        AcceptBoth<{
-          [K in PropName]?: PropValue;
-        }>,
-        AcceptBoth<DependencyProps>
-      ]
-    >
+    [
+      IntersectionFn<[PropName, PropValue]>,
+      KeepNeversFn<ReplaceFn<ToSchema<DependencyProps>>>,
+      SetOptionalFn<PropName>
+    ]
   >;
 }
 
