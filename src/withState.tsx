@@ -1,5 +1,5 @@
 import { ComponentType, FunctionComponent, useState } from "react";
-import { IntersectionFn, IntersectionObjectFn, SetOptionalFn } from "./Fn";
+import { IntersectionFn, ReplaceFn, SetOptionalFn, ToSchema } from "./Fn";
 import { Hoc } from "./Hoc";
 import { camelCase } from "./camelCase";
 import { newHoc } from "./newHoc";
@@ -20,10 +20,12 @@ type WithStateHoc = <
   }
 ) => Hoc<
   [
-    IntersectionFn<StateName, PropValue>,
-    IntersectionFn<SetterName, React.Dispatch<React.SetStateAction<PropValue>>>,
+    IntersectionFn<
+      | [StateName, PropValue]
+      | [SetterName, React.Dispatch<React.SetStateAction<PropValue>>]
+    >,
     SetOptionalFn<StateName | SetterName>,
-    ...([keyof Props] extends [never] ? [] : [IntersectionObjectFn<Props>])
+    ReplaceFn<ToSchema<Props>>
   ]
 >;
 
