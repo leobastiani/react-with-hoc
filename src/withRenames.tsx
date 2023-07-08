@@ -1,21 +1,22 @@
-import { ComposeLeft, Fn, Objects, Pipe, Tuples, Unions } from "hotscript";
 import { ComponentType, FunctionComponent } from "react";
+import { Fn, ToSchema } from "./Fn";
 import { Hoc } from "./Hoc";
 import { createHocNameFunction } from "./hocNameForWithStyle";
 import { newHoc } from "./newHoc";
-import { WithRenameFn } from "./withRename";
 
-interface ToWithRenameFn extends Fn {
-  return: WithRenameFn<this["arg0"][0], this["arg0"][1]>;
+interface WithRenamesFn<T extends [string | number | symbol, string]>
+  extends Fn {
+  return: {
+    [K in Extract<this["arg0"], any[]>[0]]: [
+      K extends T[1] ? Extract<T, [any, K]>[0] : K,
+      Extract<this["arg0"], [K, any]>[1]
+    ];
+  }[Extract<this["arg0"], any[]>[0]];
 }
-
-type ForceComposeLeft<Arr> = Arr extends Fn[] ? ComposeLeft<Arr> : never;
 
 interface WithRenamesHoc {
   <const Map extends Record<string, string>>(map: Map): Hoc<
-    ForceComposeLeft<
-      Pipe<Map, [Objects.Entries, Unions.ToTuple, Tuples.Map<ToWithRenameFn>]>
-    >
+    [WithRenamesFn<ToSchema<Map>>]
   >;
 }
 
