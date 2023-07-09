@@ -18,7 +18,7 @@ export const App = ((): React.FC => {
     return <pre>{JSON.stringify(style, null, 2)}</pre>;
   }
 
-  return withHocs(
+  return withHocs([
     withWrapper(ProviderTop),
     withStyleObjectStrategy({
       background: "black",
@@ -28,6 +28,6 @@ export const App = ((): React.FC => {
     withStyleObjectStrategy({
       borderColor: "red",
       display: "block",
-    })
-  )(App);
+    }),
+  ])(App);
 })();
