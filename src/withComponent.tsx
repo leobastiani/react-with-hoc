@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { ComponentType, Fragment, FunctionComponent, useMemo } from "react";
+import { ComponentType, FunctionComponent, useMemo } from "react";
 import { isElement } from "react-is";
-import { PartialComponent } from "./@types/PartialComponent";
 import { WithComponent } from "./@types/WithComponent";
 import { ReplaceFn } from "./Fn";
 import { Hoc } from "./Hoc";
@@ -147,44 +146,3 @@ export function getTargetByProps({
 
   return TargetComponent;
 }
-
-function ButtonComponent(props: { size: "lg" | "md" | "xs" }): JSX.Element {
-  return <button>{props.size}</button>;
-}
-function ButtonComponent2(props: {
-  size: "lg" | "md" | "xs";
-  disabled?: boolean;
-}): JSX.Element {
-  return <button>{props.size}</button>;
-}
-function ButtonComponent3(props: {
-  size: "lg" | "md" | "xs";
-  disabled: boolean;
-}): JSX.Element {
-  return <button>{props.size}</button>;
-}
-function Example({
-  Button,
-}: {
-  Button: PartialComponent<typeof ButtonComponent>;
-}): JSX.Element {
-  return <Button />;
-}
-
-const withedComponent = withComponent("Button", ButtonComponent);
-const NewExample = withedComponent(Example);
-<NewExample Button={{ size: "lg" }} />;
-<NewExample Button={null} />;
-<NewExample Button={false} />;
-<NewExample Button={true} />;
-<NewExample Button={() => ButtonComponent2} />;
-<NewExample Button={() => ButtonComponent} />;
-<NewExample Button={(Button) => Button} />;
-// @ts-expect-error
-<NewExample Button={() => ButtonComponent3} />;
-// @ts-expect-error
-<NewExample Button={() => Fragment} />;
-const NoneComponent: React.FC = () => <></>;
-<NewExample Button={() => NoneComponent} />;
-<NewExample Button={10} />;
-<NewExample Button={<ButtonComponent size="lg" />} />;
