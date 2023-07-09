@@ -20,7 +20,7 @@ it("withRenames name", () => {
 });
 
 it("withRenames", () => {
-  const Component = withRenames({ e: "b", d: "a" })(Example);
+  const Component = withRenames({ e: "b", d: "a", f: "iDontExist" })(Example);
   render(<Component d={1} e={2} c={3} />);
   expect(document.body.children[0].innerHTML).toBe(
     '<pre>{"a":1,"b":2,"c":3}</pre>'
