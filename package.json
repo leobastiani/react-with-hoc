@@ -36,9 +36,7 @@
     "prepublishOnly": "yarn clean && yarn test && yarn lint",
     "test": "jest"
   },
-  "dependencies": {
-    "react-is": "^18.2.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.22.5",
     "@babel/preset-env": "^7.22.5",

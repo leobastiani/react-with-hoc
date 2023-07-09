@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { ComponentType, FunctionComponent, useMemo } from "react";
-import { isElement } from "react-is";
+import {
+  ComponentType,
+  FunctionComponent,
+  isValidElement,
+  useMemo,
+} from "react";
 import { WithComponent } from "./@types/WithComponent";
 import { ReplaceFn } from "./Fn";
 import { Hoc } from "./Hoc";
@@ -125,7 +129,7 @@ export function getTargetByProps({
   if (
     typeof props[name] === "object" &&
     props[name] !== null &&
-    !isElement(props[name])
+    !isValidElement(props[name])
   ) {
     // eslint-disable-next-line react/display-name
     return (myProps: any): any => (
