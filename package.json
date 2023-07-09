@@ -1,6 +1,6 @@
 {
   "name": "react-with-hoc",
-  "version": "0.0.23-wip004",
+  "version": "0.0.23-wip005",
   "description": "Work with React and HOCs (Higher-Order Components)",
   "keywords": [
     "react",
@@ -33,6 +33,7 @@
     "build:esm": "tsc --project tsconfig.build.json",
     "clean": "rimraf dist",
     "lint": "eslint . --max-warnings=0",
+    "prepare": "yarn build",
     "prepublishOnly": "yarn clean && yarn test && yarn lint",
     "test": "jest"
   },
