@@ -12,6 +12,8 @@ export function camelCase(text: string | string[]): string {
 
   const a = text
     .toLowerCase()
-    .replace(/[-_\s.]+(.)?/g, (_, c) => (c ? c.toUpperCase() : ""));
+    .replace(/[-_\s.]+(.)?/g, (_, c: string) =>
+      c ? c.toLocaleUpperCase() : ""
+    );
   return a.substring(0, 1).toLowerCase() + a.substring(1);
 }
