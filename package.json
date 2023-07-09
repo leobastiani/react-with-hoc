@@ -1,6 +1,6 @@
 {
   "name": "react-with-hoc",
-  "version": "0.0.23-wip002",
+  "version": "0.0.23-wip003",
   "description": "Work with React and HOCs (Higher-Order Components)",
   "keywords": [
     "react",
@@ -14,7 +14,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/leobastiani/react-new-hoc.git"
+    "url": "git+https://github.com/leobastiani/react-with-hoc.git"
   },
   "license": "MIT",
   "author": "Leonardo Guarnieri de Bastiani (leogbastiani@gmail.com)",
