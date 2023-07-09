@@ -31,15 +31,16 @@ export const withRenames = newHoc<WithRenamesHoc>(
     map: Record<string, string>
   ): FunctionComponent {
     return function WithRenames(props: any): JSX.Element {
+      const newProps = { ...props };
       for (const newProp in map) {
         const oldProp = map[newProp];
-        if (newProp in map) {
-          map[oldProp] = map[newProp];
-          delete map[newProp];
+        if (newProp in newProps) {
+          newProps[oldProp] = newProps[newProp];
+          delete newProps[newProp];
         }
       }
 
-      return <Component {...props} />;
+      return <Component {...newProps} />;
     };
   }
 );

@@ -9,7 +9,7 @@ interface ExampleProps {
 }
 
 function Example(props: ExampleProps): JSX.Element {
-  return <pre>{JSON.stringify(props)}</pre>;
+  return <pre>{JSON.stringify(props, Object.keys(props).sort())}</pre>;
 }
 
 it("withRenames name", () => {
@@ -23,6 +23,6 @@ it("withRenames", () => {
   const Component = withRenames({ e: "b", d: "a" })(Example);
   render(<Component d={1} e={2} c={3} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"d":1,"e":2,"c":3}</pre>'
+    '<pre>{"a":1,"b":2,"c":3}</pre>'
   );
 });
