@@ -7,7 +7,7 @@ type WithPickHoc = <PickNames extends string>(
   pickNames: PickNames[]
 ) => Hoc<[PickFn<PickNames>]>;
 
-export const withPick = newHoc(function withPick(
+export const withPick = newHoc<WithPickHoc>(function withPick(
   Component: ComponentType,
   pickNames: string[]
 ): FunctionComponent {
@@ -23,4 +23,4 @@ export const withPick = newHoc(function withPick(
 
     return <Component {...newProps} />;
   };
-}) as WithPickHoc;
+});

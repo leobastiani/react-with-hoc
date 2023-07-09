@@ -55,7 +55,7 @@ function parsePropsByOmit(props: any, omit: Set<string>): any {
   return ret;
 }
 
-export const withComponent = newHoc(function withComponent(
+export const withComponent = newHoc<WithComponentHoc>(function withComponent(
   Component: ComponentType,
   name: string,
   TargetComponent: ComponentType,
@@ -107,7 +107,7 @@ export const withComponent = newHoc(function withComponent(
       />
     );
   };
-}) as WithComponentHoc;
+});
 
 export function getTargetByProps({
   props,

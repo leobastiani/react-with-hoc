@@ -17,7 +17,7 @@ interface WithClassNameHoc {
   >;
 }
 
-export const withClassName = newHoc(function withClassName(
+export const withClassName = newHoc<WithClassNameHoc>(function withClassName(
   Component: ComponentType,
   classNameArg: any = []
 ): FunctionComponent {
@@ -46,4 +46,4 @@ export const withClassName = newHoc(function withClassName(
     }
     return <Component {...props} className={Array.from(className).join(" ")} />;
   };
-}) as WithClassNameHoc;
+});

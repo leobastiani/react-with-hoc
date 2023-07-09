@@ -1,45 +1,58 @@
-import { ComponentType } from "react";
+import { ComponentType, FunctionComponent } from "react";
+import { Hoc } from "./Hoc";
 import { componentDisplayName } from "./componentDisplayName";
 import { defaultHocName } from "./hocNameForWithStyle";
 
-type Name<Props, HocArgs extends any[]> =
+export type NewHocReturn<HocArgs extends any[]> = (
+  ...args: HocArgs
+) => Hoc<any[]>;
+
+export type HocDefinition<HocArgs extends any[]> = (
+  Component: ComponentType<any>,
+  ...args: HocArgs
+) => FunctionComponent<any>;
+
+export type GetHocArgs<T> = Extract<
+  T extends NewHocReturn<infer R>
+    ? R
+    : T extends HocDefinition<infer R>
+    ? R
+    : never,
+  any[]
+>;
+
+type Name<HocArgs extends any[]> =
   | string
   | ((
       functions: {
-        Component: ComponentType<Props>;
-        hoc: HocDefinition<Props, HocArgs>;
+        Component: ComponentType<any>;
+        hoc: HocDefinition<HocArgs>;
       },
       ...args: HocArgs
     ) => string);
-
-export type HocDefinition<Props, HocArgs extends any[]> = (
-  Component: ComponentType<Props>,
-  ...args: HocArgs
-) => ComponentType<any>;
 
 type FirstArgumentOptional<T extends any[]> = T extends [unknown, ...infer Rest]
   ? Rest | T
   : never;
 
-export function newHoc<Props, HocArgs extends any[]>(
-  hoc: HocDefinition<Props, HocArgs>
-): unknown;
-export function newHoc<Props, HocArgs extends any[]>(
-  name: Name<Props, HocArgs>,
-  hoc: HocDefinition<Props, HocArgs>
-): unknown;
+export function newHoc<TNewHocReturn extends NewHocReturn<any>>(
+  hoc: HocDefinition<GetHocArgs<TNewHocReturn>>
+): TNewHocReturn;
+export function newHoc<TNewHocReturn extends NewHocReturn<any>>(
+  name: Name<GetHocArgs<TNewHocReturn>>,
+  hoc: HocDefinition<GetHocArgs<TNewHocReturn>>
+): TNewHocReturn;
 
-export function newHoc<Props, HocArgs extends any[]>(
+export function newHoc<TNewHocReturn extends NewHocReturn<any>>(
   ...args: FirstArgumentOptional<
-    [Name<Props, HocArgs>, HocDefinition<Props, HocArgs>]
+    [Name<GetHocArgs<TNewHocReturn>>, HocDefinition<GetHocArgs<TNewHocReturn>>]
   >
-): unknown {
-  const name =
-    args.length === 2 ? args[0] : (defaultHocName as Name<Props, HocArgs>);
+): TNewHocReturn {
+  const name = args.length === 2 ? args[0] : defaultHocName;
   const hoc = args.length === 2 ? args[1] : args[0];
 
-  return (...args: HocArgs) =>
-    (Component: ComponentType<Props>): ComponentType => {
+  return ((...args: any) =>
+    (Component: ComponentType<any>): FunctionComponent<any> => {
       if (process.env.NODE_ENV !== "production") {
         if (!hoc.name) {
           throw new Error(`Trying to create a new hoc without a name: ${hoc}`, {
@@ -55,5 +68,5 @@ export function newHoc<Props, HocArgs extends any[]>(
         );
       }
       return Ret;
-    };
+    }) as TNewHocReturn;
 }

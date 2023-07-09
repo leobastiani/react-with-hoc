@@ -24,7 +24,7 @@ interface WithIfHoc {
   ): Hoc<[IntersectionFn<ToSchema<DependencyProps>>]>;
 }
 
-export const withIf = newHoc(function withIf(
+export const withIf = newHoc<WithIfHoc>(function withIf(
   Component: ComponentType<any>,
   propNameOrFactory: string | Function,
   {
@@ -67,4 +67,4 @@ export const withIf = newHoc(function withIf(
       return null;
     }
   };
-}) as WithIfHoc;
+});

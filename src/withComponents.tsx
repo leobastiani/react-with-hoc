@@ -21,7 +21,7 @@ interface WithComponentsHoc {
   >;
 }
 
-export const withComponents = newHoc(function withComponents(
+export const withComponents = newHoc<WithComponentsHoc>(function withComponents(
   Component: ComponentType,
   object: Record<string, ComponentType>,
   options: any = {}
@@ -50,4 +50,4 @@ export const withComponents = newHoc(function withComponents(
 
     return <Component {...props} {...CurrTargets} />;
   };
-}) as WithComponentsHoc;
+});

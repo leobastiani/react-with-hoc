@@ -17,7 +17,7 @@ interface WithSpreadHoc {
   >;
 }
 
-export const withSpread = newHoc(function withSpread(
+export const withSpread = newHoc<WithSpreadHoc>(function withSpread(
   Component: ComponentType,
   key: string
 ): FunctionComponent {
@@ -29,4 +29,4 @@ export const withSpread = newHoc(function withSpread(
 
     return <Component {...newProps} />;
   };
-}) as WithSpreadHoc;
+});

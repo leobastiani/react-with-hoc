@@ -22,12 +22,12 @@ interface WithStyleObjectStrategyHoc {
   ): Hoc<[IntersectionFn<ToSchema<DependencyProps>>, SetOptionalFn<"style">]>;
 }
 
-export const withStyleObjectStrategy = newHoc(
-  createHocNameFunction(
-    (_init: unknown, dependencyNames?: string[]) => dependencyNames
+export const withStyleObjectStrategy = newHoc<WithStyleObjectStrategyHoc>(
+  createHocNameFunction<WithStyleObjectStrategyHoc>(
+    (_init, dependencyNames) => dependencyNames
   ),
   function withStyleObjectStrategy(
-    Component: ComponentType,
+    Component: ComponentType<any>,
     init: ((props: any) => CSSProperties) | CSSProperties,
     dependencyNames?: string[]
   ): FunctionComponent {

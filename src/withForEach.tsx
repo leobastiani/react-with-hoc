@@ -23,7 +23,7 @@ interface WithForEachHoc {
   >;
 }
 
-export const withForEach = newHoc(function withForEach(
+export const withForEach = newHoc<WithForEachHoc>(function withForEach(
   Component: ComponentType,
   target: number | Array<unknown> | object | string,
   {
@@ -72,4 +72,4 @@ export const withForEach = newHoc(function withForEach(
 
     return ret;
   };
-}) as WithForEachHoc;
+});

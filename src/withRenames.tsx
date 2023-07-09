@@ -20,7 +20,7 @@ interface WithRenamesHoc {
   >;
 }
 
-export const withRenames = newHoc(
+export const withRenames = newHoc<WithRenamesHoc>(
   createHocNameFunction((map: object) =>
     Object.entries(map)
       .map(([from, to]) => `${from}→${to}`)
@@ -42,4 +42,4 @@ export const withRenames = newHoc(
       return <Component {...props} />;
     };
   }
-) as WithRenamesHoc;
+);

@@ -7,7 +7,7 @@ type WithOmitHoc = <OmitNames extends string>(
   omitNames: OmitNames[]
 ) => Hoc<[OmitFn<OmitNames>]>;
 
-export const withOmit = newHoc(function withOmit(
+export const withOmit = newHoc<WithOmitHoc>(function withOmit(
   Component: ComponentType,
   omitNames: string[]
 ): FunctionComponent {
@@ -23,4 +23,4 @@ export const withOmit = newHoc(function withOmit(
 
     return <Component {...newProps} />;
   };
-}) as WithOmitHoc;
+});

@@ -20,7 +20,7 @@ interface WithRenameHoc {
   ): Hoc<[WithRenameFn<NewProp, OldProp>]>;
 }
 
-export const withRename = newHoc(
+export const withRename = newHoc<WithRenameHoc>(
   createHocNameFunction(
     (newProp: string, oldProp: string) => `${newProp}→${oldProp}`
   ),
@@ -39,4 +39,4 @@ export const withRename = newHoc(
       return <Component {...newProps} />;
     };
   }
-) as WithRenameHoc;
+);

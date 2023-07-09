@@ -34,7 +34,7 @@ interface WithPropHoc {
   >;
 }
 
-export const withProp = newHoc(function withProp(
+export const withProp = newHoc<WithPropHoc>(function withProp(
   Component: ComponentType,
   propName: string,
   init: ((props: any) => any) | unknown,
@@ -66,4 +66,4 @@ export const withProp = newHoc(function withProp(
       <Component {...{ [propName]: newValue }} {...props} />
     );
   };
-}) as WithPropHoc;
+});

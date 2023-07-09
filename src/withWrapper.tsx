@@ -15,7 +15,7 @@ interface WithWrapperHoc {
   ): Hoc<[]>;
 }
 
-export const withWrapper = newHoc(function withWrapper(
+export const withWrapper = newHoc<WithWrapperHoc>(function withWrapper(
   Component: ComponentType<any>,
   Wrapper: ComponentType<any>,
   {
@@ -76,4 +76,4 @@ export const withWrapper = newHoc(function withWrapper(
       </Wrapper>
     );
   };
-}) as WithWrapperHoc;
+});

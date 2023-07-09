@@ -32,7 +32,7 @@ type WithStateHoc = <
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 function noop(): void {}
 
-export const withState = newHoc(function withState(
+export const withState = newHoc<WithStateHoc>(function withState(
   Component: ComponentType,
   stateName: string,
   { init, setterName = camelCase(["set", stateName]) }: any = {}
@@ -79,4 +79,4 @@ export const withState = newHoc(function withState(
       />
     );
   };
-}) as WithStateHoc;
+});

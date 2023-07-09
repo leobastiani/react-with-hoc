@@ -9,11 +9,11 @@ interface WithPropsHoc {
   >;
 }
 
-export const withProps = newHoc(function withProps(
+export const withProps = newHoc<WithPropsHoc>(function withProps(
   Component: ComponentType,
   map: object
 ): FunctionComponent {
   return function WithProps(props: object): JSX.Element {
     return <Component {...map} {...props} />;
   };
-}) as WithPropsHoc;
+});

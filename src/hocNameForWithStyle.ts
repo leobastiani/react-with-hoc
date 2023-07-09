@@ -1,19 +1,19 @@
 import { ComponentType } from "react";
 import { componentDisplayName } from "./componentDisplayName";
-import { HocDefinition } from "./newHoc";
+import { GetHocArgs, HocDefinition, NewHocReturn } from "./newHoc";
 
-export function createHocNameFunction<
-  SelectorArgs extends (...args: any[]) => unknown | undefined
->(selector: SelectorArgs) {
-  return function hocName<Props, HocArgs extends Parameters<SelectorArgs>>(
+export function createHocNameFunction<TNewHocReturn extends NewHocReturn<any>>(
+  selector: (...args: GetHocArgs<TNewHocReturn>) => unknown | undefined
+) {
+  return function hocName(
     {
       Component,
       hoc,
     }: {
-      Component: ComponentType<Props>;
-      hoc: HocDefinition<Props, any>;
+      Component: ComponentType<any>;
+      hoc: HocDefinition<GetHocArgs<TNewHocReturn>>;
     },
-    ...args: HocArgs
+    ...args: GetHocArgs<TNewHocReturn>
   ): string {
     function parseArg(arg: any): string | undefined {
       if (typeof arg === "string") {
