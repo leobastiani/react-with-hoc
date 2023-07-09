@@ -1,20 +1,20 @@
+import React, { Dispatch, SetStateAction } from "react";
 import {
   PartialComponent,
-  SetState,
   withComponents,
+  withForEach,
   withHocs,
-  withMap,
   withProp,
   withRenames,
   withState,
-} from "react-new-hoc";
+} from "react-with-hoc";
 import { Circle } from "./Circle";
 import { HourMark, MinuteMark } from "./Marks";
 import { HourPointer, MinutePointer, SecondPointer } from "./Pointers";
 import { useAnimationFrame } from "./useRequestAnimationFrame";
 
-const MinuteMarks = withMap(60)(MinuteMark);
-const HourMarks = withMap(12)(HourMark);
+const MinuteMarks = withForEach(60)(MinuteMark);
+const HourMarks = withForEach(12)(HourMark);
 
 type MinuteMarks = typeof MinuteMarks;
 type HourMarks = typeof HourMarks;
@@ -22,7 +22,7 @@ type HourMarks = typeof HourMarks;
 export const ClockCircle = withRenames({
   circleSize: "size",
   circleBorder: "border",
-} as const)(Circle);
+})(Circle);
 
 type SecondPointer = typeof SecondPointer;
 type MinutePointer = typeof MinutePointer;
@@ -39,7 +39,7 @@ export const Clock = (() => {
     MinutePointer,
     HourPointer,
   }: {
-    setTime: SetState<number>;
+    setTime: Dispatch<SetStateAction<number>>;
     Circle: PartialComponent<typeof ClockCircle>;
     MinuteMarks: PartialComponent<MinuteMarks>;
     HourMarks: PartialComponent<HourMarks>;
@@ -60,7 +60,7 @@ export const Clock = (() => {
     );
   }
 
-  return withHocs(
+  return withHocs([
     withState("time", { init: () => Date.now() }),
     withProp("circleSize", 400),
     withProp("circleBorder", 3),
@@ -71,6 +71,6 @@ export const Clock = (() => {
       SecondPointer,
       MinutePointer,
       HourPointer,
-    })
-  )(Clock);
+    }),
+  ])(Clock);
 })();

@@ -1,4 +1,5 @@
-import { withHocs, withProp } from "react-new-hoc";
+import React from "react";
+import { withHocs, withProp } from "react-with-hoc";
 
 export function Pointer({
   height,
@@ -37,7 +38,7 @@ export function Pointer({
   );
 }
 
-export const SecondPointer = withHocs(
+export const SecondPointer = withHocs([
   withProp("height", 1),
   withProp(
     "length",
@@ -48,10 +49,10 @@ export const SecondPointer = withHocs(
     "rotation",
     ({ time }: { time: number }) => ((time % 60000) * 360) / 60000,
     ["time"]
-  )
-)(Pointer);
+  ),
+])(Pointer);
 
-export const MinutePointer = withHocs(
+export const MinutePointer = withHocs([
   withProp("height", 5),
   withProp(
     "length",
@@ -63,10 +64,10 @@ export const MinutePointer = withHocs(
     ({ time }: { time: number }) =>
       ((time % (60 * 60000)) * 360) / (60 * 60000),
     ["time"]
-  )
-)(Pointer);
+  ),
+])(Pointer);
 
-export const HourPointer = withHocs(
+export const HourPointer = withHocs([
   withProp("height", 10),
   withProp(
     "length",
@@ -85,5 +86,5 @@ export const HourPointer = withHocs(
       return (clockHour * 360) / 12;
     },
     ["time"]
-  )
-)(Pointer);
+  ),
+])(Pointer);

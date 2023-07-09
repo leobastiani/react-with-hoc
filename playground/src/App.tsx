@@ -1,5 +1,5 @@
 import React, { CSSProperties, ReactNode } from "react";
-import { withHocs, withStyleObjectStrategy, withWrapper } from "react-new-hoc";
+import { withHocs, withStyleObjectStrategy, withWrapper } from "react-with-hoc";
 
 /**
  * Testing withHocs in the browser

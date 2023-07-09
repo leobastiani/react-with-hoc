@@ -5,12 +5,12 @@
   "license": "MIT",
   "source": "src/index.html",
   "scripts": {
-    "start": "(cd .. && yarn tsc) && yarn add react-new-hoc@file:../ && parcel"
+    "start": "(cd .. && yarn tsc) && yarn add react-with-hoc@file:../ && parcel"
   },
   "dependencies": {
     "react": "*",
     "react-dom": "*",
-    "react-new-hoc": "file:../"
+    "react-with-hoc": "file:../"
   },
   "devDependencies": {
     "@types/react": "*",
