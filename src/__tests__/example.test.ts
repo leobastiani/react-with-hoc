@@ -1,3 +1,7 @@
+import { functionWithName } from '..';
+
 it('example', () => {
-  expect(true).toBeTruthy();
+  function name1() {}
+  expect(name1.name).toBe('name1');
+  expect(functionWithName('name2', name1).name).toBe('name2');
 });
