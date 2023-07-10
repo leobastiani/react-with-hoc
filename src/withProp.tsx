@@ -28,8 +28,8 @@ interface WithPropHoc {
   ): Hoc<
     [
       IntersectionFn<[PropName, PropValue]>,
-      KeepNeversFn<ReplaceFn<ToSchema<DependencyProps>>>,
-      SetOptionalFn<PropName>
+      SetOptionalFn<PropName>,
+      KeepNeversFn<ReplaceFn<ToSchema<DependencyProps>>>
     ]
   >;
 }

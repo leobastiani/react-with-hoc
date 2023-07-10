@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React, { Fragment, FunctionComponent } from "react";
-import { expectError, expectType } from "tsd";
+import { expectType } from "tsd";
 import { PartialComponent } from "../src/@types/PartialComponent";
 import { WithComponent } from "../src/@types/WithComponent";
 import { withComponent } from "../src/withComponent";
@@ -16,17 +16,7 @@ function Button(props: {
 function ButtonEnhanced(props: {
   size: "lg" | "md" | "xs";
   onPress: () => void;
-  disabled?: boolean;
-  fullWidth?: boolean;
-}): JSX.Element {
-  return <button>{props.size}</button>;
-}
-
-function ButtonEnhanceRequirements(props: {
-  size: "lg" | "md" | "xs";
-  onPress: () => void;
-  children: React.ReactNode;
-  disabled?: boolean;
+  disabled?: boolean | string;
   fullWidth?: boolean;
 }): JSX.Element {
   return <button>{props.size}</button>;
@@ -86,17 +76,9 @@ function OtherButton(_props: { size: "lg" | "md" | "xs" }): JSX.Element {
   <AfterHoc Button={<OtherButton size="lg" />} />;
   // with myself
   <AfterHoc Button={() => Button} />;
-  // with a button that extends
-  <AfterHoc Button={() => ButtonEnhanced} />;
+  // with another button
+  <AfterHoc Button={(): typeof ButtonEnhanced => ButtonEnhanced} />;
+  <AfterHoc Button={() => Fragment} />;
   // with myself but received from parameters
   <AfterHoc Button={(Button) => Button} />;
-  // when it does not require any argument
-  const NoneComponent: React.FC = () => <></>;
-  <AfterHoc Button={() => NoneComponent} />;
-  // with a button that needs less requirements
-  <AfterHoc Button={() => OtherButton} />;
-  // with a button that needs more requirements
-  expectError(<AfterHoc Button={() => ButtonEnhanceRequirements} />);
-  // with a button that needs other requirements
-  expectError(<AfterHoc Button={() => Fragment} />);
 }

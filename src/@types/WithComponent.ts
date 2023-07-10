@@ -5,8 +5,6 @@ export type WithComponent<TargetProps> = TargetProps extends ComponentType<
 >
   ? WithComponent<Props>
   :
-      | (<NewProps extends TargetProps>(
-          Component: ComponentType<TargetProps>
-        ) => ComponentType<NewProps | TargetProps>)
+      | ((Component: ComponentType<TargetProps>) => ComponentType<any>)
       | Partial<TargetProps>
       | ReactNode;

@@ -1,4 +1,5 @@
 import { act, render } from "@testing-library/react";
+import { ComponentProps } from "react";
 import { PartialComponent } from "./@types/PartialComponent";
 import { componentDisplayName } from "./componentDisplayName";
 import { withComponent } from "./withComponent";
@@ -202,9 +203,8 @@ describe("passing a function as an attribute", () => {
         b={2}
         Side={(MySide) =>
           // eslint-disable-next-line react/display-name
-          (props): JSX.Element => {
+          (props: ComponentProps<typeof AnotherSide>): JSX.Element => {
             expect(MySide).toBe(Side);
-            //@ts-expect-error
             return <AnotherSide {...props} />;
           }}
       />
@@ -225,9 +225,8 @@ describe("passing a function as an attribute", () => {
         b={2}
         Side={(MySide) =>
           // eslint-disable-next-line react/display-name
-          (props): JSX.Element => {
+          (props: ComponentProps<typeof AnotherSide>): JSX.Element => {
             expect(MySide).toBe(Side);
-            //@ts-expect-error
             return <AnotherSide {...props} />;
           }}
       />
