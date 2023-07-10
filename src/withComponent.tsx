@@ -131,21 +131,24 @@ export function getTargetByProps({
     props[name] !== null &&
     !isValidElement(props[name])
   ) {
-    // eslint-disable-next-line react/display-name
-    return (myProps: any): any => (
-      <TargetComponent {...myProps} {...props[name]} />
-    );
+    return function FromPropObject(myProps: any): any {
+      return <TargetComponent {...myProps} {...props[name]} />;
+    };
   }
   if (options.hiddenByDefault) {
-    if (!props[name]) {
-      // eslint-disable-next-line react/display-name
-      return (): any => <></>;
-    } else if (props[name] === true) {
+    if (props[name] === true) {
       return TargetComponent;
+    }
+    if (!props[name]) {
+      return function Null() {
+        return null;
+      };
     }
   }
   if (name in props) {
-    return (): any => props[name];
+    return function FromProp(): any {
+      return props[name];
+    };
   }
 
   return TargetComponent;
