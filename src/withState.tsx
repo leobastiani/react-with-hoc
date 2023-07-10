@@ -1,7 +1,6 @@
 import { ComponentType, FunctionComponent, useState } from "react";
 import { IntersectionFn, SetOptionalFn, ToSchema } from "./Fn";
 import { Hoc } from "./Hoc";
-import { camelCase } from "./camelCase";
 import { newHoc } from "./newHoc";
 
 type WithStateHoc = <
@@ -35,7 +34,10 @@ function noop(): void {}
 export const withState = newHoc<WithStateHoc>(function withState(
   Component: ComponentType,
   stateName: string,
-  { init, setterName = camelCase(["set", stateName]) }: any = {}
+  {
+    init,
+    setterName = "set" + stateName.charAt(0).toUpperCase() + stateName.slice(1),
+  }: any = {}
 ): FunctionComponent {
   let locallyControlled: boolean | undefined;
   function getUseState(props: any): any {
