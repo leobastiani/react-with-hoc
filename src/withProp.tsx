@@ -1,6 +1,8 @@
 import { ComponentType, FunctionComponent, useMemo } from "react";
 import { DependencyNames } from "./DependencyNames";
 import {
+  HasAllPropsFn,
+  IfThenFn,
   IntersectionFn,
   KeepNeversFn,
   ReplaceFn,
@@ -14,7 +16,14 @@ interface WithPropHoc {
   <PropValue, PropName extends string>(
     propName: PropName,
     value: Exclude<PropValue, Function>
-  ): Hoc<[IntersectionFn<[PropName, PropValue]>, SetOptionalFn<PropName>]>;
+  ): Hoc<
+    [
+      IfThenFn<
+        HasAllPropsFn<PropName>,
+        [IntersectionFn<[PropName, PropValue]>, SetOptionalFn<PropName>]
+      >
+    ]
+  >;
 
   <
     PropValue,
@@ -27,8 +36,10 @@ interface WithPropHoc {
     dependencyNames: TDependencyName
   ): Hoc<
     [
-      IntersectionFn<[PropName, PropValue]>,
-      SetOptionalFn<PropName>,
+      IfThenFn<
+        HasAllPropsFn<PropName>,
+        [IntersectionFn<[PropName, PropValue]>, SetOptionalFn<PropName>]
+      >,
       KeepNeversFn<ReplaceFn<ToSchema<DependencyProps>>>
     ]
   >;

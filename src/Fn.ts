@@ -66,6 +66,16 @@ export interface ReplaceFn<Props extends [string | number | symbol, any]>
   return: Exclude<this["arg0"], [Props[0], any]> | Props;
 }
 
+export interface IfThenFn<If extends Fn, Then extends Fn[]> extends Fn {
+  return: Call<If, this["arg0"]> extends true
+    ? Pipe<this["arg0"], Then>
+    : this["arg0"];
+}
+
+export interface HasAllPropsFn<PropNames extends string> extends Fn {
+  return: PropNames extends Extract<this["arg0"], any[]>[0] ? true : false;
+}
+
 export type PartialOnUndefined<T> = {
   [K in keyof T as undefined extends T[K] ? never : K]: T[K];
 } & {
