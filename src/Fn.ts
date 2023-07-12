@@ -76,10 +76,26 @@ export interface HasAllPropsFn<PropNames extends string> extends Fn {
   return: PropNames extends Extract<this["arg0"], any[]>[0] ? true : false;
 }
 
+type IsNull<T> = [T] extends [null] ? true : false;
+
+type IsUnknown<T> = unknown extends T // `T` can be `unknown` or `any`
+  ? IsNull<T> extends false // `any` can be `null`, but `unknown` can't be
+    ? true
+    : false
+  : false;
+
 export type PartialOnUndefined<T> = {
-  [K in keyof T as undefined extends T[K] ? never : K]: T[K];
+  [K in keyof T as undefined extends T[K]
+    ? IsUnknown<T[K]> extends true
+      ? K
+      : never
+    : K]: T[K];
 } & {
-  [K in keyof T as undefined extends T[K] ? K : never]?: T[K];
+  [K in keyof T as undefined extends T[K]
+    ? IsUnknown<T[K]> extends true
+      ? never
+      : K
+    : never]?: T[K];
 };
 
 export type FromSchema<T extends [string | number | symbol, any]> = Simplify<
