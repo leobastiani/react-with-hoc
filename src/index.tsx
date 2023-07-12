@@ -11,7 +11,6 @@ export * from "./withPick";
 export * from "./withProp";
 export * from "./withProps";
 export * from "./withRename";
-export * from "./withRenames";
 export * from "./withSpread";
 export * from "./withState";
 export * from "./withStyleObjectStrategy";

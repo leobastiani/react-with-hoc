@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
-import { componentDisplayName } from "./componentDisplayName";
-import { withRenames } from "./withRenames";
+import { componentDisplayName } from "../componentDisplayName";
+import { withRenameMultiple } from "./withRenameMultiple";
 
 interface ExampleProps {
   a: number;
@@ -12,15 +12,17 @@ function Example(props: ExampleProps): JSX.Element {
   return <pre>{JSON.stringify(props, Object.keys(props).sort())}</pre>;
 }
 
-it("withRenames name", () => {
-  const Component = withRenames({ e: "b", d: "a" })(Example);
+it("withRename name", () => {
+  const Component = withRenameMultiple({ e: "b", d: "a" })(Example);
   expect(componentDisplayName.get(Component)).toBe(
-    "withRenames.e→b.d→a(Example)"
+    "withRename.e→b.d→a(Example)"
   );
 });
 
-it("withRenames", () => {
-  const Component = withRenames({ e: "b", d: "a", f: "iDontExist" })(Example);
+it("withRenameMultiple", () => {
+  const Component = withRenameMultiple({ e: "b", d: "a", f: "iDonNotExist" })(
+    Example
+  );
   render(<Component d={1} e={2} c={3} />);
   expect(document.body.children[0].innerHTML).toBe(
     '<pre>{"a":1,"b":2,"c":3}</pre>'

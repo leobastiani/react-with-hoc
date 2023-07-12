@@ -1,8 +1,8 @@
 import { ComponentType, FunctionComponent } from "react";
-import { Fn } from "./Fn";
-import { Hoc } from "./Hoc";
-import { createHocNameFunction } from "./hocNameForWithStyle";
-import { newHoc } from "./newHoc";
+import { Fn } from "../Fn";
+import { Hoc } from "../Hoc";
+import { createHocNameFunction } from "../hocNameForWithStyle";
+import { newHoc } from "../newHoc";
 
 export interface WithRenameFn<NewProp extends string, OldProp extends string>
   extends Fn {
@@ -13,14 +13,12 @@ export interface WithRenameFn<NewProp extends string, OldProp extends string>
     : this["arg0"];
 }
 
-interface WithRenameHoc {
-  <NewProp extends string, OldProp extends string>(
-    newProp: NewProp,
-    oldProp: OldProp
-  ): Hoc<[WithRenameFn<NewProp, OldProp>]>;
-}
+type WithRenameHoc = <NewProp extends string, OldProp extends string>(
+  newProp: NewProp,
+  oldProp: OldProp
+) => Hoc<[WithRenameFn<NewProp, OldProp>]>;
 
-export const withRename = newHoc<WithRenameHoc>(
+export const withRenameSingle = newHoc<WithRenameHoc>(
   createHocNameFunction(
     (newProp: string, oldProp: string) => `${newProp}→${oldProp}`
   ),
