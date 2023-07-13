@@ -22,6 +22,15 @@ export interface PickFn<Name extends string | number | symbol> extends Fn {
   return: Extract<this["arg0"], [Name, any]>;
 }
 
+type Intersection<T, U> = ((...args: any[]) => any) extends T
+  ? ((...args: any[]) => any) extends U
+    ? // ignore T & U because typescript interpret them differently
+      T
+    : never
+  : ((...args: any[]) => any) extends U
+  ? never
+  : T & U;
+
 export interface IntersectionFn<T extends [string | number | symbol, any]>
   extends Fn {
   return:
@@ -30,7 +39,10 @@ export interface IntersectionFn<T extends [string | number | symbol, any]>
         [K in T[0]]: [
           K,
           K extends Extract<this["arg0"], any[]>[0]
-            ? Extract<this["arg0"], [K, any]>[1] & Extract<T, [K, any]>[1]
+            ? Intersection<
+                Extract<this["arg0"], [K, any]>[1],
+                Extract<T, [K, any]>[1]
+              >
             : Extract<T, [K, any]>[1]
         ];
       }[T[0]];

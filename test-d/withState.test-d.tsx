@@ -7,7 +7,7 @@ import { withState } from "../src/withState";
 
   const BeforeHoc: React.FC<{
     someState: number;
-    setSomeState: React.Dispatch<React.SetStateAction<number>>;
+    setSomeState: Dispatch<SetStateAction<number>>;
     oldProp: string;
     oldPropOptional?: symbol;
   }> = undefined as any;
@@ -15,7 +15,7 @@ import { withState } from "../src/withState";
   expectType<
     FunctionComponent<{
       someState?: number;
-      setSomeState?: React.Dispatch<React.SetStateAction<number>>;
+      setSomeState?: Dispatch<SetStateAction<number>>;
       oldProp: string;
       oldPropOptional?: symbol;
     }>
@@ -27,7 +27,7 @@ import { withState } from "../src/withState";
 
   const BeforeHoc: React.FC<{
     someState: number;
-    setSomeState: React.Dispatch<React.SetStateAction<number>>;
+    setSomeState: Dispatch<SetStateAction<number>>;
     oldProp: string;
     oldPropOptional?: symbol;
   }> = undefined as any;
@@ -35,7 +35,7 @@ import { withState } from "../src/withState";
   expectType<
     FunctionComponent<{
       someState?: number;
-      setSomeState?: React.Dispatch<React.SetStateAction<number>>;
+      setSomeState?: Dispatch<SetStateAction<number>>;
       oldProp: string;
       oldPropOptional?: symbol;
     }>
@@ -47,7 +47,7 @@ import { withState } from "../src/withState";
 
   const BeforeHoc: React.FC<{
     someState: string;
-    setSomeState: React.Dispatch<React.SetStateAction<string>>;
+    setSomeState: Dispatch<SetStateAction<string>>;
     oldProp: string;
     oldPropOptional?: symbol;
   }> = undefined as any;
@@ -55,8 +55,7 @@ import { withState } from "../src/withState";
   expectType<
     FunctionComponent<{
       someState: never;
-      setSomeState?: Dispatch<SetStateAction<number>> &
-        Dispatch<SetStateAction<string>>;
+      setSomeState?: Dispatch<SetStateAction<string>>;
       oldProp: string;
       oldPropOptional?: symbol | undefined;
     }>
