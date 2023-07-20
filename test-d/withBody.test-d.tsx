@@ -45,25 +45,30 @@ const AfterHoc = withBody(
 )(BeforeHoc);
 expectType<
   FunctionComponent<{
-    matchedPropRequired: number;
-    newProp: number;
-    matchedState: never;
-    nonRelatedProp: string;
-    matchedPropOptional?: number | undefined;
-    matchedStateOptional: never;
-    setMatchedStateOptional: never;
-    matchedStateRequired: never;
-    setMatchedStateRequired: any;
+    // unmatched return
+    unmatchedStateRequired: never;
+    unmatchedStateOptional: never;
+    // unmatched functions are considered as matched
+    // setUnmatchedStateRequired
+    // setUnmatchedStateOptional
 
-    // unmatched
+    // has no matched return
+    // matchedStateRequired
+    // setMatchedStateRequired
+    // matchedStateOptional
+    // setMatchedStateOptional
+
+    // matched props and requirements
+    matchedPropRequired: number;
+    matchedPropOptional?: number;
+    // matched props but not requirements
     unmatchedRequirementRequired: number;
     unmatchedRequirementOptional: number;
+    // prop unmatched
     unmatchedProp: never;
-    unmatchedState: never;
-    setUnmatchedState: never;
-    unmatchedStateOptional: never;
-    setUnmatchedStateOptional: never;
-    unmatchedStateRequired: never;
-    setUnmatchedStateRequired: never;
+    // as new prop
+    newProp: number;
+    // no related
+    nonRelatedProp: string;
   }>
 >(AfterHoc);
