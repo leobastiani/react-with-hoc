@@ -1,10 +1,12 @@
 import { ComponentType, FunctionComponent, useMemo } from "react";
 import { DependencyNames } from "../DependencyNames";
 import {
+  Fn,
   HasAllPropsFn,
   IfThenFn,
   IntersectionFn,
   KeepNeversFn,
+  Pipe,
   ReplaceFn,
   SetOptionalFn,
   ToSchema,
@@ -12,24 +14,33 @@ import {
 import { Hoc } from "../Hoc";
 import { newHoc } from "../newHoc";
 
+interface WithPropFn<
+  PropName extends string,
+  PropValue,
+  DependencyProps extends [string | number | symbol, any]
+> extends Fn {
+  return: Pipe<
+    this["arg0"],
+    [
+      IfThenFn<
+        HasAllPropsFn<PropName>,
+        [IntersectionFn<[PropName, PropValue]>, SetOptionalFn<PropName>]
+      >,
+      KeepNeversFn<ReplaceFn<DependencyProps>>
+    ]
+  >;
+}
+
 type WithPropHoc = <
   PropValue,
   PropName extends string,
-  DependencyProps extends {},
+  DependencyProps extends object,
   TDependencyName extends DependencyNames<DependencyProps> = DependencyNames<DependencyProps>
 >(
   propName: PropName,
   factory: (props: DependencyProps) => PropValue,
   dependencyNames: TDependencyName
-) => Hoc<
-  [
-    IfThenFn<
-      HasAllPropsFn<PropName>,
-      [IntersectionFn<[PropName, PropValue]>, SetOptionalFn<PropName>]
-    >,
-    KeepNeversFn<ReplaceFn<ToSchema<DependencyProps>>>
-  ]
->;
+) => Hoc<[WithPropFn<PropName, PropValue, ToSchema<DependencyProps>>]>;
 
 export const withPropSingleByFactory = newHoc<WithPropHoc>(function withProp(
   Component: ComponentType,
