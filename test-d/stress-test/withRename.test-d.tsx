@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { expectType } from "tsd";
-import { repeat450 } from "../../src/repeat";
+import { stress } from "../../src/stress";
 import { withHocs } from "../../src/withHocs";
 import { withRename } from "../../src/withRename";
 
@@ -11,7 +11,7 @@ import { withRename } from "../../src/withRename";
     c: boolean;
   }> = undefined as any;
   const AfterHoc = withHocs([
-    ...repeat450(withHocs([withRename("d", "a"), withRename("a", "d")])),
+    ...stress(withRename("d", "a"), withRename("a", "d")),
     withRename("d", "a"),
   ])(BeforeHoc);
   expectType<
@@ -30,17 +30,15 @@ import { withRename } from "../../src/withRename";
     c: boolean;
   }> = undefined as any;
   const AfterHoc = withHocs([
-    ...repeat450(
-      withHocs([
-        withRename({
-          d: "a",
-          e: "b",
-        }),
-        withRename({
-          a: "d",
-          b: "e",
-        }),
-      ])
+    ...stress(
+      withRename({
+        d: "a",
+        e: "b",
+      }),
+      withRename({
+        a: "d",
+        b: "e",
+      })
     ),
     withRename({
       d: "a",
