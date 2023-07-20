@@ -1,13 +1,32 @@
 import { ComponentType, FunctionComponent, useState } from "react";
-import { IntersectionFn, SetOptionalFn, ToSchema } from "./Fn";
+import { Fn, IntersectionFn, Pipe, SetOptionalFn, ToSchema } from "./Fn";
 import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
+
+interface WithStateFn<
+  PropValue,
+  StateName extends string,
+  SetterName extends string,
+  PropsSchema extends [string | number | symbol, any]
+> extends Fn {
+  return: Pipe<
+    this["arg0"],
+    [
+      IntersectionFn<
+        | [StateName, PropValue]
+        | [SetterName, React.Dispatch<React.SetStateAction<PropValue>>]
+      >,
+      SetOptionalFn<StateName | SetterName>,
+      IntersectionFn<PropsSchema>
+    ]
+  >;
+}
 
 type WithStateHoc = <
   PropValue,
   StateName extends string,
   SetterName extends string = `set${Capitalize<StateName>}`,
-  Props extends {} = {}
+  Props extends object = {}
 >(
   stateName: StateName,
   {
@@ -17,16 +36,7 @@ type WithStateHoc = <
     init?: Exclude<PropValue, Function> | ((props: Props) => PropValue);
     setterName?: SetterName;
   }
-) => Hoc<
-  [
-    IntersectionFn<
-      | [StateName, PropValue]
-      | [SetterName, React.Dispatch<React.SetStateAction<PropValue>>]
-    >,
-    SetOptionalFn<StateName | SetterName>,
-    IntersectionFn<ToSchema<Props>>
-  ]
->;
+) => Hoc<[WithStateFn<PropValue, StateName, SetterName, ToSchema<Props>>]>;
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 function noop(): void {}
