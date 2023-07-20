@@ -1,19 +1,24 @@
 import { ComponentType, FunctionComponent } from "react";
-import { Call, Fn, FromSchema, IntersectionFn, SetOptionalFn } from "./Fn";
+import { Fn, FromSchema, IntersectionFn, Pipe, SetOptionalFn } from "./Fn";
 import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
 
 interface WithSpreadFn<PropName extends string, Names extends string>
   extends Fn {
-  return: Call<
-    IntersectionFn<[PropName, FromSchema<Extract<this["arg0"], [Names, any]>>]>,
-    this["arg0"]
+  return: Pipe<
+    this["arg0"],
+    [
+      IntersectionFn<
+        [PropName, FromSchema<Extract<this["arg0"], [Names, any]>>]
+      >,
+      SetOptionalFn<Names>
+    ]
   >;
 }
 
 interface WithSpreadHoc {
   <PropName extends string, Names extends string>(propName: PropName): Hoc<
-    [WithSpreadFn<PropName, Names>, SetOptionalFn<Names>]
+    [WithSpreadFn<PropName, Names>]
   >;
 }
 
