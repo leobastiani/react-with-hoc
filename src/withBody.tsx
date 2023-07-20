@@ -1,26 +1,38 @@
 import { ComponentType, FunctionComponent } from "react";
-import { Fn, IntersectionFn, ToSchema } from "./Fn";
+import {
+  Fn,
+  IntersectionFn,
+  KeepNeversFn,
+  OmitFn,
+  PickFn,
+  Pipe,
+  ToSchema,
+} from "./Fn";
 import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
 
-type Values<T> = T[keyof T];
-
-interface RemoveSameFn<T extends [any, any]> extends Fn {
-  return:
-    | Exclude<this["arg0"], [T[0], any]>
-    | Values<{
-        [K in Extract<this["arg0"], any[]>[0] & T[0] as Extract<
+interface WithBodyFn<
+  PropsSchema extends [string | number | symbol, any],
+  RetSchema extends [string | number | symbol, any]
+> extends Fn {
+  return: Pipe<
+    this["arg0"],
+    [
+      IntersectionFn<RetSchema>,
+      KeepNeversFn<OmitFn<RetSchema[0]>>,
+      IntersectionFn<
+        Pipe<
           this["arg0"],
-          [K, any]
-        >[1] extends Extract<T, [K, any]>[1]
-          ? never
-          : K]: [K, never];
-      }>;
+          [PickFn<PropsSchema[0]>, IntersectionFn<PropsSchema>]
+        >
+      >
+    ]
+  >;
 }
 
-type WithBodyHoc = <Props, Ret>(
+type WithBodyHoc = <Props extends object, Ret extends object>(
   body: (props: Props) => Ret
-) => Hoc<[IntersectionFn<ToSchema<Props>>, RemoveSameFn<ToSchema<Ret>>]>;
+) => Hoc<[WithBodyFn<ToSchema<Props>, ToSchema<Ret>>]>;
 
 export const withBody = newHoc<WithBodyHoc>(function withBody(
   Component: ComponentType,

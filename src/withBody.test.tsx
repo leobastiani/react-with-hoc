@@ -1,4 +1,4 @@
-import { act, render } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { componentDisplayName } from "./componentDisplayName";
 import { withBody } from "./withBody";
 
@@ -8,7 +8,7 @@ interface ExampleProps {
   c: boolean;
 }
 const Example = (props: ExampleProps): JSX.Element => {
-  return <pre>{JSON.stringify(props)}</pre>;
+  return <pre>{JSON.stringify(props, Object.keys(props).sort())}</pre>;
 };
 it("withBody name", () => {
   const Component = withBody(function bodyHook() {
@@ -38,17 +38,16 @@ it("with props", () => {
 });
 
 it("same prop on same body", () => {
-  const Component = withBody(({ a }: { a?: number }) => ({ a: a! + 10 }))(
-    Example
-  );
-  render(<Component someState={10} />);
+  const Component = withBody(({ a }: { a?: number | string }) => {
+    if (typeof a === "string") {
+      return { a: Number(a) };
+    }
+    return {
+      a: a! + 10,
+    };
+  })(Example);
+  render(<Component a={10} b="b" c />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"someState":10}</pre>'
-  );
-  act(() => {
-    setSomeState(1);
-  });
-  expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"someState":10}</pre>'
+    '<pre>{"a":20,"b":"b","c":true}</pre>'
   );
 });
