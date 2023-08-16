@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { expectType } from "tsd";
-import { repeat950 } from "../../src/repeat";
+import { stress } from "../../src/stress";
 import { withBody } from "../../src/withBody";
 import { withHocs } from "../../src/withHocs";
 
@@ -10,7 +10,7 @@ const BeforeHoc: React.FC<{
   c: boolean;
 }> = undefined as any;
 const AfterHoc = withHocs(
-  repeat950(withBody(({ a }: { a: string; d: symbol }) => ({ a })))
+  stress(withBody(({ a }: { a: string; d: symbol }) => ({ a })))
 )(BeforeHoc);
 expectType<
   FunctionComponent<{

@@ -9,7 +9,7 @@ import { getTargetByProps, withComponent } from "./withComponent";
 interface WithComponentsHoc {
   <Map extends Record<string, ComponentType<any>>>(
     components: Map,
-    options?: Parameters<typeof withComponent>[2]
+    options?: Parameters<typeof withComponent>[1]
   ): Hoc<
     [
       ReplaceFn<

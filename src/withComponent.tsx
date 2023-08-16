@@ -6,36 +6,25 @@ import {
   useMemo,
 } from "react";
 import { WithComponent } from "./@types/WithComponent";
-import { ReplaceFn } from "./Fn";
+import { Fn, FromSchema, Pipe, ReplaceFn, ToSchema } from "./Fn";
 import { Hoc } from "./Hoc";
 import { componentDisplayName } from "./componentDisplayName";
 import { newHoc } from "./newHoc";
 
-type WithComponentHoc = <
+interface WithComponentFn<
   Name extends string,
-  TargetComponent extends ComponentType<any>
->(
+  PropsSchema extends [string | number | symbol, any]
+> extends Fn {
+  return: Pipe<
+    this["arg0"],
+    [ReplaceFn<[Name, WithComponent<FromSchema<PropsSchema>> | undefined]>]
+  >;
+}
+
+type WithComponentHoc = <Name extends string, Props extends object>(
   name: Name,
-  component: TargetComponent,
-  options?: { hiddenByDefault?: boolean } & (
-    | { pick?: string[] }
-    | { omit?: string[] }
-  )
-) => Hoc<
-  [
-    ReplaceFn<
-      [
-        Name,
-        (
-          | WithComponent<
-              TargetComponent extends ComponentType<infer P> ? P : never
-            >
-          | undefined
-        )
-      ]
-    >
-  ]
->;
+  body: ComponentType<Props>
+) => Hoc<[WithComponentFn<Name, ToSchema<Props>>]>;
 
 function parsePropsByPick(props: any, pick: Set<string>): any {
   const ret: any = {};
