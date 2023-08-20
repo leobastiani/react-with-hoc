@@ -9,9 +9,9 @@ for file in "$src_dir"/with*; do
     with_no_extension="${base_name%%.*}"
     test_d_file="$test_d_dir/$with_no_extension.test-d.tsx"
     if [[ ! -f "$test_d_file" ]]; then
-      echo "$with_no_extension ❌"
+      echo "test-d/stress-test/$with_no_extension.test-d.tsx ❌"
     else
-      echo "$with_no_extension ✅"
+      echo "test-d/stress-test/$with_no_extension.test-d.tsx ✅"
     fi
   fi
 done
