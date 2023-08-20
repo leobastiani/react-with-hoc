@@ -8,9 +8,11 @@ interface WithWrapperHoc {
     options?:
       | {
           pickProps: string[];
+          omitProps?: undefined;
         }
       | {
           omitProps: string[];
+          pickProps?: undefined;
         }
   ): Hoc<[]>;
 }
