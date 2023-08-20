@@ -1,24 +1,29 @@
 import { ComponentType, FunctionComponent, useMemo } from "react";
 import { WithComponent } from "./@types/WithComponent";
-import { ReplaceFn } from "./Fn";
+import { Call, Fn, ReplaceFn, ToSchema } from "./Fn";
 import { Hoc } from "./Hoc";
 import { componentDisplayName } from "./componentDisplayName";
 import { newHoc } from "./newHoc";
 import { getTargetByProps, withComponent } from "./withComponent";
 
+interface WithComponentsFn<
+  T extends [string | number | symbol, ComponentType<any>]
+> extends Fn {
+  return: Call<
+    ReplaceFn<
+      {
+        [K in T[0]]: [K, WithComponent<Extract<T, [K, any]>[1]> | undefined];
+      }[T[0]]
+    >,
+    this["arg0"]
+  >;
+}
+
 interface WithComponentsHoc {
-  <Map extends Record<string, ComponentType<any>>>(
+  <const Map extends Record<string, ComponentType<any>>>(
     components: Map,
     options?: Parameters<typeof withComponent>[1]
-  ): Hoc<
-    [
-      ReplaceFn<
-        {
-          [K in keyof Map]: [K, WithComponent<Map[K]> | undefined];
-        }[keyof Map]
-      >
-    ]
-  >;
+  ): Hoc<[WithComponentsFn<ToSchema<Map>>]>;
 }
 
 export const withComponents = newHoc<WithComponentsHoc>(function withComponents(

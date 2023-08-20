@@ -45,6 +45,11 @@ type Repeat900<T extends any[]> = [...Repeat875<T>, ...Repeat25<T>];
 type Repeat925<T extends any[]> = [...Repeat900<T>, ...Repeat25<T>];
 type Repeat950<T extends any[]> = [...Repeat925<T>, ...Repeat25<T>];
 
+export function halfStress<T>(t: T): Repeat475<[T]>;
+export function halfStress(...t: any[]) {
+  return t;
+}
+
 export function stress<T>(t: T): Repeat950<[T]>;
 export function stress<T, U>(t: T, u: U): Repeat475<[T, U]>;
 export function stress(...t: any[]) {

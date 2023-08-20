@@ -35,7 +35,9 @@
     "lint": "eslint . --max-warnings=0",
     "prepare": "yarn build",
     "prepublishOnly": "yarn clean && yarn test && yarn lint",
-    "test": "jest"
+    "test": "jest",
+    "tsc": "tsc --noEmit",
+    "tsd": "node --max_old_space_size=8000 node_modules/.bin/tsd"
   },
   "dependencies": {},
   "devDependencies": {
