@@ -23,7 +23,11 @@ interface WithComponentFn<
 
 type WithComponentHoc = <Name extends string, Props extends object>(
   name: Name,
-  body: ComponentType<Props>
+  body: ComponentType<Props>,
+  options?: { hiddenByDefault?: boolean } & (
+    | { pick?: string[]; omit?: undefined }
+    | { omit?: string[]; pick?: undefined }
+  )
 ) => Hoc<[WithComponentFn<Name, ToSchema<Props>>]>;
 
 function parsePropsByPick(props: any, pick: Set<string>): any {
