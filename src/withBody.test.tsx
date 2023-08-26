@@ -23,7 +23,7 @@ it("with no props", () => {
   const Component = withBody(() => ({ b: "b" }))(Example);
   render(<Component a={1} c />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"a":1,"c":true,"b":"b"}</pre>'
+    '<pre>{"a":1,"b":"b","c":true}</pre>'
   );
 });
 
@@ -33,7 +33,7 @@ it("with props", () => {
   );
   render(<Component a={10} c />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"a":10,"c":true,"b":"10"}</pre>'
+    '<pre>{"a":10,"b":"10","c":true}</pre>'
   );
 });
 
