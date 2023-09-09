@@ -2,7 +2,6 @@ export * from "./@types/PartialComponent";
 export * from "./componentDisplayName";
 export * from "./newHoc";
 export * from "./withComponent";
-export * from "./withComponents";
 export * from "./withForEach";
 export * from "./withHocs";
 export * from "./withIf";

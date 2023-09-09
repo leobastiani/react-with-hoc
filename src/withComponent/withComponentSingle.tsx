@@ -5,11 +5,11 @@ import {
   isValidElement,
   useMemo,
 } from "react";
-import { WithComponent } from "./@types/WithComponent";
-import { Fn, FromSchema, Pipe, ReplaceFn, ToSchema } from "./Fn";
-import { Hoc } from "./Hoc";
-import { componentDisplayName } from "./componentDisplayName";
-import { newHoc } from "./newHoc";
+import { WithComponent } from "../@types/WithComponent";
+import { Fn, FromSchema, Pipe, ReplaceFn, ToSchema } from "../Fn";
+import { Hoc } from "../Hoc";
+import { componentDisplayName } from "../componentDisplayName";
+import { newHoc } from "../newHoc";
 
 interface WithComponentFn<
   Name extends string,
@@ -51,59 +51,61 @@ function parsePropsByOmit(props: any, omit: Set<string>): any {
   return ret;
 }
 
-export const withComponent = newHoc<WithComponentHoc>(function withComponent(
-  Component: ComponentType,
-  name: string,
-  TargetComponent: ComponentType,
-  options: any = {}
-): FunctionComponent {
-  if (process.env.NODE_ENV !== "production") {
-    if (options.omit && options.pick) {
-      throw new Error(
-        "Don't use withComponent with pick and omit at the same time"
-      );
-    }
-  }
-
-  let set: Set<string>;
-  if (options.pick) {
-    set = new Set(options.pick);
-  } else if (options.omit) {
-    set = new Set(options.omit);
-  }
-
-  const parseProps = ((): any => {
-    if (options.pick) {
-      return (props: any) => parsePropsByPick(props, set);
-    } else if (options.omit) {
-      return (props: any) => parsePropsByOmit(props, set);
-    }
-    return (props: any) => props;
-  })();
-
-  return function WithComponent(props: any): JSX.Element {
-    const TargetByProps = useMemo(
-      () => getTargetByProps({ props, name, TargetComponent, options }),
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      [props[name]]
-    );
-    const CurrTarget = (myProps: any): any => (
-      <TargetByProps {...parseProps(props)} {...myProps} />
-    );
+export const withComponentSingle = newHoc<WithComponentHoc>(
+  function withComponent(
+    Component: ComponentType,
+    name: string,
+    TargetComponent: ComponentType,
+    options: any = {}
+  ): FunctionComponent {
     if (process.env.NODE_ENV !== "production") {
-      componentDisplayName.set(`${name}.withComponent`, CurrTarget);
+      if (options.omit && options.pick) {
+        throw new Error(
+          "Don't use withComponent with pick and omit at the same time"
+        );
+      }
     }
 
-    return (
-      <Component
-        {...props}
-        {...{
-          [name]: CurrTarget,
-        }}
-      />
-    );
-  };
-});
+    let set: Set<string>;
+    if (options.pick) {
+      set = new Set(options.pick);
+    } else if (options.omit) {
+      set = new Set(options.omit);
+    }
+
+    const parseProps = ((): any => {
+      if (options.pick) {
+        return (props: any) => parsePropsByPick(props, set);
+      } else if (options.omit) {
+        return (props: any) => parsePropsByOmit(props, set);
+      }
+      return (props: any) => props;
+    })();
+
+    return function WithComponent(props: any): JSX.Element {
+      const TargetByProps = useMemo(
+        () => getTargetByProps({ props, name, TargetComponent, options }),
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [props[name]]
+      );
+      const CurrTarget = (myProps: any): any => (
+        <TargetByProps {...parseProps(props)} {...myProps} />
+      );
+      if (process.env.NODE_ENV !== "production") {
+        componentDisplayName.set(`${name}.withComponent`, CurrTarget);
+      }
+
+      return (
+        <Component
+          {...props}
+          {...{
+            [name]: CurrTarget,
+          }}
+        />
+      );
+    };
+  }
+);
 
 export function getTargetByProps({
   props,

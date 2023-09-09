@@ -1,10 +1,10 @@
 import { act, render } from "@testing-library/react";
 import { ComponentProps } from "react";
-import { PartialComponent } from "./@types/PartialComponent";
-import { componentDisplayName } from "./componentDisplayName";
-import { withComponent } from "./withComponent";
-import { withHocs } from "./withHocs";
-import { withState } from "./withState";
+import { withComponentSingle } from "./withComponentSingle";
+import { PartialComponent } from "../@types/PartialComponent";
+import { componentDisplayName } from "../componentDisplayName";
+import { withHocs } from "../withHocs";
+import { withState } from "../withState";
 
 interface ExampleProps {
   a: number;
@@ -53,17 +53,17 @@ function AnotherSide(props: { someAnotherProp: string }): JSX.Element {
   return <pre id="another-side">{JSON.stringify(props)}</pre>;
 }
 
-it("withComponent name", () => {
-  const Component = withComponent("Side", Side)(Example1);
+it("withComponentSingle name", () => {
+  const Component = withComponentSingle("Side", Side)(Example1);
   expect(componentDisplayName.get(Component)).toBe(
-    "withComponent.Side(Example1)"
+    "withComponentSingle.Side(Example1)"
   );
 });
 
-it("withComponent with default behavior", () => {
+it("withComponentSingle with default behavior", () => {
   const Component = withHocs([
     withState<number, "a">("a"),
-    withComponent("Side", Side),
+    withComponentSingle("Side", Side),
   ])(Example1);
   render(<Component a={1} b={2} />);
   expect(document.body.children[0].innerHTML).toBe(
@@ -71,10 +71,10 @@ it("withComponent with default behavior", () => {
   );
 });
 
-it("withComponent with default behavior and prop", () => {
+it("withComponentSingle with default behavior and prop", () => {
   const Component = withHocs([
     withState<number, "a">("a"),
-    withComponent("Side", Side),
+    withComponentSingle("Side", Side),
   ])(Example2);
   render(<Component a={1} b={2} />);
   expect(document.body.children[0].innerHTML).toBe(
@@ -82,10 +82,10 @@ it("withComponent with default behavior and prop", () => {
   );
 });
 
-it("withComponent disabled", () => {
+it("withComponentSingle disabled", () => {
   const Component = withHocs([
     withState<number, "a">("a"),
-    withComponent("Side", Side),
+    withComponentSingle("Side", Side),
   ])(Example1);
   render(<Component a={1} b={2} Side={null} />);
   expect(document.body.children[0].innerHTML).toBe(
@@ -93,10 +93,10 @@ it("withComponent disabled", () => {
   );
 });
 
-it("withComponent overridden", () => {
+it("withComponentSingle overridden", () => {
   const Component = withHocs([
     withState<number, "a">("a"),
-    withComponent("Side", Side),
+    withComponentSingle("Side", Side),
   ])(Example1);
   render(<Component a={1} b={2} Side={10} />);
   expect(document.body.children[0].innerHTML).toBe(
@@ -104,10 +104,10 @@ it("withComponent overridden", () => {
   );
 });
 
-it("withComponent by object", () => {
+it("withComponentSingle by object", () => {
   const Component = withHocs([
     withState<number, "a">("a"),
-    withComponent("Side", Side),
+    withComponentSingle("Side", Side),
   ])(Example2);
   render(<Component a={1} b={2} Side={{ someProp: 20 }} />);
   expect(document.body.children[0].innerHTML).toBe(
@@ -115,10 +115,10 @@ it("withComponent by object", () => {
   );
 });
 
-it("withComponent with object", () => {
+it("withComponentSingle with object", () => {
   const Component = withHocs([
     withState<number, "a">("a"),
-    withComponent("Side", Side),
+    withComponentSingle("Side", Side),
   ])(Example2);
   render(<Component a={1} b={2} Side={{ someProp: 20 }} />);
   expect(document.body.children[0].innerHTML).toBe(
@@ -126,10 +126,10 @@ it("withComponent with object", () => {
   );
 });
 
-it("withComponent with element", () => {
+it("withComponentSingle with element", () => {
   const Component = withHocs([
     withState<number, "a">("a"),
-    withComponent("Side", Side),
+    withComponentSingle("Side", Side),
   ])(Example2);
   render(<Component a={1} b={2} Side={<AnotherSide someAnotherProp="20" />} />);
   expect(document.body.children[0].innerHTML).toBe(
@@ -137,10 +137,10 @@ it("withComponent with element", () => {
   );
 });
 
-it("withComponent hiddenByDefault", () => {
+it("withComponentSingle hiddenByDefault", () => {
   const Component = withHocs([
     withState<number, "a">("a"),
-    withComponent("Side", Side, { hiddenByDefault: true }),
+    withComponentSingle("Side", Side, { hiddenByDefault: true }),
   ])(Example1);
   const { rerender } = render(<Component a={1} b={2} />);
   expect(document.body.children[0].innerHTML).toBe(
@@ -152,10 +152,10 @@ it("withComponent hiddenByDefault", () => {
   );
 });
 
-it("withComponent pick", () => {
+it("withComponentSingle pick", () => {
   const Component = withHocs([
     withState<number, "a">("a"),
-    withComponent("Side", Side, { pick: ["b"] }),
+    withComponentSingle("Side", Side, { pick: ["b"] }),
   ])(Example1);
   render(<Component a={1} b={2} />);
   expect(document.body.children[0].innerHTML).toBe(
@@ -163,10 +163,10 @@ it("withComponent pick", () => {
   );
 });
 
-it("withComponent omit", () => {
+it("withComponentSingle omit", () => {
   const Component = withHocs([
     withState<number, "a">("a"),
-    withComponent("Side", Side, { omit: ["b"] }),
+    withComponentSingle("Side", Side, { omit: ["b"] }),
   ])(Example1);
   render(<Component a={1} b={2} />);
   expect(document.body.children[0].innerHTML).toBe(
@@ -174,10 +174,10 @@ it("withComponent omit", () => {
   );
 });
 
-it("withComponent rerenders when props change", () => {
+it("withComponentSingle rerenders when props change", () => {
   const Component = withHocs([
     withState("a", { init: 1 }),
-    withComponent("Side", Side),
+    withComponentSingle("Side", Side),
   ])(Example1);
   render(<Component b={2} />);
   expect(document.body.children[0].innerHTML).toBe(
@@ -195,7 +195,7 @@ describe("passing a function as an attribute", () => {
   it("hiddenByDefault = false", () => {
     const Component = withHocs([
       withState<number, "a">("a"),
-      withComponent("Side", Side),
+      withComponentSingle("Side", Side),
     ])(Example1);
     render(
       <Component
@@ -217,7 +217,7 @@ describe("passing a function as an attribute", () => {
   it("hiddenByDefault = true", () => {
     const Component = withHocs([
       withState<number, "a">("a"),
-      withComponent("Side", Side, { hiddenByDefault: true }),
+      withComponentSingle("Side", Side, { hiddenByDefault: true }),
     ])(Example1);
     render(
       <Component
