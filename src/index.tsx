@@ -1,5 +1,4 @@
 export * from "./@types/PartialComponent";
-export * from "./componentDisplayName";
 export * from "./newHoc";
 export * from "./withComponent";
 export * from "./withForEach";
