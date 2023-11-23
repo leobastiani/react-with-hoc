@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- <div style="display: inline-flex; background: transparent;">
+    <img width="100" src="./inequality.svg" />
+
+    <div style="display: grid; place-items: center;">
+      <div style="display: inline-flex;">
+        <img width="33" src="./inequality.svg" />
+        <img width="33" src="./slash.svg" />
+        <img width="33" style="transform: scaleX(-1);" src="./inequality.svg" />
+      </div>
+      <div style="display: inline-flex;">
+        <img width="33" src="./inequality.svg" />
+        <img width="33" src="./slash.svg" />
+        <img width="33" style="transform: scaleX(-1);" src="./inequality.svg" />
+      </div>
+      <div style="display: inline-flex;">
+        <img width="33" src="./inequality.svg" />
+        <img width="33" src="./slash.svg" />
+        <img width="33" style="transform: scaleX(-1);" src="./inequality.svg" />
+      </div>
+    </div>
+
+    <img width="100" src="./slash.svg" />
+    <img width="100" style="transform: scaleX(-1);" src="./inequality.svg" />
+  </div> -->
+</body>
+
+<script>
+  function createNode(/** @type {number} */ width) {
+    const images = [
+      document.createElement('img'),
+      document.createElement('img'),
+      document.createElement('img'),
+    ]
+
+    for (const img of images) {
+      img.width = width
+    }
+
+    images[0].src = "./inequality.svg"
+    images[1].src = "./slash.svg"
+    images[2].src = "./inequality.svg"
+    images[2].style.transform = "scaleX(-1)"
+
+    const div = document.createElement('div')
+    div.replaceChildren(...images)
+
+    div.style.display = 'inline-flex';
+
+    return div
+  }
+
+  function joinVerticalNodes(/** @type {HTMLElement[]} */nodes) {
+    const div = document.createElement('div')
+    div.replaceChildren(...nodes)
+
+    div.style.display = 'inline-flex';
+    div.style.flexDirection = 'column';
+    div.style.justifyContent = 'center';
+    div.style.marginLeft = '4%';
+    div.style.marginRight = '2%';
+    div.style.scale = '0.9';
+
+    return div
+  }
+
+  function addJoins(/** @type {HTMLElement} */ parentNode, /** @type {HTMLElement} */ joined) {
+    const children = Array.from(parentNode.children)
+    children.splice(1, 0, joined)
+
+    parentNode.replaceChildren(...children)
+    return parentNode
+  }
+
+  function cloneNode(/** @type {HTMLElement} */ node) {
+    const div = document.createElement('div')
+    div.innerHTML = node.outerHTML
+
+    return div.children[0]
+  }
+
+  let i = 0;
+  let w = 11;
+  const n = 3
+  let div = Array.from({ length: n }).map(() => createNode(w));
+  w *= 3
+
+  for (let i = 0; i < 4; i++, w *= 3) {
+    const join = joinVerticalNodes(div)
+    div = Array.from({ length: n }).map(() => createNode(w))
+    for (let j = 0; j < n; j++) {
+      addJoins(div[j], cloneNode(join))
+    }
+  }
+
+  document.body.append(div[0])
+</script>
+
+<script type="module">
+  // import * as htmlToImage from 'https://unpkg.com/html-to-image@1.11.11/es/index.js'
+  // const img = new Image();
+  // img.src = await htmlToImage.toSvg(document.querySelector('body > div'));
+  // document.body.appendChild(img);
+</script>
+
+</html>
