@@ -8,30 +8,6 @@
 </head>
 
 <body>
-  <!-- <div style="display: inline-flex; background: transparent;">
-    <img width="100" src="./inequality.svg" />
-
-    <div style="display: grid; place-items: center;">
-      <div style="display: inline-flex;">
-        <img width="33" src="./inequality.svg" />
-        <img width="33" src="./slash.svg" />
-        <img width="33" style="transform: scaleX(-1);" src="./inequality.svg" />
-      </div>
-      <div style="display: inline-flex;">
-        <img width="33" src="./inequality.svg" />
-        <img width="33" src="./slash.svg" />
-        <img width="33" style="transform: scaleX(-1);" src="./inequality.svg" />
-      </div>
-      <div style="display: inline-flex;">
-        <img width="33" src="./inequality.svg" />
-        <img width="33" src="./slash.svg" />
-        <img width="33" style="transform: scaleX(-1);" src="./inequality.svg" />
-      </div>
-    </div>
-
-    <img width="100" src="./slash.svg" />
-    <img width="100" style="transform: scaleX(-1);" src="./inequality.svg" />
-  </div> -->
 </body>
 
 <script>
@@ -89,12 +65,12 @@
   }
 
   let i = 0;
-  let w = 11;
+  let w = 1;
   const n = 3
   let div = Array.from({ length: n }).map(() => createNode(w));
   w *= 3
 
-  for (let i = 0; i < 4; i++, w *= 3) {
+  for (let i = 0; i < 6; i++, w *= 3) {
     const join = joinVerticalNodes(div)
     div = Array.from({ length: n }).map(() => createNode(w))
     for (let j = 0; j < n; j++) {
@@ -106,10 +82,10 @@
 </script>
 
 <script type="module">
-  // import * as htmlToImage from 'https://unpkg.com/html-to-image@1.11.11/es/index.js'
-  // const img = new Image();
-  // img.src = await htmlToImage.toSvg(document.querySelector('body > div'));
-  // document.body.appendChild(img);
+  import * as htmlToImage from 'https://unpkg.com/html-to-image@1.11.11/es/index.js'
+  const img = new Image();
+  img.src = await htmlToImage.toSvg(document.querySelector('body > div'));
+  document.body.appendChild(img);
 </script>
 
 </html>
