@@ -1,5 +1,5 @@
-export * from "./hocs/withBody";
-export * from "./lib/newHoc";
+export * from "./hocs";
+export * from "./lib";
 export * from "./types";
 export * from "./withComponent";
 export * from "./withDisplayName";
