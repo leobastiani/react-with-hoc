@@ -1,5 +1,5 @@
-export * from "./@types/PartialComponent";
 export * from "./newHoc";
+export * from "./types/PartialComponent";
 export * from "./withComponent";
 export * from "./withForEach";
 export * from "./withHocs";

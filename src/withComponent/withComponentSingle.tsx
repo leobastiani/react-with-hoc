@@ -5,11 +5,11 @@ import {
   isValidElement,
   useMemo,
 } from "react";
-import { WithComponent } from "../@types/WithComponent";
 import { Fn, FromSchema, Pipe, ReplaceFn, ToSchema } from "../Fn";
 import { Hoc } from "../Hoc";
 import { componentDisplayName } from "../componentDisplayName";
 import { newHoc } from "../newHoc";
+import { WithComponent } from "../types/WithComponent";
 
 interface WithComponentFn<
   Name extends string,

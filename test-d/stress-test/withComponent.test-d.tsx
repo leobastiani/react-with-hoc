@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React, { FunctionComponent } from "react";
 import { expectType } from "tsd";
-import { PartialComponent } from "../../src/@types/PartialComponent";
-import { WithComponent } from "../../src/@types/WithComponent";
 import { halfStress, stress } from "../../src/stress";
+import { PartialComponent } from "../../src/types/PartialComponent";
+import { WithComponent } from "../../src/types/WithComponent";
 import { withComponent } from "../../src/withComponent";
 import { withHocs } from "../../src/withHocs";
 

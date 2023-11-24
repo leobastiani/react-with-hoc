@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React, { Fragment, FunctionComponent } from "react";
 import { expectType } from "tsd";
-import { PartialComponent } from "../src/@types/PartialComponent";
-import { WithComponent } from "../src/@types/WithComponent";
+import { PartialComponent } from "../src/types/PartialComponent";
+import { WithComponent } from "../src/types/WithComponent";
 import { withComponent } from "../src/withComponent";
 
 function Button(props: {
