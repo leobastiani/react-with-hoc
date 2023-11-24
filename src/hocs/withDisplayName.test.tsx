@@ -1,7 +1,7 @@
-import { componentDisplayName } from "./lib/componentDisplayName";
+import { componentDisplayName } from "../lib/componentDisplayName";
+import { withHocs } from "../withHocs";
+import { withOmit } from "../withOmit";
 import { withDisplayName } from "./withDisplayName";
-import { withHocs } from "./withHocs";
-import { withOmit } from "./withOmit";
 
 interface ExampleProps {
   a: number;
