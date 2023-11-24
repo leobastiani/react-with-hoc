@@ -1,6 +1,6 @@
 import { Dispatch, FunctionComponent, SetStateAction } from "react";
 import { expectType } from "tsd";
-import { stress } from "../../src/stress";
+import { stress } from "../../src/test/stress";
 import { withHocs } from "../../src/withHocs";
 import { withState } from "../../src/withState";
 

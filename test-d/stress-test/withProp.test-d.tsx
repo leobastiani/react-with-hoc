@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { expectType } from "tsd";
-import { repeat950 } from "../../src/test/repeat";
+import { stress } from "../../src/test/stress";
 import { withHocs } from "../../src/withHocs";
 import { withProp } from "../../src/withProp";
 
@@ -10,7 +10,7 @@ import { withProp } from "../../src/withProp";
     b: number;
     c: boolean;
   }> = undefined as any;
-  const AfterHoc = withHocs(repeat950(withProp("a", "someString")))(BeforeHoc);
+  const AfterHoc = withHocs(stress(withProp("a", "someString")))(BeforeHoc);
   expectType<
     FunctionComponent<{
       b: number;
@@ -27,7 +27,7 @@ import { withProp } from "../../src/withProp";
     c: boolean;
   }> = undefined as any;
   const AfterHoc = withHocs(
-    repeat950(withProp("a", ({ b }: { b: number }) => String(b), ["b"]))
+    stress(withProp("a", ({ b }: { b: number }) => String(b), ["b"]))
   )(BeforeHoc);
   AfterHoc;
   expectType<
@@ -46,7 +46,7 @@ import { withProp } from "../../src/withProp";
     c: boolean;
   }> = undefined as any;
   const AfterHoc = withHocs(
-    repeat950(
+    stress(
       withProp({
         a: "1",
         b: 2,

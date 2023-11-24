@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { expectType } from "tsd";
-import { stress } from "../../src/stress";
+import { stress } from "../../src/test/stress";
 import { withBody } from "../../src/withBody";
 import { withHocs } from "../../src/withHocs";
 import { withPick } from "../../src/withPick";
