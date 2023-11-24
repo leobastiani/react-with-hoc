@@ -1,6 +1,6 @@
 import { ComponentType } from "react";
-import { Fn } from "./types/Fn";
-import { Hoc } from "./types/Hoc";
+import { Fn } from "../types/Fn";
+import { Hoc } from "../types/Hoc";
 
 type WithHocsArg =
   | Hoc<any>

@@ -1,6 +1,6 @@
 import { act, render } from "@testing-library/react";
 import { Dispatch, FunctionComponent, SetStateAction } from "react";
-import { componentDisplayName } from "./lib/componentDisplayName";
+import { componentDisplayName } from "../lib/componentDisplayName";
 import { withState } from "./withState";
 
 let setSomeState: (n: number) => void;

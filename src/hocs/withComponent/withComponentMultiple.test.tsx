@@ -2,9 +2,9 @@ import { act, render } from "@testing-library/react";
 import { FunctionComponent } from "react";
 import { componentDisplayName } from "../../lib/componentDisplayName";
 import { PartialComponent } from "../../types/PartialComponent";
-import { withHocs } from "../../withHocs";
-import { withState } from "../../withState";
+import { withHocs } from "../withHocs";
 import { withProp } from "../withProp";
+import { withState } from "../withState";
 import { withComponentMultiple } from "./withComponentMultiple";
 
 interface ExampleProps {
