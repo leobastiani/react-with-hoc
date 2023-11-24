@@ -1,8 +1,8 @@
 import { ComponentType, FunctionComponent, useMemo } from "react";
-import { DependencyNames } from "./DependencyNames";
 import { Fn, IntersectionFn, ToSchema } from "./Fn";
 import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
+import { DependencyNames } from "./types/DependencyNames";
 
 interface WithIfFn<PropName extends string> extends Fn {
   return: [PropName, any] extends this["arg0"]

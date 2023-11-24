@@ -1,5 +1,4 @@
 import { ComponentType, FunctionComponent, useMemo } from "react";
-import { DependencyNames } from "../DependencyNames";
 import {
   Fn,
   HasAllPropsFn,
@@ -13,6 +12,7 @@ import {
 } from "../Fn";
 import { Hoc } from "../Hoc";
 import { newHoc } from "../newHoc";
+import { DependencyNames } from "../types/DependencyNames";
 
 interface WithPropFn<
   PropName extends string,
