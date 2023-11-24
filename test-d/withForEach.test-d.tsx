@@ -1,6 +1,6 @@
 import { FunctionComponent, ReactNode } from "react";
 import { expectType } from "tsd";
-import { withForEach } from "../src/withForEach";
+import { withForEach } from "../src";
 
 {
   // without target keys

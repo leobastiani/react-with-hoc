@@ -1,8 +1,7 @@
 import { FunctionComponent } from "react";
 import { expectType } from "tsd";
+import { withHocs, withIf } from "../../src";
 import { stress } from "../../src/test/stress";
-import { withHocs } from "../../src/withHocs";
-import { withIf } from "../../src/withIf";
 
 /* dependency name */ {
   const BeforeHoc: React.FC<{

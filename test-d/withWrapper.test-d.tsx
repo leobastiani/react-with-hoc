@@ -1,6 +1,6 @@
 import { FunctionComponent, ReactNode } from "react";
 import { expectType } from "tsd";
-import { withWrapper } from "../src/withWrapper";
+import { withWrapper } from "../src";
 
 {
   // don't change component props

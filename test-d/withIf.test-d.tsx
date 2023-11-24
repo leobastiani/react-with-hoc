@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { expectType } from "tsd";
-import { withIf } from "../src/withIf";
+import { withIf } from "../src";
 
 // with prop name
 {

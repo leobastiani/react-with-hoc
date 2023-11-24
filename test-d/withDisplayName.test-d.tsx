@@ -1,7 +1,5 @@
 import { expectType } from "tsd";
-import { withDisplayName } from "../src/withDisplayName";
-import { withHocs } from "../src/withHocs";
-import { withPick } from "../src/withPick";
+import { withDisplayName, withHocs, withPick } from "../src";
 
 /* MyRFCComponent */ {
   const MyRFCComponent: React.FC<{

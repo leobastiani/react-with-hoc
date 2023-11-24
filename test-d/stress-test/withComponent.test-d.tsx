@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React, { FunctionComponent } from "react";
 import { expectType } from "tsd";
+import {
+  PartialComponent,
+  WithComponent,
+  withComponent,
+  withHocs,
+} from "../../src";
 import { halfStress, stress } from "../../src/test/stress";
-import { PartialComponent } from "../../src/types/PartialComponent";
-import { WithComponent } from "../../src/types/WithComponent";
-import { withComponent } from "../../src/withComponent";
-import { withHocs } from "../../src/withHocs";
 
 function Button(props: {
   size: "lg" | "md" | "xs";

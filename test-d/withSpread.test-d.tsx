@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { expectType } from "tsd";
-import { withSpread } from "../src/withSpread";
+import { withSpread } from "../src";
 
 {
   // with perfect match

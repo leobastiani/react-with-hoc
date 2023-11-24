@@ -1,8 +1,7 @@
 import { Dispatch, FunctionComponent, SetStateAction } from "react";
 import { expectType } from "tsd";
+import { withHocs, withState } from "../../src";
 import { stress } from "../../src/test/stress";
-import { withHocs } from "../../src/withHocs";
-import { withState } from "../../src/withState";
 
 const BeforeHoc: React.FC<{
   someState: number;

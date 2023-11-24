@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { expectType } from "tsd";
-import { withPick } from "../src/withPick";
+import { withPick } from "../src";
 
 {
   // with empty list

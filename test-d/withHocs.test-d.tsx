@@ -1,7 +1,6 @@
 import { ComponentType, FunctionComponent } from "react";
 import { expectType } from "tsd";
-import { withHocs } from "../src/withHocs";
-import { withState } from "../src/withState";
+import { withHocs, withState } from "../src";
 
 {
   // matches requirements

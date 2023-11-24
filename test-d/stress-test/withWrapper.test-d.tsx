@@ -1,8 +1,7 @@
 import { FunctionComponent, ReactNode } from "react";
 import { expectType } from "tsd";
+import { withHocs, withWrapper } from "../../src";
 import { stress } from "../../src/test/stress";
-import { withHocs } from "../../src/withHocs";
-import { withWrapper } from "../../src/withWrapper";
 
 const BeforeHoc: React.FC<{
   a: string;

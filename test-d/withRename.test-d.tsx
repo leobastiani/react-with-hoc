@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { expectType } from "tsd";
-import { withRename } from "../src/withRename";
+import { withRename } from "../src";
 
 /* single */ {
   /* with required prop */ {

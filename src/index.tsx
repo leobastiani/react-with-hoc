@@ -1,6 +1,6 @@
 export * from "./hocs/withBody";
 export * from "./lib/newHoc";
-export * from "./types/PartialComponent";
+export * from "./types";
 export * from "./withComponent";
 export * from "./withDisplayName";
 export * from "./withForEach";

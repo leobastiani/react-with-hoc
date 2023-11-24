@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { expectType } from "tsd";
-import { withOmit } from "../src/withOmit";
+import { withOmit } from "../src";
 
 {
   // with empty list

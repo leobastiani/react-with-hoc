@@ -1,6 +1,6 @@
 import { Dispatch, FunctionComponent, SetStateAction } from "react";
 import { expectType } from "tsd";
-import { withState } from "../src/withState";
+import { withState } from "../src";
 
 {
   // adds new state with oldProp as optional
