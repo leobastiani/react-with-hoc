@@ -1,6 +1,6 @@
 import { Dispatch, FunctionComponent, SetStateAction, useState } from "react";
 import { expectType } from "tsd";
-import { withBody } from "../src/withBody";
+import { withBody } from "../src";
 
 const BeforeHoc: React.FC<{
   matchedPropRequired: number;
