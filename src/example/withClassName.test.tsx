@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import { componentDisplayName } from "./lib/componentDisplayName";
+import { componentDisplayName } from "../lib/componentDisplayName";
 import { withClassName } from "./withClassName";
 
 function Example({ className }: { className: string }): JSX.Element {
