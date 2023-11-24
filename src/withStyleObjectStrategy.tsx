@@ -4,7 +4,7 @@ import {
   FunctionComponent,
   useMemo,
 } from "react";
-import { createHocNameFunction } from "./hocNameForWithStyle";
+import { createHocNameFunction } from "./lib/hocNameForWithStyle";
 import { newHoc } from "./newHoc";
 import { DependencyNames } from "./types/DependencyNames";
 import { IntersectionFn, SetOptionalFn, ToSchema } from "./types/Fn";

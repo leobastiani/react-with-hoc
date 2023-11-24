@@ -1,6 +1,6 @@
 import { ComponentType } from "react";
-import { componentDisplayName } from "./lib/componentDisplayName";
-import { GetHocArgs, HocDefinition, NewHocReturn } from "./newHoc";
+import { GetHocArgs, HocDefinition, NewHocReturn } from "../newHoc";
+import { componentDisplayName } from "./componentDisplayName";
 
 export function createHocNameFunction<TNewHocReturn extends NewHocReturn<any>>(
   selector: (...args: GetHocArgs<TNewHocReturn>) => unknown | undefined

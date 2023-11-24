@@ -1,5 +1,5 @@
 import { ComponentType, FunctionComponent } from "react";
-import { createHocNameFunction } from "../hocNameForWithStyle";
+import { createHocNameFunction } from "../lib/hocNameForWithStyle";
 import { newHoc } from "../newHoc";
 import { Fn, ToSchema } from "../types/Fn";
 import { Hoc } from "../types/Hoc";
