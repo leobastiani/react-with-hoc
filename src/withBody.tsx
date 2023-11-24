@@ -1,5 +1,4 @@
 import { ComponentType, FunctionComponent } from "react";
-import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
 import {
   Fn,
@@ -10,6 +9,7 @@ import {
   Pipe,
   ToSchema,
 } from "./types/Fn";
+import { Hoc } from "./types/Hoc";
 
 interface WithBodyFn<
   PropsSchema extends [string | number | symbol, any],

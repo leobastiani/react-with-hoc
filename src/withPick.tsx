@@ -1,7 +1,7 @@
 import { ComponentType, FunctionComponent } from "react";
-import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
 import { PickFn } from "./types/Fn";
+import { Hoc } from "./types/Hoc";
 
 type WithPickHoc = <PickNames extends string>(
   pickNames: PickNames[]

@@ -1,5 +1,4 @@
 import { ComponentType, FunctionComponent } from "react";
-import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
 import {
   Fn,
@@ -8,6 +7,7 @@ import {
   Pipe,
   SetOptionalFn,
 } from "./types/Fn";
+import { Hoc } from "./types/Hoc";
 
 interface WithSpreadFn<PropName extends string, Names extends string>
   extends Fn {

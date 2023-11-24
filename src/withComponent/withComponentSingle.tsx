@@ -5,10 +5,10 @@ import {
   isValidElement,
   useMemo,
 } from "react";
-import { Hoc } from "../Hoc";
 import { componentDisplayName } from "../lib/componentDisplayName";
 import { newHoc } from "../newHoc";
 import { Fn, FromSchema, Pipe, ReplaceFn, ToSchema } from "../types/Fn";
+import { Hoc } from "../types/Hoc";
 import { WithComponent } from "../types/WithComponent";
 
 interface WithComponentFn<
