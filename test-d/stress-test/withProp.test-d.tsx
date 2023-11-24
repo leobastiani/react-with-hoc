@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { expectType } from "tsd";
-import { repeat950 } from "../../src/repeat";
+import { repeat950 } from "../../src/test/repeat";
 import { withHocs } from "../../src/withHocs";
 import { withProp } from "../../src/withProp";
 
