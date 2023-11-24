@@ -1,7 +1,7 @@
 import { ComponentType, FunctionComponent, Key } from "react";
-import { SetOptionalFn } from "./Fn";
 import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
+import { SetOptionalFn } from "./types/Fn";
 
 interface Options<IndexName extends string, ValueName extends string> {
   indexName?: IndexName;

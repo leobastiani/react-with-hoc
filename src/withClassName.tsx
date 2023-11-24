@@ -1,7 +1,7 @@
 import { ComponentType, FunctionComponent } from "react";
-import { IntersectionFn, KeepNeversFn, ReplaceFn, ToSchema } from "./Fn";
 import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
+import { IntersectionFn, KeepNeversFn, ReplaceFn, ToSchema } from "./types/Fn";
 
 type ClassNameArg<DependencyProps extends {}> =
   | string

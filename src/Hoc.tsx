@@ -1,5 +1,5 @@
 import { ComponentType, FunctionComponent } from "react";
-import { Fn, FromSchema, Pipe, ToSchema } from "./Fn";
+import { Fn, FromSchema, Pipe, ToSchema } from "./types/Fn";
 
 export type Hoc<TFns extends Fn[]> = <
   Props extends {},

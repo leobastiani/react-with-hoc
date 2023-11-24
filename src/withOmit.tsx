@@ -1,7 +1,7 @@
 import { ComponentType, FunctionComponent } from "react";
-import { OmitFn } from "./Fn";
 import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
+import { OmitFn } from "./types/Fn";
 
 type WithOmitHoc = <OmitNames extends string>(
   omitNames: OmitNames[]

@@ -4,11 +4,11 @@ import {
   FunctionComponent,
   useMemo,
 } from "react";
-import { IntersectionFn, SetOptionalFn, ToSchema } from "./Fn";
 import { Hoc } from "./Hoc";
 import { createHocNameFunction } from "./hocNameForWithStyle";
 import { newHoc } from "./newHoc";
 import { DependencyNames } from "./types/DependencyNames";
+import { IntersectionFn, SetOptionalFn, ToSchema } from "./types/Fn";
 
 interface WithStyleObjectStrategyHoc {
   (value: CSSProperties): Hoc<[SetOptionalFn<"style">]>;

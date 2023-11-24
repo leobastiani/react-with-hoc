@@ -1,7 +1,13 @@
 import { ComponentType, FunctionComponent } from "react";
-import { Fn, FromSchema, IntersectionFn, Pipe, SetOptionalFn } from "./Fn";
 import { Hoc } from "./Hoc";
 import { newHoc } from "./newHoc";
+import {
+  Fn,
+  FromSchema,
+  IntersectionFn,
+  Pipe,
+  SetOptionalFn,
+} from "./types/Fn";
 
 interface WithSpreadFn<PropName extends string, Names extends string>
   extends Fn {

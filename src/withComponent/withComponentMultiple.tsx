@@ -1,8 +1,8 @@
 import { ComponentType, FunctionComponent, useMemo } from "react";
-import { Call, Fn, ReplaceFn, ToSchema } from "../Fn";
 import { Hoc } from "../Hoc";
 import { componentDisplayName } from "../lib/componentDisplayName";
 import { newHoc } from "../newHoc";
+import { Call, Fn, ReplaceFn, ToSchema } from "../types/Fn";
 import { WithComponent } from "../types/WithComponent";
 import { getTargetByProps, withComponentSingle } from "./withComponentSingle";
 
