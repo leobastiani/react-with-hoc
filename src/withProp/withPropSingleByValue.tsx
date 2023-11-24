@@ -1,5 +1,5 @@
 import { ComponentType, FunctionComponent } from "react";
-import { newHoc } from "../newHoc";
+import { newHoc } from "../lib/newHoc";
 import {
   HasAllPropsFn,
   IfThenFn,

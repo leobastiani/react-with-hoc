@@ -1,4 +1,4 @@
-export * from "./newHoc";
+export * from "./lib/newHoc";
 export * from "./types/PartialComponent";
 export * from "./withComponent";
 export * from "./withForEach";

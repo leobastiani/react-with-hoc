@@ -1,5 +1,5 @@
 import { ComponentType, FunctionComponent, useMemo } from "react";
-import { newHoc } from "../newHoc";
+import { newHoc } from "../lib/newHoc";
 import { DependencyNames } from "../types/DependencyNames";
 import {
   Fn,

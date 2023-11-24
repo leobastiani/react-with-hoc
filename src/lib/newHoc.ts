@@ -1,7 +1,7 @@
 import { ComponentType, FunctionComponent } from "react";
-import { componentDisplayName } from "./lib/componentDisplayName";
-import { defaultHocName } from "./lib/hocNameForWithStyle";
-import { Hoc } from "./types/Hoc";
+import { Hoc } from "../types/Hoc";
+import { componentDisplayName } from "./componentDisplayName";
+import { defaultHocName } from "./hocNameForWithStyle";
 
 export type NewHocReturn<HocArgs extends any[]> = (
   ...args: HocArgs

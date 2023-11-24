@@ -1,5 +1,5 @@
 import { ComponentType, FunctionComponent, useState } from "react";
-import { newHoc } from "./newHoc";
+import { newHoc } from "./lib/newHoc";
 import { Fn, IntersectionFn, Pipe, SetOptionalFn, ToSchema } from "./types/Fn";
 import { Hoc } from "./types/Hoc";
 

@@ -1,5 +1,5 @@
 import { ComponentType, FunctionComponent, Key } from "react";
-import { newHoc } from "./newHoc";
+import { newHoc } from "./lib/newHoc";
 import { SetOptionalFn } from "./types/Fn";
 import { Hoc } from "./types/Hoc";
 

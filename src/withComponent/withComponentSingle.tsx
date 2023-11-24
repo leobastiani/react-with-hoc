@@ -6,7 +6,7 @@ import {
   useMemo,
 } from "react";
 import { componentDisplayName } from "../lib/componentDisplayName";
-import { newHoc } from "../newHoc";
+import { newHoc } from "../lib/newHoc";
 import { Fn, FromSchema, Pipe, ReplaceFn, ToSchema } from "../types/Fn";
 import { Hoc } from "../types/Hoc";
 import { WithComponent } from "../types/WithComponent";

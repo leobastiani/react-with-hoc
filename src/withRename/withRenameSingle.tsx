@@ -1,6 +1,6 @@
 import { ComponentType, FunctionComponent } from "react";
 import { createHocNameFunction } from "../lib/hocNameForWithStyle";
-import { newHoc } from "../newHoc";
+import { newHoc } from "../lib/newHoc";
 import { Fn } from "../types/Fn";
 import { Hoc } from "../types/Hoc";
 
