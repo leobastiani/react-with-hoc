@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import { componentDisplayName } from "../componentDisplayName";
+import { componentDisplayName } from "../lib/componentDisplayName";
 import { withRenameSingle } from "./withRenameSingle";
 
 interface ExampleProps {

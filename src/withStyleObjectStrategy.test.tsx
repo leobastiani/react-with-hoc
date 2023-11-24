@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import { CSSProperties } from "react";
-import { componentDisplayName } from "./componentDisplayName";
+import { componentDisplayName } from "./lib/componentDisplayName";
 import { withHocs } from "./withHocs";
 import { withStyleObjectStrategy } from "./withStyleObjectStrategy";
 

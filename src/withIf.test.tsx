@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import { componentDisplayName } from "./componentDisplayName";
+import { componentDisplayName } from "./lib/componentDisplayName";
 import { withIf } from "./withIf";
 
 interface ExampleProps {

@@ -1,5 +1,5 @@
 import { ComponentType } from "react";
-import { componentDisplayName } from "./componentDisplayName";
+import { componentDisplayName } from "./lib/componentDisplayName";
 import { GetHocArgs, HocDefinition, NewHocReturn } from "./newHoc";
 
 export function createHocNameFunction<TNewHocReturn extends NewHocReturn<any>>(
