@@ -1,6 +1,6 @@
 import { ComponentType, FunctionComponent, useMemo } from "react";
-import { newHoc } from "../lib/newHoc";
-import { DependencyNames } from "../types/DependencyNames";
+import { newHoc } from "../../lib/newHoc";
+import { DependencyNames } from "../../types/DependencyNames";
 import {
   Fn,
   HasAllPropsFn,
@@ -11,8 +11,8 @@ import {
   ReplaceFn,
   SetOptionalFn,
   ToSchema,
-} from "../types/Fn";
-import { Hoc } from "../types/Hoc";
+} from "../../types/Fn";
+import { Hoc } from "../../types/Hoc";
 
 interface WithPropFn<
   PropName extends string,

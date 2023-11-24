@@ -7,7 +7,6 @@ export * from "./withHocs";
 export * from "./withIf";
 export * from "./withOmit";
 export * from "./withPick";
-export * from "./withProp";
 export * from "./withRename";
 export * from "./withSpread";
 export * from "./withState";
