@@ -1,4 +1,4 @@
-import React, { CSSProperties, ReactNode } from "react";
+import { CSSProperties, ReactNode } from "react";
 import { withStyle } from "./hocs/withStyle";
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type

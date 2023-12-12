@@ -1,4 +1,3 @@
-import React from "react";
 import { withHocs, withProp } from "react-with-hoc";
 
 export function NumberMark({
