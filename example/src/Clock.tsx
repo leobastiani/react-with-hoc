@@ -1,11 +1,11 @@
 import React, { Dispatch, SetStateAction } from "react";
 import {
   PartialComponent,
-  withComponents,
+  withComponent,
   withForEach,
   withHocs,
   withProp,
-  withRenames,
+  withRename,
   withState,
 } from "react-with-hoc";
 import { Circle } from "./Circle";
@@ -19,7 +19,7 @@ const HourMarks = withForEach(12)(HourMark);
 type MinuteMarks = typeof MinuteMarks;
 type HourMarks = typeof HourMarks;
 
-export const ClockCircle = withRenames({
+export const ClockCircle = withRename({
   circleSize: "size",
   circleBorder: "border",
 })(Circle);
@@ -64,7 +64,7 @@ export const Clock = (() => {
     withState("time", { init: () => Date.now() }),
     withProp("circleSize", 400),
     withProp("circleBorder", 3),
-    withComponents({
+    withComponent({
       Circle: ClockCircle,
       MinuteMarks,
       HourMarks,

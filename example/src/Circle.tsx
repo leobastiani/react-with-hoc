@@ -1,5 +1,5 @@
 import React, { CSSProperties, ReactNode } from "react";
-import { withStyleObjectStrategy } from "react-with-hoc";
+import { withStyle } from "./hocs/withStyle";
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const Circle = (() => {
@@ -13,7 +13,7 @@ export const Circle = (() => {
     return <div style={style}>{children}</div>;
   }
 
-  return withStyleObjectStrategy(
+  return withStyle(
     ({ size, border }: { size: number; border: number }) => ({
       display: "inline-block",
       boxSizing: "border-box",

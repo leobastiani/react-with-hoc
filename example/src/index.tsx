@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { withProp, withStyleObjectStrategy } from "react-with-hoc";
+import { withProp } from "react-with-hoc";
 import { Clock, ClockCircle } from "./Clock";
 import { HourPointer } from "./Pointers";
+import { withStyle } from "./hocs/withStyle";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
@@ -10,7 +11,7 @@ const root = ReactDOM.createRoot(
 
 const RedHour = withProp("color", "red")(HourPointer);
 
-const Square = withStyleObjectStrategy({
+const Square = withStyle({
   borderRadius: 0,
 })(ClockCircle);
 

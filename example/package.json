@@ -7,14 +7,14 @@
     "build": "parcel build src/index.html"
   },
   "devDependencies": {
-    "@types/react": "^18.2.14",
-    "@types/react-dom": "^18.2.6",
-    "parcel": "^2.9.3",
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "parcel": "^2.10.3",
     "process": "^0.11.10"
   },
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-with-hoc": "^0.0.23-wip007"
+    "react-with-hoc": "^0.0.23-wip008"
   }
 }
