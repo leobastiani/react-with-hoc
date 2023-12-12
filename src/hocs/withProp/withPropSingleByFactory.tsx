@@ -17,7 +17,7 @@ import { Hoc } from "../../types/Hoc";
 interface WithPropFn<
   PropName extends string,
   PropValue,
-  DependencyProps extends [string | number | symbol, any]
+  DependencyProps extends [string | number | symbol, any],
 > extends Fn {
   return: Pipe<
     this["arg0"],
@@ -26,7 +26,7 @@ interface WithPropFn<
         HasAllPropsFn<PropName>,
         [IntersectionFn<[PropName, PropValue]>, SetOptionalFn<PropName>]
       >,
-      KeepNeversFn<ReplaceFn<DependencyProps>>
+      KeepNeversFn<ReplaceFn<DependencyProps>>,
     ]
   >;
 }
@@ -35,32 +35,33 @@ type WithPropHoc = <
   PropValue,
   PropName extends string,
   DependencyProps extends object,
-  TDependencyName extends DependencyNames<DependencyProps> = DependencyNames<DependencyProps>
+  TDependencyName extends
+    DependencyNames<DependencyProps> = DependencyNames<DependencyProps>,
 >(
   propName: PropName,
   factory: (props: DependencyProps) => PropValue,
-  dependencyNames: TDependencyName
+  dependencyNames: TDependencyName,
 ) => Hoc<[WithPropFn<PropName, PropValue, ToSchema<DependencyProps>>]>;
 
 export const withPropSingleByFactory = newHoc<WithPropHoc>(function withProp(
   Component: ComponentType,
   propName: string,
   init: (props: any) => any,
-  dependencyNames: string[]
+  dependencyNames: string[],
 ): FunctionComponent {
   const override = dependencyNames.includes(propName);
   return function WithProp(props: any): JSX.Element {
     if (process.env.NODE_ENV !== "production") {
       if (!dependencyNames) {
         throw new Error(
-          "withProp used with init function should have dependencyNames defined"
+          "withProp used with init function should have dependencyNames defined",
         );
       }
     }
     const value = useMemo(
       () => init(props),
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      dependencyNames.map((dependencyName) => props[dependencyName])
+      dependencyNames.map((dependencyName) => props[dependencyName]),
     );
 
     return override ? (

@@ -29,8 +29,8 @@ import { stress } from "../../src/test/stress";
     stress(
       withIf(({ b }: { b: number }) => b > 0, {
         dependencyNames: ["b"],
-      })
-    )
+      }),
+    ),
   )(BeforeHoc);
   expectType<
     FunctionComponent<{

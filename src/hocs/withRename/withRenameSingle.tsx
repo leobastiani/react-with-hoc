@@ -15,17 +15,17 @@ interface WithRenameFn<NewProp extends string, OldProp extends string>
 
 type WithRenameHoc = <NewProp extends string, OldProp extends string>(
   newProp: NewProp,
-  oldProp: OldProp
+  oldProp: OldProp,
 ) => Hoc<[WithRenameFn<NewProp, OldProp>]>;
 
 export const withRenameSingle = newHoc<WithRenameHoc>(
   createHocNameFunction(
-    (newProp: string, oldProp: string) => `${newProp}→${oldProp}`
+    (newProp: string, oldProp: string) => `${newProp}→${oldProp}`,
   ),
   function withRename(
     Component: ComponentType,
     newProp: string,
-    oldProp: string
+    oldProp: string,
   ): FunctionComponent {
     return function WithRename(props: any): JSX.Element {
       const newProps = { ...props };
@@ -36,5 +36,5 @@ export const withRenameSingle = newHoc<WithRenameHoc>(
 
       return <Component {...newProps} />;
     };
-  }
+  },
 );

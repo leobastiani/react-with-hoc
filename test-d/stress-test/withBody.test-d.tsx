@@ -9,7 +9,7 @@ const BeforeHoc: React.FC<{
   c: boolean;
 }> = undefined as any;
 const AfterHoc = withHocs(
-  stress(withBody(({ a }: { a: string; d: symbol }) => ({ a })))
+  stress(withBody(({ a }: { a: string; d: symbol }) => ({ a }))),
 )(BeforeHoc);
 expectType<
   FunctionComponent<{

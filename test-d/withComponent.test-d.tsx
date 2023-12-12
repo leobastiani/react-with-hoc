@@ -85,7 +85,7 @@ function OtherButton(_props: { size: "lg" | "md" | "xs" }): JSX.Element {
     oldPropOptional?: string;
   }> = undefined as any;
   const AfterHoc = withComponent({ LeftButton: Button, RightButton: Button })(
-    BeforeHoc
+    BeforeHoc,
   );
   expectType<
     FunctionComponent<{

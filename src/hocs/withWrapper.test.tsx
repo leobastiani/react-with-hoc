@@ -19,7 +19,7 @@ function Wrapper(props: { children: JSX.Element }): JSX.Element {
 it("withWrapper name", () => {
   const Component = withWrapper(Wrapper)(Example);
   expect(componentDisplayName.get(Component)).toBe(
-    "withWrapper.Wrapper(Example)"
+    "withWrapper.Wrapper(Example)",
   );
 });
 
@@ -27,7 +27,7 @@ it("withWrapper with default params", () => {
   const Component = withWrapper(Wrapper)(Example);
   render(<Component a={0} b={1} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre data-props="{}"><pre>{"a":0,"b":1}</pre></pre>'
+    '<pre data-props="{}"><pre>{"a":0,"b":1}</pre></pre>',
   );
 });
 
@@ -35,7 +35,7 @@ it("withWrapper with empty pickProps", () => {
   const Component = withWrapper(Wrapper, { pickProps: [] })(Example);
   render(<Component a={0} b={1} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre data-props="{}"><pre>{"a":0,"b":1}</pre></pre>'
+    '<pre data-props="{}"><pre>{"a":0,"b":1}</pre></pre>',
   );
 });
 
@@ -43,7 +43,7 @@ it("withWrapper with empty omitProps", () => {
   const Component = withWrapper(Wrapper, { omitProps: [] })(Example);
   render(<Component a={0} b={1} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre data-props="{&quot;a&quot;:0,&quot;b&quot;:1}"><pre>{"a":0,"b":1}</pre></pre>'
+    '<pre data-props="{&quot;a&quot;:0,&quot;b&quot;:1}"><pre>{"a":0,"b":1}</pre></pre>',
   );
 });
 
@@ -51,7 +51,7 @@ it("withWrapper with pickProps", () => {
   const Component = withWrapper(Wrapper, { pickProps: ["a"] })(Example);
   render(<Component a={0} b={1} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre data-props="{&quot;a&quot;:0}"><pre>{"a":0,"b":1}</pre></pre>'
+    '<pre data-props="{&quot;a&quot;:0}"><pre>{"a":0,"b":1}</pre></pre>',
   );
 });
 
@@ -59,6 +59,6 @@ it("withWrapper with omitProps", () => {
   const Component = withWrapper(Wrapper, { omitProps: ["a"] })(Example);
   render(<Component a={0} b={1} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre data-props="{&quot;b&quot;:1}"><pre>{"a":0,"b":1}</pre></pre>'
+    '<pre data-props="{&quot;b&quot;:1}"><pre>{"a":0,"b":1}</pre></pre>',
   );
 });

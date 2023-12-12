@@ -15,21 +15,22 @@ interface WithStyleObjectStrategyHoc {
 
   <
     DependencyProps extends {},
-    TDependencyNames extends DependencyNames<DependencyProps> = DependencyNames<DependencyProps>
+    TDependencyNames extends
+      DependencyNames<DependencyProps> = DependencyNames<DependencyProps>,
   >(
     factory: (props: DependencyProps) => CSSProperties,
-    dependencyNames: TDependencyNames
+    dependencyNames: TDependencyNames,
   ): Hoc<[IntersectionFn<ToSchema<DependencyProps>>, SetOptionalFn<"style">]>;
 }
 
 export const withStyleObjectStrategy = newHoc<WithStyleObjectStrategyHoc>(
   createHocNameFunction<WithStyleObjectStrategyHoc>(
-    (_init, dependencyNames) => dependencyNames
+    (_init, dependencyNames) => dependencyNames,
   ),
   function withStyleObjectStrategy(
     Component: ComponentType<any>,
     init: ((props: any) => CSSProperties) | CSSProperties,
-    dependencyNames?: string[]
+    dependencyNames?: string[],
   ): FunctionComponent {
     const override = dependencyNames?.includes("style") ?? false;
     return function WithStyleObjectStrategy(props: any): JSX.Element {
@@ -38,7 +39,7 @@ export const withStyleObjectStrategy = newHoc<WithStyleObjectStrategyHoc>(
         if (process.env.NODE_ENV !== "production") {
           if (!dependencyNames) {
             throw new Error(
-              "withStyleObjectStrategy used with init function should have dependencyNames defined"
+              "withStyleObjectStrategy used with init function should have dependencyNames defined",
             );
           }
         }
@@ -46,7 +47,7 @@ export const withStyleObjectStrategy = newHoc<WithStyleObjectStrategyHoc>(
         newValue = useMemo(
           () => init(props),
           // eslint-disable-next-line react-hooks/exhaustive-deps
-          dependencyNames!.map((dependencyName) => props[dependencyName])
+          dependencyNames!.map((dependencyName) => props[dependencyName]),
         );
       } else {
         newValue = init;
@@ -58,5 +59,5 @@ export const withStyleObjectStrategy = newHoc<WithStyleObjectStrategyHoc>(
         />
       );
     };
-  }
+  },
 ) as WithStyleObjectStrategyHoc;

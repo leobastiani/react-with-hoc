@@ -9,7 +9,7 @@ function Example(props: { someProp: number }): JSX.Element {
 it("withProp name", () => {
   const Component = withProp("someProp", () => 1, [])(Example);
   expect(componentDisplayName.get(Component)).toBe(
-    "withProp.someProp(Example)"
+    "withProp.someProp(Example)",
   );
 });
 
@@ -23,11 +23,11 @@ it("withProp a new property in dependencyNames", () => {
   const Component = withProp(
     "someProp",
     ({ anotherProp }: { anotherProp: number }) => anotherProp + 10,
-    ["anotherProp"]
+    ["anotherProp"],
   )(Example);
   render(<Component anotherProp={5} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"someProp":15,"anotherProp":5}</pre>'
+    '<pre>{"someProp":15,"anotherProp":5}</pre>',
   );
 });
 
@@ -35,11 +35,11 @@ it("withProp rewritten", () => {
   const Component = withProp(
     "someProp",
     ({ someProp }: { someProp: number }) => someProp + 10,
-    ["someProp"]
+    ["someProp"],
   )(Example);
   render(<Component someProp={20} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"someProp":30}</pre>'
+    '<pre>{"someProp":30}</pre>',
   );
 });
 
@@ -52,10 +52,10 @@ it("withProp rewritten with different type", () => {
       }
       return parseInt(someProp) + 10;
     },
-    ["someProp", "x"]
+    ["someProp", "x"],
   )(Example);
   render(<Component someProp="20" />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"someProp":30}</pre>'
+    '<pre>{"someProp":30}</pre>',
   );
 });

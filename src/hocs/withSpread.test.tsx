@@ -24,9 +24,9 @@ it("withSpread", () => {
         a: 1,
       }}
       b={2}
-    />
+    />,
   );
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"a":1,"obj":{"a":1},"b":2}</pre>'
+    '<pre>{"a":1,"obj":{"a":1},"b":2}</pre>',
   );
 });

@@ -4,12 +4,12 @@ import { OmitFn } from "../types/Fn";
 import { Hoc } from "../types/Hoc";
 
 type WithOmitHoc = <OmitNames extends string>(
-  omitNames: OmitNames[]
+  omitNames: OmitNames[],
 ) => Hoc<[OmitFn<OmitNames>]>;
 
 export const withOmit = newHoc<WithOmitHoc>(function withOmit(
   Component: ComponentType,
-  omitNames: string[]
+  omitNames: string[],
 ): FunctionComponent {
   const omitSet = new Set(omitNames);
 

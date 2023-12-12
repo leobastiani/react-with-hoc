@@ -3,7 +3,7 @@ import { componentDisplayName } from "./componentDisplayName";
 import { GetHocArgs, HocDefinition, NewHocReturn } from "./newHoc";
 
 export function createHocNameFunction<TNewHocReturn extends NewHocReturn<any>>(
-  selector: (...args: GetHocArgs<TNewHocReturn>) => unknown | undefined
+  selector: (...args: GetHocArgs<TNewHocReturn>) => unknown | undefined,
 ) {
   return function hocName(
     {
@@ -56,5 +56,5 @@ export function createHocNameFunction<TNewHocReturn extends NewHocReturn<any>>(
 }
 
 export const defaultHocName = createHocNameFunction(
-  (firstArg: unknown) => firstArg
+  (firstArg: unknown) => firstArg,
 );

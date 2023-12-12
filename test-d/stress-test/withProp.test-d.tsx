@@ -26,7 +26,7 @@ import { stress } from "../../src/test/stress";
     c: boolean;
   }> = undefined as any;
   const AfterHoc = withHocs(
-    stress(withProp("a", ({ b }: { b: number }) => String(b), ["b"]))
+    stress(withProp("a", ({ b }: { b: number }) => String(b), ["b"])),
   )(BeforeHoc);
   AfterHoc;
   expectType<
@@ -49,8 +49,8 @@ import { stress } from "../../src/test/stress";
       withProp({
         a: "1",
         b: 2,
-      })
-    )
+      }),
+    ),
   )(BeforeHoc);
   AfterHoc;
   expectType<

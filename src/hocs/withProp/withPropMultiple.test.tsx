@@ -9,7 +9,7 @@ function Example(props: { someProp: number }): JSX.Element {
 it("withProp name", () => {
   const Component = withProp({ someProp: 1, anotherProp: 2 })(Example);
   expect(componentDisplayName.get(Component)).toBe(
-    "withProp.someProp.anotherProp(Example)"
+    "withProp.someProp.anotherProp(Example)",
   );
 });
 
@@ -23,7 +23,7 @@ it("withProp with another value", () => {
   const Component = withProp({ anotherProp: 1 })(Example);
   render(<Component someProp={2} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"anotherProp":1,"someProp":2}</pre>'
+    '<pre>{"anotherProp":1,"someProp":2}</pre>',
   );
 });
 
@@ -31,6 +31,6 @@ it("withProp overridden", () => {
   const Component = withProp({ someProp: 10 })(Example);
   render(<Component someProp={20} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"someProp":20}</pre>'
+    '<pre>{"someProp":20}</pre>',
   );
 });

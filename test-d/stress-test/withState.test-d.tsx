@@ -10,7 +10,7 @@ const BeforeHoc: React.FC<{
   oldPropOptional?: symbol;
 }> = undefined as any;
 const AfterHoc = withHocs(stress(withState<number, "someState">("someState")))(
-  BeforeHoc
+  BeforeHoc,
 );
 expectType<
   FunctionComponent<{

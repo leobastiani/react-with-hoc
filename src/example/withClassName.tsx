@@ -9,17 +9,19 @@ type ClassNameArg<DependencyProps extends {}> =
   | (string | ((props: DependencyProps) => string | string[]))[];
 
 interface WithClassNameHoc {
-  <DependencyProps extends {}>(className?: ClassNameArg<DependencyProps>): Hoc<
+  <DependencyProps extends {}>(
+    className?: ClassNameArg<DependencyProps>,
+  ): Hoc<
     [
       IntersectionFn<ToSchema<DependencyProps>>,
-      KeepNeversFn<ReplaceFn<["className", string | string[] | undefined]>>
+      KeepNeversFn<ReplaceFn<["className", string | string[] | undefined]>>,
     ]
   >;
 }
 
 export const withClassName = newHoc<WithClassNameHoc>(function withClassName(
   Component: ComponentType,
-  classNameArg: any = []
+  classNameArg: any = [],
 ): FunctionComponent {
   return function WithClassName(props: any): JSX.Element {
     if (typeof classNameArg === "function") {
@@ -32,7 +34,7 @@ export const withClassName = newHoc<WithClassNameHoc>(function withClassName(
     }
     const className = new Set<string>();
     for (const prop of [classNameArg, props.className].filter(
-      (c) => c?.length
+      (c) => c?.length,
     )) {
       if (typeof prop === "string" && prop) {
         className.add(prop);

@@ -67,7 +67,7 @@ import { withIf } from "../src";
         "newProp",
         "unmatchedProp",
       ],
-    }
+    },
   )(BeforeHoc);
   expectType<
     FunctionComponent<{

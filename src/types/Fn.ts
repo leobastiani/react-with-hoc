@@ -9,7 +9,7 @@ export type Call<MyFn extends Fn, T> = (MyFn & { arg0: T })["return"];
 
 export type Pipe<acc, xs extends Fn[]> = xs extends [
   infer first extends Fn,
-  ...infer rest extends Fn[]
+  ...infer rest extends Fn[],
 ]
   ? Pipe<Call<first, acc>, rest>
   : acc;
@@ -28,8 +28,8 @@ type Intersection<T, U> = ((...args: any[]) => any) extends T
       T
     : never
   : ((...args: any[]) => any) extends U
-  ? never
-  : T & U;
+    ? never
+    : T & U;
 
 export interface IntersectionFn<T extends [string | number | symbol, any]>
   extends Fn {
@@ -43,7 +43,7 @@ export interface IntersectionFn<T extends [string | number | symbol, any]>
                 Extract<this["arg0"], [K, any]>[1],
                 Extract<T, [K, any]>[1]
               >
-            : Extract<T, [K, any]>[1]
+            : Extract<T, [K, any]>[1],
         ];
       }[T[0]];
 }
@@ -59,7 +59,7 @@ export interface SetOptionalFn<Names extends string | number | symbol>
     | {
         [K in Extract<this["arg0"], any[]>[0] & Names]: [
           K,
-          Call<PickFn<K>, this["arg0"]> extends [K, never] ? never : undefined
+          Call<PickFn<K>, this["arg0"]> extends [K, never] ? never : undefined,
         ];
       }[Extract<this["arg0"], any[]>[0] & Names];
 }

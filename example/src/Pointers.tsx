@@ -43,12 +43,12 @@ export const SecondPointer = withHocs([
   withProp(
     "length",
     ({ circleSize }: { circleSize: number }) => (circleSize / 2) * 0.9,
-    ["circleSize"]
+    ["circleSize"],
   ),
   withProp(
     "rotation",
     ({ time }: { time: number }) => ((time % 60000) * 360) / 60000,
-    ["time"]
+    ["time"],
   ),
 ])(Pointer);
 
@@ -57,13 +57,13 @@ export const MinutePointer = withHocs([
   withProp(
     "length",
     ({ circleSize }: { circleSize: number }) => (circleSize / 2) * 0.6,
-    ["circleSize"]
+    ["circleSize"],
   ),
   withProp(
     "rotation",
     ({ time }: { time: number }) =>
       ((time % (60 * 60000)) * 360) / (60 * 60000),
-    ["time"]
+    ["time"],
   ),
 ])(Pointer);
 
@@ -72,7 +72,7 @@ export const HourPointer = withHocs([
   withProp(
     "length",
     ({ circleSize }: { circleSize: number }) => (circleSize / 2) * 0.4,
-    ["circleSize"]
+    ["circleSize"],
   ),
   withProp(
     "rotation",
@@ -85,6 +85,6 @@ export const HourPointer = withHocs([
 
       return (clockHour * 360) / 12;
     },
-    ["time"]
+    ["time"],
   ),
 ])(Pointer);

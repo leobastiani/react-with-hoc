@@ -18,25 +18,25 @@ it("withClassName name with no args", () => {
 it("withClassName name with string", () => {
   const Component = withClassName("someClassName")(Example);
   expect(componentDisplayName.get(Component)).toBe(
-    "withClassName.someClassName(Example)"
+    "withClassName.someClassName(Example)",
   );
 });
 
 it("withClassName name with function", () => {
   const Component = withClassName(({ x }: { x: boolean }) =>
-    x ? "someClassName" : ""
+    x ? "someClassName" : "",
   )(Example);
   expect(componentDisplayName.get(Component)).toBe(
-    "withClassName.[unnamed function](Example)"
+    "withClassName.[unnamed function](Example)",
   );
 });
 
 it("withClassName name with array of strings", () => {
   const Component = withClassName(["someClassName1", "someClassName2"])(
-    Example
+    Example,
   );
   expect(componentDisplayName.get(Component)).toBe(
-    "withClassName.someClassName1.someClassName2(Example)"
+    "withClassName.someClassName1.someClassName2(Example)",
   );
 });
 
@@ -46,7 +46,7 @@ it("withClassName name with array mixed", () => {
     ({ x }: { x: boolean }): string => (x ? "someClassName" : ""),
   ])(Example);
   expect(componentDisplayName.get(Component)).toBe(
-    "withClassName.someClassName1.[unnamed function](Example)"
+    "withClassName.someClassName1.[unnamed function](Example)",
   );
 });
 
@@ -67,7 +67,7 @@ describe.each([undefined, "someClass", ["someClass1", "someClass2"]])(
 
     it("with function", () => {
       const Component = withClassName(({ x }: { x?: number }) =>
-        x ? "someOtherClass1" : "someOtherClass2"
+        x ? "someOtherClass1" : "someOtherClass2",
       )(Example);
       render(<Component className={className} />);
       expect(document.body.children[0].innerHTML).toMatchSnapshot();
@@ -75,7 +75,7 @@ describe.each([undefined, "someClass", ["someClass1", "someClass2"]])(
 
     it("with array of strings", () => {
       const Component = withClassName(["someOtherClass1", "someOtherClass2"])(
-        Example
+        Example,
       );
       render(<Component className={className} />);
       expect(document.body.children[0].innerHTML).toMatchSnapshot();
@@ -93,5 +93,5 @@ describe.each([undefined, "someClass", ["someClass1", "someClass2"]])(
       render(<Component className={className} />);
       expect(document.body.children[0].innerHTML).toMatchSnapshot();
     });
-  }
+  },
 );

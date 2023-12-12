@@ -15,7 +15,7 @@ function Example(props: ExampleProps): JSX.Element {
 
 it("applied withHocs with a string name", () => {
   const Component = withHocs([withDisplayName("SomeName"), withOmit(["x"])])(
-    Example
+    Example,
   );
   expect(componentDisplayName.get(Component)).toBe("SomeName");
 });
@@ -26,6 +26,6 @@ it("applied withHocs with a factory name", () => {
     withOmit(["x"]),
   ])(Example);
   expect(componentDisplayName.get(Component)).toBe(
-    "SomeName.withOmit.x(Example)"
+    "SomeName.withOmit.x(Example)",
   );
 });

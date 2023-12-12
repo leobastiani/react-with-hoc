@@ -13,7 +13,7 @@ import { WithComponent } from "../../types/WithComponent";
 
 interface WithComponentFn<
   Name extends string,
-  PropsSchema extends [string | number | symbol, any]
+  PropsSchema extends [string | number | symbol, any],
 > extends Fn {
   return: Pipe<
     this["arg0"],
@@ -27,7 +27,7 @@ type WithComponentHoc = <Name extends string, Props extends object>(
   options?: { hiddenByDefault?: boolean } & (
     | { pick?: string[]; omit?: undefined }
     | { omit?: string[]; pick?: undefined }
-  )
+  ),
 ) => Hoc<[WithComponentFn<Name, ToSchema<Props>>]>;
 
 function parsePropsByPick(props: any, pick: Set<string>): any {
@@ -56,12 +56,12 @@ export const withComponentSingle = newHoc<WithComponentHoc>(
     Component: ComponentType,
     name: string,
     TargetComponent: ComponentType,
-    options: any = {}
+    options: any = {},
   ): FunctionComponent {
     if (process.env.NODE_ENV !== "production") {
       if (options.omit && options.pick) {
         throw new Error(
-          "Don't use withComponent with pick and omit at the same time"
+          "Don't use withComponent with pick and omit at the same time",
         );
       }
     }
@@ -86,7 +86,7 @@ export const withComponentSingle = newHoc<WithComponentHoc>(
       const TargetByProps = useMemo(
         () => getTargetByProps({ props, name, TargetComponent, options }),
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [props[name]]
+        [props[name]],
       );
       const CurrTarget = (myProps: any): any => (
         <TargetByProps {...parseProps(props)} {...myProps} />
@@ -104,7 +104,7 @@ export const withComponentSingle = newHoc<WithComponentHoc>(
         />
       );
     };
-  }
+  },
 );
 
 export function getTargetByProps({

@@ -10,7 +10,7 @@ import { Hoc } from "../../types/Hoc";
 
 type WithPropHoc = <PropValue, PropName extends string>(
   propName: PropName,
-  value: PropValue
+  value: PropValue,
 ) => Hoc<
   [
     IfThenFn<
@@ -19,16 +19,16 @@ type WithPropHoc = <PropValue, PropName extends string>(
         ...(PropValue extends (...args: any[]) => any
           ? []
           : [IntersectionFn<[PropName, PropValue]>]),
-        SetOptionalFn<PropName>
+        SetOptionalFn<PropName>,
       ]
-    >
+    >,
   ]
 >;
 
 export const withPropSingleByValue = newHoc<WithPropHoc>(function withProp(
   Component: ComponentType,
   propName: string,
-  value: any
+  value: any,
 ): FunctionComponent {
   return function WithProp(props: any): JSX.Element {
     return <Component {...{ [propName]: value }} {...props} />;

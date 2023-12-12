@@ -9,24 +9,24 @@ interface WithRenamesFn<T extends [string | number | symbol, string]>
   return: {
     [K in Extract<this["arg0"], any[]>[0]]: [
       K extends T[1] ? Extract<T, [any, K]>[0] : K,
-      Extract<this["arg0"], [K, any]>[1]
+      Extract<this["arg0"], [K, any]>[1],
     ];
   }[Extract<this["arg0"], any[]>[0]];
 }
 
 type WithRenamesHoc = <const Map extends Record<string, string>>(
-  map: Map
+  map: Map,
 ) => Hoc<[WithRenamesFn<ToSchema<Map>>]>;
 
 export const withRenameMultiple = newHoc<WithRenamesHoc>(
   createHocNameFunction((map: object) =>
     Object.entries(map)
       .map(([from, to]) => `${from}→${to}`)
-      .join(".")
+      .join("."),
   ),
   function withRename(
     Component: ComponentType,
-    map: Record<string, string>
+    map: Record<string, string>,
   ): FunctionComponent {
     return function WithRenames(props: any): JSX.Element {
       const newProps = { ...props };
@@ -40,5 +40,5 @@ export const withRenameMultiple = newHoc<WithRenamesHoc>(
 
       return <Component {...newProps} />;
     };
-  }
+  },
 );

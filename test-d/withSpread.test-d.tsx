@@ -11,7 +11,7 @@ import { withSpread } from "../src";
     address: string;
   }> = undefined as any;
   const AfterHoc = withSpread<"user", "name" | "age" | "address">("user")(
-    BeforeHoc
+    BeforeHoc,
   );
   expectType<
     FunctionComponent<{

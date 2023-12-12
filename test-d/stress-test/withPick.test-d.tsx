@@ -11,8 +11,8 @@ const BeforeHoc: React.FC<{
 const AfterHoc = withHocs(
   stress(
     withPick(["a"]),
-    withBody(({ b }: { b: number }) => ({ b }))
-  )
+    withBody(({ b }: { b: number }) => ({ b })),
+  ),
 )(BeforeHoc);
 expectType<
   FunctionComponent<{

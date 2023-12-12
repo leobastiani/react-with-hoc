@@ -15,7 +15,7 @@ it("withBody name", () => {
     return {};
   })(Example);
   expect(componentDisplayName.get(Component)).toBe(
-    "withBody.bodyHook(Example)"
+    "withBody.bodyHook(Example)",
   );
 });
 
@@ -23,17 +23,17 @@ it("with no props", () => {
   const Component = withBody(() => ({ b: "b" }))(Example);
   render(<Component a={1} c />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"a":1,"b":"b","c":true}</pre>'
+    '<pre>{"a":1,"b":"b","c":true}</pre>',
   );
 });
 
 it("with props", () => {
   const Component = withBody(({ a }: { a: number }) => ({ b: String(a) }))(
-    Example
+    Example,
   );
   render(<Component a={10} c />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"a":10,"b":"10","c":true}</pre>'
+    '<pre>{"a":10,"b":"10","c":true}</pre>',
   );
 });
 
@@ -48,6 +48,6 @@ it("same prop on same body", () => {
   })(Example);
   render(<Component a={10} b="b" c />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"a":20,"b":"b","c":true}</pre>'
+    '<pre>{"a":20,"b":"b","c":true}</pre>',
   );
 });

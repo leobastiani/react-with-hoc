@@ -1,23 +1,23 @@
 import { ComponentType } from "react";
 
 export function withDisplayName<T extends ComponentType<any>>(
-  name: (Component: T) => string
+  name: (Component: T) => string,
 ): (component: T) => T;
 export function withDisplayName<T extends ComponentType<any>>(
   name: (Component: T) => string,
-  Component: T
+  Component: T,
 ): T;
 export function withDisplayName(name: string): <
   T extends {
     displayName?: string;
-  }
+  },
 >(
-  component: T
+  component: T,
 ) => T;
 export function withDisplayName<
   T extends {
     displayName?: string;
-  }
+  },
 >(name: string, component: T): T;
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type

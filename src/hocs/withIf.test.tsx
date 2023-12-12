@@ -20,7 +20,7 @@ it("withIf name with function", () => {
     dependencyNames: ["a"],
   })(Example);
   expect(componentDisplayName.get(Component)).toBe(
-    `withIf.[unnamed function](Example)`
+    `withIf.[unnamed function](Example)`,
   );
 });
 
@@ -30,7 +30,7 @@ it("withIf with propName", () => {
   expect(document.body.children[0].innerHTML).toBe("");
   rerender(<Component a={1} enabled={true} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"a":1,"enabled":true}</pre>'
+    '<pre>{"a":1,"enabled":true}</pre>',
   );
 });
 
@@ -68,7 +68,7 @@ it("withIf with function and no dependencyNames", () => {
     },
     {
       dependencyNames: [],
-    }
+    },
   )(Example);
   const { rerender } = render(<Component a={0} />);
   expect(document.body.children[0].innerHTML).toBe("");
@@ -84,10 +84,10 @@ it("withIf with Then and Else", () => {
   })(Example);
   const { rerender } = render(<Component a={0} condition={false} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre id="else">{"a":0,"condition":false}</pre>'
+    '<pre id="else">{"a":0,"condition":false}</pre>',
   );
   rerender(<Component a={1} condition={true} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"a":1,"condition":true}</pre>'
+    '<pre>{"a":1,"condition":true}</pre>',
   );
 });

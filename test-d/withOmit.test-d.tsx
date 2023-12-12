@@ -53,7 +53,7 @@ import { withOmit } from "../src";
   }> = undefined as any;
   const AfterHoc = withOmit(["included", "includedOptional"])(BeforeHoc);
   expectType<FunctionComponent<{ ignored: string; ignoredOptional?: number }>>(
-    AfterHoc
+    AfterHoc,
   );
 }
 
@@ -67,7 +67,7 @@ import { withOmit } from "../src";
     includedOptional?: symbol;
   }> = undefined as any;
   const AfterHoc = withOmit(["a", "included", "b", "includedOptional", "c"])(
-    BeforeHoc
+    BeforeHoc,
   );
   expectType<
     FunctionComponent<{

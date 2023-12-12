@@ -56,7 +56,7 @@ function AnotherSide(props: { someAnotherProp: string }): JSX.Element {
 it("withComponentSingle name", () => {
   const Component = withComponentSingle("Side", Side)(Example1);
   expect(componentDisplayName.get(Component)).toBe(
-    "withComponentSingle.Side(Example1)"
+    "withComponent.Side(Example1)",
   );
 });
 
@@ -67,7 +67,7 @@ it("withComponentSingle with default behavior", () => {
   ])(Example1);
   render(<Component a={1} b={2} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre id="side">{"a":1,"b":2}</pre><pre id="main">{"a":1,"b":2}</pre>'
+    '<pre id="side">{"a":1,"b":2}</pre><pre id="main">{"a":1,"b":2}</pre>',
   );
 });
 
@@ -78,7 +78,7 @@ it("withComponentSingle with default behavior and prop", () => {
   ])(Example2);
   render(<Component a={1} b={2} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre id="side">{"a":1,"b":2,"someProp":10}</pre><pre id="main">{"a":1,"b":2}</pre>'
+    '<pre id="side">{"a":1,"b":2,"someProp":10}</pre><pre id="main">{"a":1,"b":2}</pre>',
   );
 });
 
@@ -89,7 +89,7 @@ it("withComponentSingle disabled", () => {
   ])(Example1);
   render(<Component a={1} b={2} Side={null} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre id="main">{"a":1,"b":2}</pre>'
+    '<pre id="main">{"a":1,"b":2}</pre>',
   );
 });
 
@@ -100,7 +100,7 @@ it("withComponentSingle overridden", () => {
   ])(Example1);
   render(<Component a={1} b={2} Side={10} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '10<pre id="main">{"a":1,"b":2}</pre>'
+    '10<pre id="main">{"a":1,"b":2}</pre>',
   );
 });
 
@@ -111,7 +111,7 @@ it("withComponentSingle by object", () => {
   ])(Example2);
   render(<Component a={1} b={2} Side={{ someProp: 20 }} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre id="side">{"a":1,"b":2,"Side":{"someProp":20},"someProp":20}</pre><pre id="main">{"a":1,"b":2}</pre>'
+    '<pre id="side">{"a":1,"b":2,"Side":{"someProp":20},"someProp":20}</pre><pre id="main">{"a":1,"b":2}</pre>',
   );
 });
 
@@ -122,7 +122,7 @@ it("withComponentSingle with object", () => {
   ])(Example2);
   render(<Component a={1} b={2} Side={{ someProp: 20 }} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre id="side">{"a":1,"b":2,"Side":{"someProp":20},"someProp":20}</pre><pre id="main">{"a":1,"b":2}</pre>'
+    '<pre id="side">{"a":1,"b":2,"Side":{"someProp":20},"someProp":20}</pre><pre id="main">{"a":1,"b":2}</pre>',
   );
 });
 
@@ -133,7 +133,7 @@ it("withComponentSingle with element", () => {
   ])(Example2);
   render(<Component a={1} b={2} Side={<AnotherSide someAnotherProp="20" />} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre id="another-side">{"someAnotherProp":"20"}</pre><pre id="main">{"a":1,"b":2}</pre>'
+    '<pre id="another-side">{"someAnotherProp":"20"}</pre><pre id="main">{"a":1,"b":2}</pre>',
   );
 });
 
@@ -144,11 +144,11 @@ it("withComponentSingle hiddenByDefault", () => {
   ])(Example1);
   const { rerender } = render(<Component a={1} b={2} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre id="main">{"a":1,"b":2}</pre>'
+    '<pre id="main">{"a":1,"b":2}</pre>',
   );
   rerender(<Component a={1} b={2} Side={true} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre id="side">{"a":1,"b":2,"Side":true}</pre><pre id="main">{"a":1,"b":2}</pre>'
+    '<pre id="side">{"a":1,"b":2,"Side":true}</pre><pre id="main">{"a":1,"b":2}</pre>',
   );
 });
 
@@ -159,7 +159,7 @@ it("withComponentSingle pick", () => {
   ])(Example1);
   render(<Component a={1} b={2} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre id="side">{"b":2}</pre><pre id="main">{"a":1,"b":2}</pre>'
+    '<pre id="side">{"b":2}</pre><pre id="main">{"a":1,"b":2}</pre>',
   );
 });
 
@@ -170,7 +170,7 @@ it("withComponentSingle omit", () => {
   ])(Example1);
   render(<Component a={1} b={2} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre id="side">{"a":1}</pre><pre id="main">{"a":1,"b":2}</pre>'
+    '<pre id="side">{"a":1}</pre><pre id="main">{"a":1,"b":2}</pre>',
   );
 });
 
@@ -181,13 +181,13 @@ it("withComponentSingle rerenders when props change", () => {
   ])(Example1);
   render(<Component b={2} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre id="side">{"a":1,"b":2}</pre><pre id="main">{"a":1,"b":2}</pre>'
+    '<pre id="side">{"a":1,"b":2}</pre><pre id="main">{"a":1,"b":2}</pre>',
   );
   act(() => {
     setA(3);
   });
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre id="side">{"a":3,"b":2}</pre><pre id="main">{"a":3,"b":2}</pre>'
+    '<pre id="side">{"a":3,"b":2}</pre><pre id="main">{"a":3,"b":2}</pre>',
   );
 });
 
@@ -207,10 +207,10 @@ describe("passing a function as an attribute", () => {
             expect(MySide).toBe(Side);
             return <AnotherSide {...props} />;
           }}
-      />
+      />,
     );
     expect(document.body.children[0].innerHTML).toBe(
-      '<pre id="another-side">{"a":1,"b":2}</pre><pre id="main">{"a":1,"b":2}</pre>'
+      '<pre id="another-side">{"a":1,"b":2}</pre><pre id="main">{"a":1,"b":2}</pre>',
     );
   });
 
@@ -229,10 +229,10 @@ describe("passing a function as an attribute", () => {
             expect(MySide).toBe(Side);
             return <AnotherSide {...props} />;
           }}
-      />
+      />,
     );
     expect(document.body.children[0].innerHTML).toBe(
-      '<pre id="another-side">{"a":1,"b":2}</pre><pre id="main">{"a":1,"b":2}</pre>'
+      '<pre id="another-side">{"a":1,"b":2}</pre><pre id="main">{"a":1,"b":2}</pre>',
     );
   });
 });

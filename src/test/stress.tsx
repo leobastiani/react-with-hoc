@@ -5,7 +5,7 @@ type Repeat10<T extends any[]> = [...Repeat5<T>, ...Repeat5<T>];
 type Repeat25<T extends any[]> = [
   ...Repeat10<T>,
   ...Repeat10<T>,
-  ...Repeat5<T>
+  ...Repeat5<T>,
 ];
 type Repeat50<T extends any[]> = [...Repeat25<T>, ...Repeat25<T>];
 type Repeat75<T extends any[]> = [...Repeat50<T>, ...Repeat25<T>];

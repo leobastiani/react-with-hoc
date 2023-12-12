@@ -41,7 +41,7 @@ const AfterHoc = withBody(
       unmatchedStateOptional,
       setUnmatchedStateOptional,
     };
-  }
+  },
 )(BeforeHoc);
 expectType<
   FunctionComponent<{

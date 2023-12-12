@@ -17,20 +17,20 @@ interface WithSpreadFn<PropName extends string, Names extends string>
       IntersectionFn<
         [PropName, FromSchema<Extract<this["arg0"], [Names, any]>>]
       >,
-      SetOptionalFn<Names>
+      SetOptionalFn<Names>,
     ]
   >;
 }
 
 interface WithSpreadHoc {
-  <PropName extends string, Names extends string>(propName: PropName): Hoc<
-    [WithSpreadFn<PropName, Names>]
-  >;
+  <PropName extends string, Names extends string>(
+    propName: PropName,
+  ): Hoc<[WithSpreadFn<PropName, Names>]>;
 }
 
 export const withSpread = newHoc<WithSpreadHoc>(function withSpread(
   Component: ComponentType,
-  key: string
+  key: string,
 ): FunctionComponent {
   return function WithObject(props: any): JSX.Element {
     const newProps: any = {

@@ -16,8 +16,8 @@ export type GetHocArgs<T> = Extract<
   T extends NewHocReturn<infer R>
     ? R
     : T extends HocDefinition<infer R>
-    ? R
-    : never,
+      ? R
+      : never,
   any[]
 >;
 
@@ -36,11 +36,11 @@ type FirstArgumentOptional<T extends any[]> = T extends [unknown, ...infer Rest]
   : never;
 
 export function newHoc<TNewHocReturn extends NewHocReturn<any>>(
-  hoc: HocDefinition<GetHocArgs<TNewHocReturn>>
+  hoc: HocDefinition<GetHocArgs<TNewHocReturn>>,
 ): TNewHocReturn;
 export function newHoc<TNewHocReturn extends NewHocReturn<any>>(
   name: Name<GetHocArgs<TNewHocReturn>>,
-  hoc: HocDefinition<GetHocArgs<TNewHocReturn>>
+  hoc: HocDefinition<GetHocArgs<TNewHocReturn>>,
 ): TNewHocReturn;
 
 export function newHoc<TNewHocReturn extends NewHocReturn<any>>(
@@ -64,7 +64,7 @@ export function newHoc<TNewHocReturn extends NewHocReturn<any>>(
       if (process.env.NODE_ENV !== "production") {
         componentDisplayName.set(
           typeof name === "string" ? name : name({ Component, hoc }, ...args),
-          Ret
+          Ret,
         );
       }
       return Ret;

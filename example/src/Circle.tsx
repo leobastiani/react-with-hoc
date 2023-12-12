@@ -23,6 +23,6 @@ export const Circle = (() => {
       borderRadius: "50%",
       position: "relative",
     }),
-    ["border", "size"]
+    ["border", "size"],
   )(Circle);
 })();

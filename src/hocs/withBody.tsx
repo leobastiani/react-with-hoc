@@ -13,7 +13,7 @@ import { Hoc } from "../types/Hoc";
 
 interface WithBodyFn<
   PropsSchema extends [string | number | symbol, any],
-  RetSchema extends [string | number | symbol, any]
+  RetSchema extends [string | number | symbol, any],
 > extends Fn {
   return: Pipe<
     this["arg0"],
@@ -25,18 +25,18 @@ interface WithBodyFn<
           this["arg0"],
           [PickFn<PropsSchema[0]>, IntersectionFn<PropsSchema>]
         >
-      >
+      >,
     ]
   >;
 }
 
 type WithBodyHoc = <Props extends object, Ret extends object>(
-  body: (props: Props) => Ret
+  body: (props: Props) => Ret,
 ) => Hoc<[WithBodyFn<ToSchema<Props>, ToSchema<Ret>>]>;
 
 export const withBody = newHoc<WithBodyHoc>(function withBody(
   Component: ComponentType,
-  body: Function
+  body: Function,
 ): FunctionComponent {
   return function WithBody(props: any): JSX.Element {
     return <Component {...props} {...body(props)} />;

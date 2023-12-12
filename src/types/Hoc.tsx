@@ -4,9 +4,9 @@ import { Fn, FromSchema, Pipe, ToSchema } from "./Fn";
 export type Hoc<TFns extends Fn[]> = <
   Props extends {},
   // without would trigger Type instantiation is excessively deep and possibly infinite
-  Fns extends Fn[] = TFns
+  Fns extends Fn[] = TFns,
 >(
-  Component: ComponentType<Props>
+  Component: ComponentType<Props>,
 ) => FunctionComponent<
   FromSchema<Extract<Pipe<ToSchema<Props>, Fns>, [string, any]>>
 >;

@@ -7,7 +7,7 @@ import { WithComponent } from "../../types/WithComponent";
 import { getTargetByProps, withComponentSingle } from "./withComponentSingle";
 
 interface WithComponentsFn<
-  T extends [string | number | symbol, ComponentType<any>]
+  T extends [string | number | symbol, ComponentType<any>],
 > extends Fn {
   return: Call<
     ReplaceFn<
@@ -22,15 +22,15 @@ interface WithComponentsFn<
 interface WithComponentsHoc {
   <const Map extends Record<string, ComponentType<any>>>(
     components: Map,
-    options?: Parameters<typeof withComponentSingle>[1]
+    options?: Parameters<typeof withComponentSingle>[1],
   ): Hoc<[WithComponentsFn<ToSchema<Map>>]>;
 }
 
 export const withComponentMultiple = newHoc<WithComponentsHoc>(
-  function withComponents(
+  function withComponent(
     Component: ComponentType,
     object: Record<string, ComponentType>,
-    options: any = {}
+    options: any = {},
   ): FunctionComponent {
     const map = new Map(Object.entries(object));
     return function WithComponents(props: any): JSX.Element {
@@ -56,5 +56,5 @@ export const withComponentMultiple = newHoc<WithComponentsHoc>(
 
       return <Component {...props} {...CurrTargets} />;
     };
-  }
+  },
 );

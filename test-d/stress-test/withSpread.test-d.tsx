@@ -9,7 +9,7 @@ const BeforeHoc: React.FC<{
   address: string;
 }> = undefined as any;
 const AfterHoc = withHocs(
-  stress(withSpread<"user", "name" | "age" | "address">("user"))
+  stress(withSpread<"user", "name" | "age" | "address">("user")),
 )(BeforeHoc);
 expectType<
   FunctionComponent<{

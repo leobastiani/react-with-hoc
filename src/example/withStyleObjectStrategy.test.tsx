@@ -13,7 +13,7 @@ it("withStyleObjectStrategy name", () => {
     borderColor: "red",
   })(Example);
   expect(componentDisplayName.get(Component)).toBe(
-    "withStyleObjectStrategy(Example)"
+    "withStyleObjectStrategy(Example)",
   );
 });
 
@@ -22,7 +22,7 @@ it("withStyleObjectStrategy name with dependency array", () => {
     borderColor: "red",
   })(Example);
   expect(componentDisplayName.get(Component)).toBe(
-    "withStyleObjectStrategy(Example)"
+    "withStyleObjectStrategy(Example)",
   );
 });
 
@@ -31,33 +31,33 @@ it("withStyleObjectStrategy with value", () => {
     ({ background }) => ({
       background,
     }),
-    ["background"]
+    ["background"],
   )(Example);
   render(<Component />);
   expect(componentDisplayName.get(Component)).toBe(
-    "withStyleObjectStrategy.background(Example)"
+    "withStyleObjectStrategy.background(Example)",
   );
 });
 
 it("withStyleObjectStrategy with function", () => {
   const Component = withStyleObjectStrategy<{}>(
     () => ({ background: "blue" }),
-    []
+    [],
   )(Example);
   render(<Component />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"style":{"background":"blue"}}</pre>'
+    '<pre>{"style":{"background":"blue"}}</pre>',
   );
 });
 
 it("withStyleObjectStrategy a new property in dependencyNames", () => {
   const Component = withStyleObjectStrategy<{ background: string }>(
     ({ background }) => ({ background }),
-    ["background"]
+    ["background"],
   )(Example);
   render(<Component background="yellow" />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"background":"yellow","style":{"background":"yellow"}}</pre>'
+    '<pre>{"background":"yellow","style":{"background":"yellow"}}</pre>',
   );
 });
 
@@ -65,18 +65,18 @@ it("withStyleObjectStrategy overridden", () => {
   const Component = withStyleObjectStrategy({ background: "red" })(Example);
   render(<Component style={{ border: "none" }} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"style":{"background":"red","border":"none"}}</pre>'
+    '<pre>{"style":{"background":"red","border":"none"}}</pre>',
   );
 });
 
 it("withStyleObjectStrategy rewritten", () => {
   const Component = withStyleObjectStrategy<{ style: CSSProperties }>(
     (_props) => ({ width: "100%" }),
-    ["style"]
+    ["style"],
   )(Example);
   render(<Component style={{ background: "black" }} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"style":{"width":"100%"}}</pre>'
+    '<pre>{"style":{"width":"100%"}}</pre>',
   );
 });
 
@@ -93,6 +93,6 @@ it("withStyleObjectStrategy with style twice", () => {
   ])(Example);
   render(<Component />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"style":{"borderColor":"white","display":"block","background":"black"}}</pre>'
+    '<pre>{"style":{"borderColor":"white","display":"block","background":"black"}}</pre>',
   );
 });

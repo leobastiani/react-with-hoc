@@ -18,12 +18,9 @@ describe("get", () => {
     const Example = (
       () =>
       // eslint-disable-next-line react/display-name
-      (): JSX.Element =>
-        <div />
+      (): JSX.Element => <div />
     )();
-    expect(componentDisplayName.get(Example)).toBe(
-      "UnkownComponentDisplayName"
-    );
+    expect(componentDisplayName.get(Example)).toBe("Unknown");
   });
 });
 
@@ -31,8 +28,7 @@ it("set", () => {
   const Example = (
     () =>
     // eslint-disable-next-line react/display-name
-    (): JSX.Element =>
-      <div />
+    (): JSX.Element => <div />
   )();
   expect(componentDisplayName.get(Example)).not.toBe("Example");
   componentDisplayName.set("Example", Example);

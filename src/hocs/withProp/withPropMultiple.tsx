@@ -18,12 +18,12 @@ interface WithPropFn<Schema extends [string | number | symbol, any]>
 }
 
 type WithPropHoc = <Map extends Record<string, unknown>>(
-  map: Map
+  map: Map,
 ) => Hoc<[WithPropFn<ToSchema<Map>>]>;
 
 export const withPropMultiple = newHoc<WithPropHoc>(function withProp(
   Component: ComponentType,
-  map: object
+  map: object,
 ): FunctionComponent {
   return function WithProp(props: object): JSX.Element {
     return <Component {...map} {...props} />;

@@ -5,7 +5,7 @@ import { Clock, ClockCircle } from "./Clock";
 import { HourPointer } from "./Pointers";
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+  document.getElementById("root") as HTMLElement,
 );
 
 const RedHour = withProp("color", "red")(HourPointer);
@@ -20,5 +20,5 @@ root.render(
     <Clock MinuteMarks={null} />
     <Clock HourPointer={(): typeof RedHour => RedHour} />
     <Clock Circle={(): typeof Square => Square} />
-  </React.StrictMode>
+  </React.StrictMode>,
 );

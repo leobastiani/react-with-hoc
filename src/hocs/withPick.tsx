@@ -4,12 +4,12 @@ import { PickFn } from "../types/Fn";
 import { Hoc } from "../types/Hoc";
 
 type WithPickHoc = <PickNames extends string>(
-  pickNames: PickNames[]
+  pickNames: PickNames[],
 ) => Hoc<[PickFn<PickNames>]>;
 
 export const withPick = newHoc<WithPickHoc>(function withPick(
   Component: ComponentType,
-  pickNames: string[]
+  pickNames: string[],
 ): FunctionComponent {
   const pickSet = new Set(pickNames);
 

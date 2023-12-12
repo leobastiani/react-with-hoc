@@ -44,7 +44,7 @@ const Right = withProp("side", "right")(Side);
 it("withComponentMultiple name", () => {
   const Component = withComponentMultiple({ Left, Right })(Example);
   expect(componentDisplayName.get(Component)).toBe(
-    "withComponentMultiple.Left.Right(Example)"
+    "withComponent.Left.Right(Example)",
   );
 });
 
@@ -55,7 +55,7 @@ it("withComponentMultiple with default behavior", () => {
   ])(Example);
   render(<Component a={1} b={2} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre id="left">{"a":1,"b":2}</pre><pre id="main">{"a":1,"b":2}</pre><pre id="right">{"a":1,"b":2}</pre>'
+    '<pre id="left">{"a":1,"b":2}</pre><pre id="main">{"a":1,"b":2}</pre><pre id="right">{"a":1,"b":2}</pre>',
   );
 });
 
@@ -66,7 +66,7 @@ it("withComponentMultiple disabled", () => {
   ])(Example);
   render(<Component a={1} b={2} Left={null} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre id="main">{"a":1,"b":2}</pre><pre id="right">{"a":1,"b":2,"Left":null}</pre>'
+    '<pre id="main">{"a":1,"b":2}</pre><pre id="right">{"a":1,"b":2,"Left":null}</pre>',
   );
 });
 
@@ -77,7 +77,7 @@ it("withComponentMultiple overridden", () => {
   ])(Example);
   render(<Component a={1} b={2} Left={10} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '10<pre id="main">{"a":1,"b":2}</pre><pre id="right">{"a":1,"b":2,"Left":10}</pre>'
+    '10<pre id="main">{"a":1,"b":2}</pre><pre id="right">{"a":1,"b":2,"Left":10}</pre>',
   );
 });
 
@@ -88,13 +88,13 @@ it("withComponentMultiple rerenders when props change", () => {
   ])(Example);
   render(<Component b={2} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre id="left">{"a":1,"b":2}</pre><pre id="main">{"a":1,"b":2}</pre><pre id="right">{"a":1,"b":2}</pre>'
+    '<pre id="left">{"a":1,"b":2}</pre><pre id="main">{"a":1,"b":2}</pre><pre id="right">{"a":1,"b":2}</pre>',
   );
   act(() => {
     setA(3);
   });
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre id="left">{"a":3,"b":2}</pre><pre id="main">{"a":3,"b":2}</pre><pre id="right">{"a":3,"b":2}</pre>'
+    '<pre id="left">{"a":3,"b":2}</pre><pre id="main">{"a":3,"b":2}</pre><pre id="right">{"a":3,"b":2}</pre>',
   );
 });
 
@@ -111,6 +111,6 @@ it("passing a function as an attribute", () => {
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   render(<Component a={1} b={2} Left={() => Pre as FunctionComponent} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"a":1,"b":2}</pre><pre id="main">{"a":1,"b":2}</pre><pre id="right">{"a":1,"b":2}</pre>'
+    '<pre>{"a":1,"b":2}</pre><pre id="main">{"a":1,"b":2}</pre><pre id="right">{"a":1,"b":2}</pre>',
   );
 });

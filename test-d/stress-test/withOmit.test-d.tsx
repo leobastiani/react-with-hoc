@@ -11,8 +11,8 @@ const BeforeHoc: React.FC<{
 const AfterHoc = withHocs(
   stress(
     withBody(({ b }: { b: number }) => ({ b })),
-    withOmit(["b"])
-  )
+    withOmit(["b"]),
+  ),
 )(BeforeHoc);
 expectType<
   FunctionComponent<{

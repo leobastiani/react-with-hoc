@@ -12,13 +12,13 @@ interface Options<IndexName extends string, ValueName extends string> {
 interface WithForEachHoc {
   <IndexName extends string, ValueName extends string>(
     target: number | Array<unknown> | object,
-    options?: Options<IndexName, ValueName>
+    options?: Options<IndexName, ValueName>,
   ): Hoc<
     [
       SetOptionalFn<
         | ([IndexName & ""] extends [never] ? IndexName : "i")
         | ([ValueName & ""] extends [never] ? ValueName : "children")
-      >
+      >,
     ]
   >;
 }
@@ -30,7 +30,7 @@ export const withForEach = newHoc<WithForEachHoc>(function withForEach(
     indexName = "i",
     key = (props: any): Key => props[indexName],
     valueName = "children",
-  } = {}
+  } = {},
 ): FunctionComponent {
   return function WithForEach(props: any): JSX.Element {
     let ret: any;
@@ -66,7 +66,7 @@ export const withForEach = newHoc<WithForEachHoc>(function withForEach(
       ));
     } else if (process.env.NODE_ENV !== "production") {
       throw new Error(
-        "withForEach: should be used with number, Array or object"
+        "withForEach: should be used with number, Array or object",
       );
     }
 

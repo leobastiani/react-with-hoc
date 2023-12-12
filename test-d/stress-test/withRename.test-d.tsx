@@ -37,7 +37,7 @@ import { stress } from "../../src/test/stress";
       withRename({
         a: "d",
         b: "e",
-      })
+      }),
     ),
     withRename({
       d: "a",

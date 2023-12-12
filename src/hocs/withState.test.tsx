@@ -21,7 +21,7 @@ beforeEach(() => {
 it("withState name", () => {
   const Component = withState<number, "someState">("someState")(Example);
   expect(componentDisplayName.get(Component)).toBe(
-    "withState.someState(Example)"
+    "withState.someState(Example)",
   );
 });
 
@@ -29,13 +29,13 @@ it("withState", () => {
   const Component = withState("someState", { init: 0 })(Example);
   render(<Component />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"someState":0}</pre>'
+    '<pre>{"someState":0}</pre>',
   );
   act(() => {
     setSomeState(1);
   });
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"someState":1}</pre>'
+    '<pre>{"someState":1}</pre>',
   );
 });
 
@@ -45,13 +45,13 @@ it("withState init as function", () => {
   })(Example);
   render(<Component a={10} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"someState":10,"a":10}</pre>'
+    '<pre>{"someState":10,"a":10}</pre>',
   );
   act(() => {
     setSomeState(1);
   });
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"someState":1,"a":10}</pre>'
+    '<pre>{"someState":1,"a":10}</pre>',
   );
 });
 
@@ -59,12 +59,12 @@ it("withState overridden", () => {
   const Component = withState("someState", { init: 0 })(Example);
   render(<Component someState={10} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"someState":10}</pre>'
+    '<pre>{"someState":10}</pre>',
   );
   act(() => {
     setSomeState(1);
   });
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"someState":10}</pre>'
+    '<pre>{"someState":10}</pre>',
   );
 });

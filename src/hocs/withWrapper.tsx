@@ -13,7 +13,7 @@ interface WithWrapperHoc {
       | {
           omitProps: string[];
           pickProps?: undefined;
-        }
+        },
   ): Hoc<[]>;
 }
 
@@ -26,14 +26,14 @@ export const withWrapper = newHoc<WithWrapperHoc>(function withWrapper(
   }: {
     pickProps?: string[];
     omitProps?: string[];
-  } = { pickProps: [] }
+  } = { pickProps: [] },
 ): FunctionComponent {
   if (process.env.NODE_ENV !== "production") {
     const bothAssigned = pickProps && omitProps;
     const noneAssigned = !pickProps && !omitProps;
     if (bothAssigned || noneAssigned) {
       throw new Error(
-        "withWrapper should have either pickProps or omitProps assigned"
+        "withWrapper should have either pickProps or omitProps assigned",
       );
     }
   }

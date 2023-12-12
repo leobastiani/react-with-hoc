@@ -15,18 +15,19 @@ interface WithIfHoc {
     propName: PropName,
     options?: {
       Else?: ComponentType<any>;
-    }
+    },
   ): Hoc<[WithIfFn<PropName>]>;
 
   <
     DependencyProps extends {},
-    TDependencyNames extends DependencyNames<DependencyProps> = DependencyNames<DependencyProps>
+    TDependencyNames extends
+      DependencyNames<DependencyProps> = DependencyNames<DependencyProps>,
   >(
     factory: (props: DependencyProps) => any,
     options: {
       Else?: ComponentType<any>;
       dependencyNames: TDependencyNames;
-    }
+    },
   ): Hoc<[IntersectionFn<ToSchema<DependencyProps>>]>;
 }
 
@@ -39,12 +40,12 @@ export const withIf = newHoc<WithIfHoc>(function withIf(
   }: {
     dependencyNames?: string[];
     Else?: ComponentType<any>;
-  } = {}
+  } = {},
 ): FunctionComponent {
   if (process.env.NODE_ENV !== "production") {
     if (typeof propNameOrFactory === "function" && !dependencyNames) {
       throw new Error(
-        "withIf with function should have dependencyNames assigned"
+        "withIf with function should have dependencyNames assigned",
       );
     }
   }
@@ -59,7 +60,7 @@ export const withIf = newHoc<WithIfHoc>(function withIf(
       condition = useMemo(
         () => propNameOrFactory(props),
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        dependencyNames!.map((key) => props[key])
+        dependencyNames!.map((key) => props[key]),
       );
     }
 
