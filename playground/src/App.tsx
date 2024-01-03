@@ -1,5 +1,5 @@
-import React, { CSSProperties, ReactNode } from "react";
-import { withHocs, withStyleObjectStrategy, withWrapper } from "react-with-hoc";
+import React, { ReactNode } from "react";
+import { withHocs, withWrapper } from "react-with-hoc";
 
 /**
  * Testing withHocs in the browser
@@ -14,20 +14,9 @@ const ProviderBottom: React.FC<{ children: ReactNode }> = ({ children }) => {
 };
 
 export const App = ((): React.FC => {
-  function App({ style }: { style: CSSProperties }): JSX.Element {
-    return <pre>{JSON.stringify(style, null, 2)}</pre>;
+  function App(props: any): JSX.Element {
+    return <pre>{JSON.stringify(props, null, 2)}</pre>;
   }
 
-  return withHocs([
-    withWrapper(ProviderTop),
-    withStyleObjectStrategy({
-      background: "black",
-      borderColor: "white",
-    }),
-    withWrapper(ProviderBottom),
-    withStyleObjectStrategy({
-      borderColor: "red",
-      display: "block",
-    }),
-  ])(App);
+  return withHocs([withWrapper(ProviderTop), withWrapper(ProviderBottom)])(App);
 })();
