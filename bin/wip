@@ -1,0 +1,18 @@
+#!/bin/bash
+
+cd "$(dirname "$0")"
+cd ..
+
+set -e -o pipefail
+
+version=$(jq '.version' package.json -r)
+version_prefix=$(echo $version | cut -d'-' -f1)
+wip_number=$(echo $version | cut -d'p' -f2 | sed 's/^0*//')
+
+((wip_number++))
+
+new_version="${version_prefix}-wip$(printf '%03d' $wip_number)"
+
+jq '.version = "'$new_version'"' package.json | sponge package.json
+
+git add -A
