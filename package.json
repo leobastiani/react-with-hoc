@@ -35,8 +35,7 @@
     "build:esm": "tsc --project tsconfig.build.json",
     "clean": "rimraf dist",
     "lint": "eslint . --max-warnings=0",
-    "prepare": "yarn build",
-    "prepublishOnly": "yarn clean && yarn test && yarn tsc && yarn tsd && yarn lint",
+    "prepublishOnly": "yarn clean && yarn test && yarn tsc && yarn lint && yarn build && yarn tsd",
     "test": "jest",
     "tsc": "tsc --noEmit",
     "tsd": "node --max_old_space_size=8000 node_modules/.bin/tsd"
