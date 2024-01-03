@@ -34,16 +34,15 @@ type Name<HocArgs extends any[]> =
 type FirstArgumentOptional<T extends any[]> = T extends [unknown, ...infer Rest]
   ? Rest | T
   : never;
-
-export function newHoc<TNewHocReturn extends NewHocReturn<any>>(
+function newHoc<TNewHocReturn extends NewHocReturn<any>>(
   hoc: HocDefinition<GetHocArgs<TNewHocReturn>>,
 ): TNewHocReturn;
-export function newHoc<TNewHocReturn extends NewHocReturn<any>>(
+function newHoc<TNewHocReturn extends NewHocReturn<any>>(
   name: Name<GetHocArgs<TNewHocReturn>>,
   hoc: HocDefinition<GetHocArgs<TNewHocReturn>>,
 ): TNewHocReturn;
 
-export function newHoc<TNewHocReturn extends NewHocReturn<any>>(
+function newHoc<TNewHocReturn extends NewHocReturn<any>>(
   ...args: FirstArgumentOptional<
     [Name<GetHocArgs<TNewHocReturn>>, HocDefinition<GetHocArgs<TNewHocReturn>>]
   >
@@ -74,3 +73,16 @@ export function newHoc<TNewHocReturn extends NewHocReturn<any>>(
       return Ret;
     }) as TNewHocReturn;
 }
+
+const newHocProduction: any = (...args: any[]) => {
+  const hoc: any = args[args.length - 1];
+  return (...args: any) =>
+    (Component: ComponentType<any>): FunctionComponent<any> => {
+      return hoc(Component, ...args);
+    };
+};
+
+const exportNewHoc: typeof newHoc =
+  process.env.NODE_ENV === "production" ? newHocProduction : newHoc;
+
+export { exportNewHoc as newHoc };
