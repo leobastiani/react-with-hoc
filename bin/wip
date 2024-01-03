@@ -16,3 +16,4 @@ new_version="${version_prefix}-wip$(printf '%03d' $wip_number)"
 jq '.version = "'$new_version'"' package.json | sponge package.json
 
 git add -A
+git commit -m "bump version"
