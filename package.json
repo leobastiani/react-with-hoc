@@ -3,13 +3,17 @@
   "version": "0.0.23-wip012",
   "description": "Work with React and HOCs (Higher-Order Components)",
   "keywords": [
-    "react",
-    "reactjs",
-    "react-component",
+    "higher-order",
+    "higher",
+    "order",
+    "component",
     "hoc",
     "hocs",
-    "higher-order",
-    "component",
+    "react-component",
+    "react-native",
+    "react",
+    "reactjs",
+    "recompose",
     "with"
   ],
   "repository": {
@@ -18,16 +22,16 @@
   },
   "license": "MIT",
   "author": "Leonardo Guarnieri de Bastiani (leogbastiani@gmail.com)",
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
-  "types": "./dist/esm/index.d.ts",
-  "source": "./src/index.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
+  "react-native": "src/index.tsx",
+  "source": "src/index.tsx",
   "sideEffects": false,
   "files": [
     "src",
     "dist",
-    "LICENSE",
-    "README.md"
+    "LICENSE"
   ],
   "scripts": {
     "build": "yarn build:esm && yarn build:cjs",
