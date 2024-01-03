@@ -1,7 +1,7 @@
 import { ComponentType, FunctionComponent } from "react";
 import { Hoc } from "../types/Hoc";
 import { componentDisplayName } from "./componentDisplayName";
-import { defaultHocName } from "./hocNameForWithStyle";
+import { HocNameFactory, defaultHocName } from "./hocNameForWithStyle";
 
 export type NewHocReturn<HocArgs extends any[]> = (
   ...args: HocArgs
@@ -48,8 +48,12 @@ export function newHoc<TNewHocReturn extends NewHocReturn<any>>(
     [Name<GetHocArgs<TNewHocReturn>>, HocDefinition<GetHocArgs<TNewHocReturn>>]
   >
 ): TNewHocReturn {
-  const name = args.length === 2 ? args[0] : defaultHocName;
-  const hoc = args.length === 2 ? args[1] : args[0];
+  const name: HocNameFactory | string =
+    process.env.NODE_ENV != "production" && args.length === 2
+      ? args[0]
+      : defaultHocName;
+  const hoc: HocDefinition<GetHocArgs<TNewHocReturn>> =
+    args.length === 2 ? args[1] : args[0];
 
   return ((...args: any) =>
     (Component: ComponentType<any>): FunctionComponent<any> => {

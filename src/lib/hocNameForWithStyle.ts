@@ -2,9 +2,20 @@ import { ComponentType } from "react";
 import { componentDisplayName } from "./componentDisplayName";
 import { GetHocArgs, HocDefinition, NewHocReturn } from "./newHoc";
 
-export function createHocNameFunction<TNewHocReturn extends NewHocReturn<any>>(
+export type HocNameFactory = (
+  {
+    Component,
+    hoc,
+  }: {
+    Component: ComponentType<any>;
+    hoc: HocDefinition<any>;
+  },
+  ...args: any
+) => string;
+
+export const createHocNameFunction = <TNewHocReturn extends NewHocReturn<any>>(
   selector: (...args: GetHocArgs<TNewHocReturn>) => unknown | undefined,
-) {
+): HocNameFactory => {
   return function hocName(
     {
       Component,
@@ -53,8 +64,8 @@ export function createHocNameFunction<TNewHocReturn extends NewHocReturn<any>>(
       .filter(Boolean)
       .join(".")}(${componentDisplayName.get(Component)})`;
   };
-}
+};
 
-export const defaultHocName = createHocNameFunction(
+export const defaultHocName: HocNameFactory = createHocNameFunction(
   (firstArg: unknown) => firstArg,
 );
