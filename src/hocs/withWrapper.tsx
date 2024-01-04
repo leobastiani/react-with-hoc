@@ -1,4 +1,3 @@
-import React from "react";
 import { ComponentType, FunctionComponent } from "react";
 import { Hoc } from "../types/Hoc";
 import { newHoc } from "../utils/newHoc";

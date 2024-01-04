@@ -1,4 +1,3 @@
-import React from "react";
 import { componentDisplayName } from "../utils/componentDisplayName";
 import { withDisplayName } from "./withDisplayName";
 import { withHocs } from "./withHocs";

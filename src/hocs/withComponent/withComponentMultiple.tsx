@@ -1,4 +1,3 @@
-import React from "react";
 import { ComponentType, FunctionComponent, useMemo } from "react";
 import { Call, Fn, ReplaceFn, ToSchema } from "../../types/Fn";
 import { Hoc } from "../../types/Hoc";

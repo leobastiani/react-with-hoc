@@ -1429,10 +1429,10 @@ react-refresh@^0.14.0:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.14.0.tgz#4e02825378a5f227079554d4284889354e5f553e"
   integrity sha512-wViHqhAd8OHeLS/IRMJjTSDHF3U9eWi62F/MledQGPdJGDhodXJ9PBLNGr6WWL7qlH12Mt3TyTpbS+hGXMjCzQ==
 
-react-with-hoc@^0.0.23-wip010:
-  version "0.0.23-wip010"
-  resolved "https://registry.yarnpkg.com/react-with-hoc/-/react-with-hoc-0.0.23-wip010.tgz#5f8f3cb3cb9b7ad57bdf19f0712f482082db4fdd"
-  integrity sha512-Zkow2sAAlQPFesI+cmR/DgbOCm5rTKGwNGllQocKSsLky51IJKqXxPrcxUN0m4qssTCMrcCmTnSOQx68/7wb9A==
+react-with-hoc@^0.0.23-wip021:
+  version "0.0.23-wip021"
+  resolved "https://registry.yarnpkg.com/react-with-hoc/-/react-with-hoc-0.0.23-wip021.tgz#fa1f1ebb3a86d54646acce336017795780a5fb12"
+  integrity sha512-umxWbVVV7I7Wu1pr74AboiGU2fsFj8LgVMT3U2QrmvkQiNbPhWADlQVU89TKG3t/JjBBsfhj3rp+Y0x16MitaQ==
 
 react@^18.2.0:
   version "18.2.0"

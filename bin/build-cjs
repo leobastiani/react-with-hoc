@@ -1,0 +1,18 @@
+#!/bin/bash
+
+cd "$(dirname "$0")"
+cd ..
+
+set -e -o pipefail
+
+node_modules/.bin/babel \
+  src \
+  --out-dir \
+  lib/commonjs \
+  --config-file ./babel.build-cjs-config.js \
+  --extensions .ts,.js,.tsx,.jsx,.cjs,.mjs \
+  --source-maps both \
+  --ignore "src/example" \
+  --ignore "src/test" \
+  --ignore "*.test.tsx" \
+  --out-file-extension .jsx

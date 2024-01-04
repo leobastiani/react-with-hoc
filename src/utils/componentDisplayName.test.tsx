@@ -1,4 +1,3 @@
-import React from "react";
 import { componentDisplayName } from "./componentDisplayName";
 
 describe("get", () => {

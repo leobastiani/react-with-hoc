@@ -1,4 +1,3 @@
-import React from "react";
 import { ComponentType, FunctionComponent, Key } from "react";
 import { SetOptionalFn } from "../types/Fn";
 import { Hoc } from "../types/Hoc";
