@@ -1,3 +1,4 @@
+import React from "react";
 import { ComponentType, FunctionComponent, useMemo } from "react";
 import { DependencyNames } from "../../types/DependencyNames";
 import {
@@ -60,7 +61,7 @@ export const withPropSingleByFactory = newHoc<WithPropHoc>(function withProp(
     }
     const value = useMemo(
       () => init(props),
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+
       dependencyNames.map((dependencyName) => props[dependencyName]),
     );
 

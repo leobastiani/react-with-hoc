@@ -1,3 +1,4 @@
+import React from "react";
 import { ComponentType, FunctionComponent, useMemo } from "react";
 import { Call, Fn, ReplaceFn, ToSchema } from "../../types/Fn";
 import { Hoc } from "../../types/Hoc";
@@ -36,7 +37,6 @@ export const withComponentMultiple = newHoc<WithComponentsHoc>(
     return function WithComponents(props: any): JSX.Element {
       const CurrTargets = {} as any;
       for (const [name, TargetComponent] of map) {
-        // eslint-disable-next-line react-hooks/rules-of-hooks
         const TargetByProps = useMemo(() => {
           return getTargetByProps({
             props,
@@ -44,7 +44,6 @@ export const withComponentMultiple = newHoc<WithComponentsHoc>(
             TargetComponent,
             options,
           });
-          // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [props[name]]);
         CurrTargets[name] = (myProps: any): any => (
           <TargetByProps {...props} {...myProps} />

@@ -1,3 +1,4 @@
+import React from "react";
 import { ComponentType, FunctionComponent, useState } from "react";
 import { Fn, IntersectionFn, Pipe, SetOptionalFn, ToSchema } from "../types/Fn";
 import { Hoc } from "../types/Hoc";
@@ -38,7 +39,6 @@ type WithStateHoc = <
   },
 ) => Hoc<[WithStateFn<PropValue, StateName, SetterName, ToSchema<Props>>]>;
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function
 function noop(): void {}
 
 export const withState = newHoc<WithStateHoc>(function withState(
@@ -72,7 +72,6 @@ export const withState = newHoc<WithStateHoc>(function withState(
 
     locallyControlled = !(stateName in props || setterName in props);
     if (locallyControlled === true) {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
       return useState(typeof init === "function" ? init(props) : init);
     }
     return [props[stateName], props[setterName] ?? noop];

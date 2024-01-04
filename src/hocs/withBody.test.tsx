@@ -1,3 +1,4 @@
+import React from "react";
 import { render } from "@testing-library/react";
 import { componentDisplayName } from "../utils/componentDisplayName";
 import { withBody } from "./withBody";

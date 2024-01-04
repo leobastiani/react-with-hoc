@@ -48,10 +48,10 @@ export const withStyle = newHoc<WithStyleObjectStrategyHoc>(
             );
           }
         }
-        // eslint-disable-next-line react-hooks/rules-of-hooks
+
         newValue = useMemo(
           () => init(props),
-          // eslint-disable-next-line react-hooks/exhaustive-deps
+
           dependencyNames!.map((dependencyName) => props[dependencyName]),
         );
       } else {

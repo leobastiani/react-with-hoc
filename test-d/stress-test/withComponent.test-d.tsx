@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React, { FunctionComponent } from "react";
 import { expectType } from "tsd";
 import {

@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
+import React from "react";
+
 import {
   ComponentType,
   FunctionComponent,
@@ -85,7 +86,7 @@ export const withComponentSingle = newHoc<WithComponentHoc>(
     return function WithComponent(props: any): JSX.Element {
       const TargetByProps = useMemo(
         () => getTargetByProps({ props, name, TargetComponent, options }),
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
         [props[name]],
       );
       const CurrTarget = (myProps: any): any => (

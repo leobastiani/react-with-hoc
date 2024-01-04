@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import { CSSProperties } from "react";
+import React, { CSSProperties } from "react";
 import { withHocs } from "../hocs/withHocs";
 import { componentDisplayName } from "../utils/componentDisplayName";
 import { withStyleObjectStrategy } from "./withStyleObjectStrategy";

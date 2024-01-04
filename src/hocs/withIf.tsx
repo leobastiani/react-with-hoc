@@ -1,3 +1,4 @@
+import React from "react";
 import { ComponentType, FunctionComponent, useMemo } from "react";
 import { DependencyNames } from "../types/DependencyNames";
 import { Fn, IntersectionFn, ToSchema } from "../types/Fn";
@@ -56,10 +57,10 @@ export const withIf = newHoc<WithIfHoc>(function withIf(
       condition = props[propNameOrFactory];
     } else {
       // is function
-      // eslint-disable-next-line react-hooks/rules-of-hooks
+
       condition = useMemo(
         () => propNameOrFactory(props),
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+
         dependencyNames!.map((key) => props[key]),
       );
     }

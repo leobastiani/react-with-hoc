@@ -15,6 +15,13 @@ type WithHocsFlat<
     : WithHocsFlat<rest, Acc>
   : Acc;
 
+/**
+ * Apply multiple hocs
+ *
+ * @example
+ * import { withHoc1, withHoc1 } from 'my-hocs'
+ * const withHoc1_2 = withHocs(withHoc1, withHoc2)
+ */
 export function withHocs<const Hocs extends readonly WithHocsArg[]>(
   fns: Hocs,
 ): Hoc<WithHocsFlat<[...Hocs]>> {

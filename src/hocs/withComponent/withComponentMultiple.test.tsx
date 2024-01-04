@@ -1,3 +1,4 @@
+import React from "react";
 import { act, render } from "@testing-library/react";
 import { FunctionComponent } from "react";
 import { PartialComponent } from "../../types/PartialComponent";
@@ -108,7 +109,6 @@ it("passing a function as an attribute", () => {
     return <pre>{JSON.stringify(props)}</pre>;
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   render(<Component a={1} b={2} Left={() => Pre as FunctionComponent} />);
   expect(document.body.children[0].innerHTML).toBe(
     '<pre>{"a":1,"b":2}</pre><pre id="main">{"a":1,"b":2}</pre><pre id="right">{"a":1,"b":2}</pre>',

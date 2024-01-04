@@ -1,3 +1,4 @@
+import React from "react";
 import { act, render } from "@testing-library/react";
 import { ComponentProps } from "react";
 import { PartialComponent } from "../../types/PartialComponent";
