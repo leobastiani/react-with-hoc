@@ -1,6 +1,9 @@
 {
   "exclude": [
     "dist/**/*",
+    "test-d",
+    "example",
+    "playground",
   ],
   "compilerOptions": {
     "module": "esnext",
