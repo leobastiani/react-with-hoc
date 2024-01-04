@@ -1,5 +1,4 @@
 import { ComponentType, FunctionComponent, useMemo } from "react";
-import { newHoc } from "../../lib/newHoc";
 import { DependencyNames } from "../../types/DependencyNames";
 import {
   Fn,
@@ -13,6 +12,7 @@ import {
   ToSchema,
 } from "../../types/Fn";
 import { Hoc } from "../../types/Hoc";
+import { newHoc } from "../../utils/newHoc";
 
 interface WithPropFn<
   PropName extends string,

@@ -1,7 +1,7 @@
 import { ComponentType, FunctionComponent, useState } from "react";
-import { newHoc } from "../lib/newHoc";
 import { Fn, IntersectionFn, Pipe, SetOptionalFn, ToSchema } from "../types/Fn";
 import { Hoc } from "../types/Hoc";
+import { newHoc } from "../utils/newHoc";
 
 interface WithStateFn<
   PropValue,

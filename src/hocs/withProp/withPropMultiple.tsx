@@ -1,5 +1,4 @@
 import { ComponentType, FunctionComponent } from "react";
-import { newHoc } from "../../lib/newHoc";
 import {
   Fn,
   IntersectionFn,
@@ -8,6 +7,7 @@ import {
   ToSchema,
 } from "../../types/Fn";
 import { Hoc } from "../../types/Hoc";
+import { newHoc } from "../../utils/newHoc";
 
 interface WithPropFn<Schema extends [string | number | symbol, any]>
   extends Fn {

@@ -1,6 +1,6 @@
 import { ComponentType, FunctionComponent } from "react";
-import { newHoc } from "../lib/newHoc";
 import { Hoc } from "../types/Hoc";
+import { newHoc } from "../utils/newHoc";
 
 interface WithWrapperHoc {
   (

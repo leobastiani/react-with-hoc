@@ -1,7 +1,7 @@
 import { act, render } from "@testing-library/react";
 import { FunctionComponent } from "react";
-import { componentDisplayName } from "../../lib/componentDisplayName";
 import { PartialComponent } from "../../types/PartialComponent";
+import { componentDisplayName } from "../../utils/componentDisplayName";
 import { withHocs } from "../withHocs";
 import { withProp } from "../withProp";
 import { withState } from "../withState";

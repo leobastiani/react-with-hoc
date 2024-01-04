@@ -1,5 +1,4 @@
 import { ComponentType, FunctionComponent } from "react";
-import { newHoc } from "../../lib/newHoc";
 import {
   HasAllPropsFn,
   IfThenFn,
@@ -7,6 +6,7 @@ import {
   SetOptionalFn,
 } from "../../types/Fn";
 import { Hoc } from "../../types/Hoc";
+import { newHoc } from "../../utils/newHoc";
 
 type WithPropHoc = <PropValue, PropName extends string>(
   propName: PropName,

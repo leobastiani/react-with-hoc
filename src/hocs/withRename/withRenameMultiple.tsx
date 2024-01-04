@@ -1,8 +1,8 @@
 import { ComponentType, FunctionComponent } from "react";
-import { createHocNameFunction } from "../../lib/hocNameForWithStyle";
-import { newHoc } from "../../lib/newHoc";
 import { Fn, ToSchema } from "../../types/Fn";
 import { Hoc } from "../../types/Hoc";
+import { createHocNameFunction } from "../../utils/hocNameForWithStyle";
+import { newHoc } from "../../utils/newHoc";
 
 interface WithRenamesFn<T extends [string | number | symbol, string]>
   extends Fn {

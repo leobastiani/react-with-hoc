@@ -1,8 +1,8 @@
 import { ComponentType, FunctionComponent } from "react";
-import { createHocNameFunction } from "../../lib/hocNameForWithStyle";
-import { newHoc } from "../../lib/newHoc";
 import { Fn } from "../../types/Fn";
 import { Hoc } from "../../types/Hoc";
+import { createHocNameFunction } from "../../utils/hocNameForWithStyle";
+import { newHoc } from "../../utils/newHoc";
 
 interface WithRenameFn<NewProp extends string, OldProp extends string>
   extends Fn {

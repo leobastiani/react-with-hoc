@@ -1,4 +1,4 @@
-import { componentDisplayName } from "../lib/componentDisplayName";
+import { componentDisplayName } from "../utils/componentDisplayName";
 import { withDisplayName } from "./withDisplayName";
 import { withHocs } from "./withHocs";
 import { withOmit } from "./withOmit";
