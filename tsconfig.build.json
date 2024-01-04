@@ -1,7 +1,16 @@
 {
   "extends": "./tsconfig.json",
   "exclude": [
-    "src/**/*.test.ts",
-    "src/**/*.test.tsx"
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.test-d.ts",
+    "**/*.test-d.tsx",
+    "src/example",
+    "example",
+    "playground",
+    "test-d",
+    "bin",
+    "dist",
+    "node_modules",
   ]
 }
