@@ -6,32 +6,38 @@
     "playground",
   ],
   "compilerOptions": {
-    "module": "esnext",
-    "lib": [
-      "dom",
-      "esnext"
-    ],
     "baseUrl": ".",
     "paths": {
       "react-with-hoc": [
         "./src/index"
       ],
     },
-    "sourceRoot": "../../src",
-    "target": "ESNext",
-    "importHelpers": true,
-    "declaration": true,
-    "sourceMap": true,
-    "strict": true,
-    "noImplicitReturns": true,
-    "noImplicitAny": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react-jsx",
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+    "moduleSuffixes": [
+      ".ios",
+      ".native",
+      ".android",
+      ""
+    ],
+    "module": "esnext",
+    "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noImplicitUseStrict": false,
+    "noStrictGenericChecks": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "moduleResolution": "node",
-    "jsx": "react-jsx",
-    "esModuleInterop": true,
-    "skipLibCheck": false,
-    "forceConsistentCasingInFileNames": true
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "esnext"
   }
 }
