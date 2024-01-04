@@ -1,6 +1,6 @@
 {
   "exclude": [
-    "dist/**/*",
+    "lib/**/*",
     "test-d",
     "example",
     "playground",
@@ -22,7 +22,6 @@
     "importHelpers": true,
     "declaration": true,
     "sourceMap": true,
-    "outDir": "./dist/esm",
     "strict": true,
     "noImplicitReturns": true,
     "noImplicitAny": true,
