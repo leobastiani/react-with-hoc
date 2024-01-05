@@ -1,6 +1,6 @@
 {
   "name": "react-with-hoc",
-  "version": "0.0.23-wip023",
+  "version": "0.0.23-wip024",
   "description": "Work with React and HOCs (Higher-Order Components)",
   "keywords": [
     "higher-order",
@@ -22,8 +22,8 @@
   },
   "license": "MIT",
   "author": "Leonardo Guarnieri de Bastiani (leogbastiani@gmail.com)",
-  "main": "lib/commonjs/index.js",
-  "module": "lib/module/index.js",
+  "main": "lib/commonjs/index.jsx",
+  "module": "lib/module/index.jsx",
   "types": "lib/typescript/index.d.ts",
   "react-native": "src/index.tsx",
   "source": "src/index.tsx",
