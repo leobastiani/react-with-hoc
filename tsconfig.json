@@ -29,6 +29,7 @@
     ],
     "module": "esnext",
     "sourceMap": true,
+    "declarationMap": true,
     "declaration": true,
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
