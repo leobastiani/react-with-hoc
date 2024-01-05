@@ -28,6 +28,8 @@
       ""
     ],
     "module": "esnext",
+    "sourceMap": true,
+    "declaration": true,
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,

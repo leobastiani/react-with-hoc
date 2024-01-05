@@ -34,10 +34,11 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "bob build && bin/generate-mappings",
+    "build": "bin/build-cjs && bin/build-esm && yarn build:tsc",
+    "build:tsc": "npx tsc --outDir lib/typescript --emitDeclarationOnly --project tsconfig.build.json",
     "clean": "rimraf lib",
     "lint": "eslint . --max-warnings=0",
-    "prepublishOnly": "yarn clean && yarn test && yarn tsc && yarn lint && yarn build && yarn tsd",
+    "prepublishOnly": "yarn clean && yarn build && yarn test && yarn tsc && yarn lint && yarn tsd",
     "test": "jest",
     "tsc": "tsc --noEmit",
     "tsd": "node --max_old_space_size=8000 node_modules/.bin/tsd"

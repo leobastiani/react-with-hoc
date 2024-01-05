@@ -1,4 +1,8 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+const { ignore } = require("./babel.build-esm-config");
+
 module.exports = {
+  ignore,
   assumptions: {
     enumerableModuleMeta: false,
     noIncompleteNsImportDetection: true,

@@ -8,8 +8,8 @@ set -e -o pipefail
 node_modules/.bin/babel \
   src \
   --out-dir \
-  lib/commonjs \
-  --config-file ./babel.build-cjs-config.js \
+  lib/module \
+  --config-file ./babel.build-esm-config.js \
   --extensions .ts,.js,.tsx,.jsx,.cjs,.mjs \
   --source-maps both \
   --out-file-extension .jsx
