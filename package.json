@@ -1,6 +1,6 @@
 {
   "name": "react-with-hoc",
-  "version": "0.0.23-wip022",
+  "version": "0.0.23-wip023",
   "description": "Work with React and HOCs (Higher-Order Components)",
   "keywords": [
     "higher-order",
@@ -34,7 +34,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "bin/build-cjs && bin/build-esm && yarn build:tsc",
+    "build": "bin/build-cjs && bin/build-esm && yarn build:tsc && bin/generate-mappings",
     "build:tsc": "npx tsc --outDir lib/typescript --emitDeclarationOnly --project tsconfig.build.json",
     "clean": "rimraf lib",
     "lint": "eslint . --max-warnings=0",
