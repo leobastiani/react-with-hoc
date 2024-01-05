@@ -1,6 +1,6 @@
 {
   "name": "react-with-hoc",
-  "version": "0.0.23-wip024",
+  "version": "0.0.23-wip025",
   "description": "Work with React and HOCs (Higher-Order Components)",
   "keywords": [
     "higher-order",
@@ -24,7 +24,7 @@
   "author": "Leonardo Guarnieri de Bastiani (leogbastiani@gmail.com)",
   "main": "lib/commonjs/index.jsx",
   "module": "lib/module/index.jsx",
-  "types": "lib/typescript/index.d.ts",
+  "types": "lib/module/index.d.ts",
   "react-native": "src/index.tsx",
   "source": "src/index.tsx",
   "sideEffects": false,
@@ -34,8 +34,8 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "bin/build-cjs && bin/build-esm && yarn build:tsc && bin/generate-mappings",
-    "build:tsc": "npx tsc --outDir lib/typescript --emitDeclarationOnly --project tsconfig.build.json",
+    "build": "yarn clean && bin/build-cjs && bin/build-esm && yarn build:types && bin/generate-mappings",
+    "build:types": "npx tsc --outDir lib/module --emitDeclarationOnly --project tsconfig.build.json",
     "clean": "rimraf lib",
     "lint": "eslint . --max-warnings=0",
     "prepublishOnly": "yarn clean && yarn build && yarn test && yarn tsc && yarn lint && yarn tsd",
