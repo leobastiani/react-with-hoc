@@ -1,32 +1,52 @@
-/**
- * Hocs
- */
+// Hocs
 export { withBody } from "./hocs/withBody";
-export * from "./hocs/withComponent";
-export * from "./hocs/withDisplayName";
-export * from "./hocs/withForEach";
-export * from "./hocs/withHocs";
-export * from "./hocs/withIf";
-export * from "./hocs/withOmit";
-export * from "./hocs/withPick";
-export * from "./hocs/withProp";
-export * from "./hocs/withRename";
-export * from "./hocs/withSpread";
-export * from "./hocs/withState";
-export * from "./hocs/withWrapper";
+export { withComponent } from "./hocs/withComponent";
+export { withDisplayName } from "./hocs/withDisplayName";
+export { withForEach } from "./hocs/withForEach";
+export { withHocs } from "./hocs/withHocs";
+export { withIf } from "./hocs/withIf";
+export { withOmit } from "./hocs/withOmit";
+export { withPick } from "./hocs/withPick";
+export { withProp } from "./hocs/withProp";
+export { withRename } from "./hocs/withRename";
+export { withSpread } from "./hocs/withSpread";
+export { withState } from "./hocs/withState";
+export { withWrapper } from "./hocs/withWrapper";
 
-/**
- * Types
- */
-export * from "./types/DependencyNames";
-export * from "./types/Fn";
-export * from "./types/Hoc";
-export * from "./types/PartialComponent";
-export * from "./types/WithComponent";
+// Types
+export { DependencyNames } from "./types/DependencyNames";
+export {
+  Call,
+  Fn,
+  FromSchema,
+  HasAllPropsFn,
+  IfThenFn,
+  IntersectionFn,
+  KeepNeversFn,
+  OmitFn,
+  PartialOnUndefined,
+  PickFn,
+  Pipe,
+  ReplaceFn,
+  SetOptionalFn,
+  Simplify,
+  ToSchema,
+  UnionFn,
+} from "./types/Fn";
+export { Hoc } from "./types/Hoc";
+export { PartialComponent } from "./types/PartialComponent";
+export { WithComponent } from "./types/WithComponent";
 
-/**
- * Utils
- */
-export * from "./utils/componentDisplayName";
-export * from "./utils/hocNameForWithStyle";
-export * from "./utils/newHoc";
+// Utils
+export { componentDisplayName } from "./utils/componentDisplayName";
+export {
+  HocNameFactory,
+  createHocNameFunction,
+  defaultHocName,
+} from "./utils/hocNameForWithStyle";
+export {
+  GetHocArgs,
+  HocDefinition,
+  NewHocReturn,
+  newHoc,
+} from "./utils/newHoc";
