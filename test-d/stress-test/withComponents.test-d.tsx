@@ -3,10 +3,10 @@ import { expectType } from "tsd";
 import {
   PartialComponent,
   WithComponent,
-  withComponent,
+  withComponents,
   withHocs,
 } from "../../src";
-import { stress } from "../../src/test/stress";
+import { halfStress } from "../../src/test/stress";
 
 function Button(props: {
   size: "lg" | "md" | "xs";
@@ -21,7 +21,7 @@ function Button(props: {
     oldProp: string;
     oldPropOptional?: symbol;
   }> = undefined as any;
-  const AfterHoc = withHocs(stress(withComponent("Button", Button)))(BeforeHoc);
+  const AfterHoc = withHocs(halfStress(withComponents({ Button })))(BeforeHoc);
   expectType<
     FunctionComponent<{
       oldProp: string;
