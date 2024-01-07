@@ -1,12 +1,11 @@
-import React from "react";
 import { act, render } from "@testing-library/react";
-import { FunctionComponent } from "react";
-import { PartialComponent } from "../../types/PartialComponent";
-import { componentDisplayName } from "../../utils/componentDisplayName";
-import { withHocs } from "../withHocs";
-import { withProp } from "../withProp";
-import { withState } from "../withState";
-import { withComponentMultiple } from "./withComponentMultiple";
+import React, { FunctionComponent } from "react";
+import { PartialComponent } from "../types/PartialComponent";
+import { componentDisplayName } from "../utils/componentDisplayName";
+import { withComponents } from "./withComponents";
+import { withHocs } from "./withHocs";
+import { withProp } from "./withProp";
+import { withState } from "./withState";
 
 interface ExampleProps {
   a: number;
@@ -42,17 +41,17 @@ function Side({ side, ...props }: { side: string }): JSX.Element {
 const Left = withProp("side", "left")(Side);
 const Right = withProp("side", "right")(Side);
 
-it("withComponentMultiple name", () => {
-  const Component = withComponentMultiple({ Left, Right })(Example);
+it("withComponents name", () => {
+  const Component = withComponents({ Left, Right })(Example);
   expect(componentDisplayName.get(Component)).toBe(
     "withComponent.Left.Right(Example)",
   );
 });
 
-it("withComponentMultiple with default behavior", () => {
+it("withComponents with default behavior", () => {
   const Component = withHocs([
     withState<number, "a">("a"),
-    withComponentMultiple({ Left, Right }),
+    withComponents({ Left, Right }),
   ])(Example);
   render(<Component a={1} b={2} />);
   expect(document.body.children[0].innerHTML).toBe(
@@ -60,10 +59,10 @@ it("withComponentMultiple with default behavior", () => {
   );
 });
 
-it("withComponentMultiple disabled", () => {
+it("withComponents disabled", () => {
   const Component = withHocs([
     withState<number, "a">("a"),
-    withComponentMultiple({ Left, Right }),
+    withComponents({ Left, Right }),
   ])(Example);
   render(<Component a={1} b={2} Left={null} />);
   expect(document.body.children[0].innerHTML).toBe(
@@ -71,10 +70,10 @@ it("withComponentMultiple disabled", () => {
   );
 });
 
-it("withComponentMultiple overridden", () => {
+it("withComponents overridden", () => {
   const Component = withHocs([
     withState<number, "a">("a"),
-    withComponentMultiple({ Left, Right }),
+    withComponents({ Left, Right }),
   ])(Example);
   render(<Component a={1} b={2} Left={10} />);
   expect(document.body.children[0].innerHTML).toBe(
@@ -82,10 +81,10 @@ it("withComponentMultiple overridden", () => {
   );
 });
 
-it("withComponentMultiple rerenders when props change", () => {
+it("withComponents rerenders when props change", () => {
   const Component = withHocs([
     withState("a", { init: 1 }),
-    withComponentMultiple({ Left, Right }),
+    withComponents({ Left, Right }),
   ])(Example);
   render(<Component b={2} />);
   expect(document.body.children[0].innerHTML).toBe(
@@ -102,7 +101,7 @@ it("withComponentMultiple rerenders when props change", () => {
 it("passing a function as an attribute", () => {
   const Component = withHocs([
     withState<number, "a">("a"),
-    withComponentMultiple({ Left, Right }),
+    withComponents({ Left, Right }),
   ])(Example);
 
   function Pre(props: object): JSX.Element {

@@ -1,6 +1,7 @@
 // Hocs
 export { withBody } from "./hocs/withBody";
 export { withComponent } from "./hocs/withComponent";
+export { withComponents } from "./hocs/withComponents";
 export { withDisplayName } from "./hocs/withDisplayName";
 export { withForEach } from "./hocs/withForEach";
 export { withHocs } from "./hocs/withHocs";
