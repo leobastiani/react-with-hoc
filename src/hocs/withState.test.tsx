@@ -1,3 +1,4 @@
+import React from "react";
 import { act, render } from "@testing-library/react";
 import { Dispatch, FunctionComponent, SetStateAction } from "react";
 import { componentDisplayName } from "../utils/componentDisplayName";

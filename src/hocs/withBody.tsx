@@ -1,4 +1,4 @@
-import { ComponentType, FunctionComponent } from "react";
+import React, { ComponentType, FunctionComponent } from "react";
 import {
   Fn,
   IntersectionFn,

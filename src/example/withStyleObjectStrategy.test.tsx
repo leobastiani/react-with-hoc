@@ -1,3 +1,4 @@
+import React from "react";
 import { render } from "@testing-library/react";
 import { CSSProperties } from "react";
 import { withHocs } from "../hocs/withHocs";

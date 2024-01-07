@@ -17,5 +17,12 @@ module.exports = {
         strict: true,
       },
     ],
+    [
+      "@babel/plugin-transform-react-jsx",
+      {
+        runtime: "classic",
+        useSpread: true,
+      },
+    ],
   ],
 };

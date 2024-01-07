@@ -1,7 +1,7 @@
 /**
  * Hocs
  */
-export * from "./hocs/withBody";
+export { withBody } from "./hocs/withBody";
 export * from "./hocs/withComponent";
 export * from "./hocs/withDisplayName";
 export * from "./hocs/withForEach";

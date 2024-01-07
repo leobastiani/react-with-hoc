@@ -1,3 +1,4 @@
+import React from "react";
 import { ComponentType, FunctionComponent } from "react";
 import { PickFn } from "../types/Fn";
 import { Hoc } from "../types/Hoc";

@@ -1,3 +1,4 @@
+import React from "react";
 import { ComponentType, FunctionComponent, useMemo } from "react";
 import { DependencyNames } from "../../types/DependencyNames";
 import {
