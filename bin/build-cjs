@@ -11,5 +11,4 @@ node_modules/.bin/babel \
   lib/commonjs \
   --config-file ./babel.build-cjs-config.js \
   --extensions .ts,.js,.tsx,.jsx,.cjs,.mjs \
-  --source-maps both \
-  --out-file-extension .jsx
+  --source-maps both
