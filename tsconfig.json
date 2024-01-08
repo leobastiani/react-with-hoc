@@ -15,12 +15,6 @@
       "esnext",
       "dom"
     ],
-    "moduleSuffixes": [
-      ".ios",
-      ".native",
-      ".android",
-      ""
-    ],
     "module": "esnext",
     "sourceMap": true,
     "declarationMap": true,
