@@ -10,6 +10,8 @@ export { withForEach } from "./hocs/withForEach";
 export { withHocs } from "./hocs/withHocs";
 export { withIf } from "./hocs/withIf";
 export { withOmit } from "./hocs/withOmit";
+export { withOverride } from "./hocs/withOverride";
+export { withOverrides } from "./hocs/withOverrides";
 export { withPick } from "./hocs/withPick";
 export { withRename } from "./hocs/withRename";
 export { withRenames } from "./hocs/withRenames";
