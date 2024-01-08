@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { expectType } from "tsd";
-import { withHocs, withRename } from "../../src";
+import { withHocs, withRenames } from "../../src";
 import { stress } from "../../src/test/stress";
 
 /* basic usage */ {
@@ -10,14 +10,26 @@ import { stress } from "../../src/test/stress";
     c: boolean;
   }> = undefined as any;
   const AfterHoc = withHocs([
-    ...stress(withRename("d", "a"), withRename("a", "d")),
-    withRename("d", "a"),
+    ...stress(
+      withRenames({
+        d: "a",
+        e: "b",
+      }),
+      withRenames({
+        a: "d",
+        b: "e",
+      }),
+    ),
+    withRenames({
+      d: "a",
+      e: "b",
+    }),
   ])(BeforeHoc);
   expectType<
     FunctionComponent<{
-      b: number;
       c: boolean;
       d: string;
+      e: number;
     }>
   >(AfterHoc);
 }

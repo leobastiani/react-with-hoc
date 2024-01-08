@@ -1,7 +1,7 @@
-import React from "react";
 import { render } from "@testing-library/react";
-import { componentDisplayName } from "../../utils/componentDisplayName";
-import { withRenameSingle } from "./withRenameSingle";
+import React from "react";
+import { componentDisplayName } from "../utils/componentDisplayName";
+import { withRename } from "./withRename";
 
 interface ExampleProps {
   a: number;
@@ -12,13 +12,13 @@ function Example(props: ExampleProps): JSX.Element {
   return <pre>{JSON.stringify(props)}</pre>;
 }
 
-it("withRenameSingle name", () => {
-  const Component = withRenameSingle("c", "b")(Example);
+it("withRename name", () => {
+  const Component = withRename("c", "b")(Example);
   expect(componentDisplayName.get(Component)).toBe("withRename.c→b(Example)");
 });
 
 it("withRename", () => {
-  const Component = withRenameSingle("c", "b")(Example);
+  const Component = withRename("c", "b")(Example);
   render(<Component a={1} c={2} />);
   expect(document.body.children[0].innerHTML).toBe('<pre>{"a":1,"b":2}</pre>');
 });

@@ -1,9 +1,8 @@
-import React from "react";
-import { ComponentType, FunctionComponent } from "react";
-import { Fn, ToSchema } from "../../types/Fn";
-import { Hoc } from "../../types/Hoc";
-import { createHocNameFunction } from "../../utils/hocNameForWithStyle";
-import { newHoc } from "../../utils/newHoc";
+import React, { ComponentType, FunctionComponent } from "react";
+import { Fn, ToSchema } from "../types/Fn";
+import { Hoc } from "../types/Hoc";
+import { createHocNameFunction } from "../utils/hocNameForWithStyle";
+import { newHoc } from "../utils/newHoc";
 
 interface WithRenamesFn<T extends [string | number | symbol, string]>
   extends Fn {
@@ -19,7 +18,7 @@ type WithRenamesHoc = <const Map extends Record<string, string>>(
   map: Map,
 ) => Hoc<[WithRenamesFn<ToSchema<Map>>]>;
 
-export const withRenameMultiple = newHoc<WithRenamesHoc>(
+export const withRenames = newHoc<WithRenamesHoc>(
   createHocNameFunction((map: object) =>
     Object.entries(map)
       .map(([from, to]) => `${from}→${to}`)

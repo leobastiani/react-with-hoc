@@ -10,6 +10,7 @@ export { withOmit } from "./hocs/withOmit";
 export { withPick } from "./hocs/withPick";
 export { withProp } from "./hocs/withProp";
 export { withRename } from "./hocs/withRename";
+export { withRenames } from "./hocs/withRenames";
 export { withSpread } from "./hocs/withSpread";
 export { withState } from "./hocs/withState";
 export { withWrapper } from "./hocs/withWrapper";
