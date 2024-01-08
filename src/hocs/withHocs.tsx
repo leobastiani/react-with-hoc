@@ -17,13 +17,26 @@ type WithHocsFlat<
 
 /**
  * Apply multiple hocs
+ * ```tsx
+ * const NewComponent = withHocs([withWrapper(...), withWrapper(...)])(MyComponent)
+ * <NewComponent ... />
+ * ```
  *
  * @example
  * import { withHoc1, withHoc1 } from 'my-hocs'
- * const withHoc1_2 = withHocs(withHoc1, withHoc2)
+ * // `withHoc1_2` can be used somewhere else
+ * export const withHoc1_2 = withHocs([withHoc1, withHoc2])
+ * @example
+ * const MyComponent = (() => {
+ *   function MyComponent(props: { ... }) {
+ *     return <OtherComponents />;
+ *   }
+ *   return withHocs([ ... ])(MyComponent);
+ * })();
  */
 export function withHocs<const Hocs extends readonly WithHocsArg[]>(
-  fns: Hocs,
+  hocs: Hocs,
 ): Hoc<WithHocsFlat<[...Hocs]>> {
-  return (arg: any) => fns.reduceRight((acc, fn) => fn(acc), arg);
+  return (arg: any) =>
+    hocs.reduceRight((Component, hoc) => hoc(Component), arg);
 }

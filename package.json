@@ -71,38 +71,12 @@
     "prettier": "^3.1.1",
     "react": ">=18",
     "react-dom": ">=18",
-    "react-native-builder-bob": "^0.23.2",
     "rimraf": "^5.0.1",
     "tsd": "^0.30.3",
+    "typedoc": "^0.25.6",
     "typescript": "^5.2.2"
   },
   "tsd": {
     "directory": "test-d"
-  },
-  "react-native-builder-bob": {
-    "source": "src",
-    "output": "lib",
-    "exclude": [
-      "**/*.test.tsx",
-      "**/*.test-d.tsx",
-      "**/src/example/*",
-      "**/src/test/*",
-      "example",
-      "playground",
-      "test-d",
-      "bin",
-      "dist",
-      "node_modules"
-    ],
-    "targets": [
-      "commonjs",
-      "module",
-      [
-        "typescript",
-        {
-          "project": "tsconfig.build.json"
-        }
-      ]
-    ]
   }
 }
