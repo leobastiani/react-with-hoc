@@ -11,7 +11,7 @@ import {
 import { Hoc } from "../types/Hoc";
 import { newHoc } from "../utils/newHoc";
 
-interface WithBodyFn<
+export interface WithBodyFn<
   PropsSchema extends [string | number | symbol, any],
   RetSchema extends [string | number | symbol, any],
 > extends Fn {
