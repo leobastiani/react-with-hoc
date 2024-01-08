@@ -3,8 +3,8 @@ import React, { FunctionComponent } from "react";
 import { PartialComponent } from "../types/PartialComponent";
 import { componentDisplayName } from "../utils/componentDisplayName";
 import { withComponents } from "./withComponents";
+import { withDefault } from "./withDefault";
 import { withHocs } from "./withHocs";
-import { withProp } from "./withProp";
 import { withState } from "./withState";
 
 interface ExampleProps {
@@ -38,8 +38,8 @@ function Side({ side, ...props }: { side: string }): JSX.Element {
   return <pre id={side}>{JSON.stringify(props)}</pre>;
 }
 
-const Left = withProp("side", "left")(Side);
-const Right = withProp("side", "right")(Side);
+const Left = withDefault("side", "left")(Side);
+const Right = withDefault("side", "right")(Side);
 
 it("withComponents name", () => {
   const Component = withComponents({ Left, Right })(Example);

@@ -1,15 +1,14 @@
-import React from "react";
-import { ComponentType, FunctionComponent } from "react";
+import React, { ComponentType, FunctionComponent } from "react";
 import {
   HasAllPropsFn,
   IfThenFn,
   IntersectionFn,
   SetOptionalFn,
-} from "../../types/Fn";
-import { Hoc } from "../../types/Hoc";
-import { newHoc } from "../../utils/newHoc";
+} from "../types/Fn";
+import { Hoc } from "../types/Hoc";
+import { newHoc } from "../utils/newHoc";
 
-type WithPropHoc = <PropValue, PropName extends string>(
+type WithDefaultHoc = <PropValue, PropName extends string>(
   propName: PropName,
   value: PropValue,
 ) => Hoc<
@@ -26,12 +25,12 @@ type WithPropHoc = <PropValue, PropName extends string>(
   ]
 >;
 
-export const withPropSingleByValue = newHoc<WithPropHoc>(function withProp(
+export const withDefault = newHoc<WithDefaultHoc>(function withDefault(
   Component: ComponentType,
   propName: string,
   value: any,
 ): FunctionComponent {
-  return function WithProp(props: any): JSX.Element {
+  return function WithDefault(props: any): JSX.Element {
     return <Component {...{ [propName]: value }} {...props} />;
   };
 });

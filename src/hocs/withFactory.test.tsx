@@ -1,39 +1,40 @@
-import React from "react";
 import { render } from "@testing-library/react";
-import { withProp } from ".";
-import { componentDisplayName } from "../../utils/componentDisplayName";
+import React from "react";
+import { componentDisplayName } from "../utils/componentDisplayName";
+import { withFactory } from "./withFactory";
 
 function Example(props: { someProp: number }): JSX.Element {
   return <pre>{JSON.stringify(props)}</pre>;
 }
 
-it("withProp name", () => {
-  const Component = withProp("someProp", () => 1, [])(Example);
+it("withFactory name", () => {
+  const Component = withFactory("someProp", () => 1, [])(Example);
   expect(componentDisplayName.get(Component)).toBe(
-    "withProp.someProp(Example)",
+    "withFactory.someProp(Example)",
   );
 });
 
-it("withProp with no dependencies", () => {
-  const Component = withProp("someProp", () => 1, [])(Example);
-  render(<Component />);
+it("withFactory with no dependencies", () => {
+  const Component = withFactory("someProp", () => 1, [])(Example);
+  // @ts-expect-error for testing purposes
+  render(<Component someProp={2} />);
   expect(document.body.children[0].innerHTML).toBe('<pre>{"someProp":1}</pre>');
 });
 
-it("withProp a new property in dependencyNames", () => {
-  const Component = withProp(
+it("withFactory a new property in dependencyNames", () => {
+  const Component = withFactory(
     "someProp",
     ({ anotherProp }: { anotherProp: number }) => anotherProp + 10,
     ["anotherProp"],
   )(Example);
   render(<Component anotherProp={5} />);
   expect(document.body.children[0].innerHTML).toBe(
-    '<pre>{"someProp":15,"anotherProp":5}</pre>',
+    '<pre>{"anotherProp":5,"someProp":15}</pre>',
   );
 });
 
-it("withProp rewritten", () => {
-  const Component = withProp(
+it("withFactory rewritten", () => {
+  const Component = withFactory(
     "someProp",
     ({ someProp }: { someProp: number }) => someProp + 10,
     ["someProp"],
@@ -44,8 +45,8 @@ it("withProp rewritten", () => {
   );
 });
 
-it("withProp rewritten with different type", () => {
-  const Component = withProp(
+it("withFactory rewritten with different type", () => {
+  const Component = withFactory(
     "someProp",
     ({ someProp }: { someProp?: string; x?: number }) => {
       if (typeof someProp !== "string") {

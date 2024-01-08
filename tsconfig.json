@@ -6,12 +6,6 @@
     "playground",
   ],
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "react-with-hoc": [
-        "./src/index"
-      ],
-    },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "esModuleInterop": true,

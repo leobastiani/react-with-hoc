@@ -2,13 +2,15 @@
 export { withBody } from "./hocs/withBody";
 export { withComponent } from "./hocs/withComponent";
 export { withComponents } from "./hocs/withComponents";
+export { withDefault } from "./hocs/withDefault";
+export { withDefaults } from "./hocs/withDefaults";
 export { withDisplayName } from "./hocs/withDisplayName";
+export { withFactory } from "./hocs/withFactory";
 export { withForEach } from "./hocs/withForEach";
 export { withHocs } from "./hocs/withHocs";
 export { withIf } from "./hocs/withIf";
 export { withOmit } from "./hocs/withOmit";
 export { withPick } from "./hocs/withPick";
-export { withProp } from "./hocs/withProp";
 export { withRename } from "./hocs/withRename";
 export { withRenames } from "./hocs/withRenames";
 export { withSpread } from "./hocs/withSpread";

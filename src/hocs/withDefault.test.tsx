@@ -1,43 +1,43 @@
-import React from "react";
 import { render } from "@testing-library/react";
-import { withProp } from ".";
-import { componentDisplayName } from "../../utils/componentDisplayName";
+import React from "react";
+import { componentDisplayName } from "../utils/componentDisplayName";
+import { withDefault } from "./withDefault";
 
 function Example(props: { someProp: number }): JSX.Element {
   return <pre>{JSON.stringify(props)}</pre>;
 }
 
-it("withProp name", () => {
-  const Component = withProp("someProp", 1)(Example);
+it("withDefault name", () => {
+  const Component = withDefault("someProp", 1)(Example);
   expect(componentDisplayName.get(Component)).toBe(
-    "withProp.someProp(Example)",
+    "withDefault.someProp(Example)",
   );
 });
 
-it("withProp with value", () => {
-  const Component = withProp("someProp", 1)(Example);
+it("withDefault with value", () => {
+  const Component = withDefault("someProp", 1)(Example);
   render(<Component />);
   expect(document.body.children[0].innerHTML).toBe('<pre>{"someProp":1}</pre>');
 });
 
-it("withProp with another value", () => {
-  const Component = withProp("anotherProp", 1)(Example);
+it("withDefault with another value", () => {
+  const Component = withDefault("anotherProp", 1)(Example);
   render(<Component someProp={2} />);
   expect(document.body.children[0].innerHTML).toBe(
     '<pre>{"anotherProp":1,"someProp":2}</pre>',
   );
 });
 
-it("withProp a new property as value", () => {
-  const Component = withProp("anotherProp", 10)(Example);
+it("withDefault a new property as value", () => {
+  const Component = withDefault("anotherProp", 10)(Example);
   render(<Component someProp={5} />);
   expect(document.body.children[0].innerHTML).toBe(
     '<pre>{"anotherProp":10,"someProp":5}</pre>',
   );
 });
 
-it("withProp overridden", () => {
-  const Component = withProp("someProp", 10)(Example);
+it("withDefault overridden", () => {
+  const Component = withDefault("someProp", 10)(Example);
   render(<Component someProp={20} />);
   expect(document.body.children[0].innerHTML).toBe(
     '<pre>{"someProp":20}</pre>',
