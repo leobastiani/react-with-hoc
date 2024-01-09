@@ -1,23 +1,104 @@
-import React from "react";
-import { ComponentType, FunctionComponent } from "react";
+import React, { ComponentType, FunctionComponent } from "react";
+import { IntersectionFn, ToSchema } from "../types/Fn";
 import { Hoc } from "../types/Hoc";
 import { newHoc } from "../utils/newHoc";
 
-interface WithWrapperHoc {
-  (
-    Wrapper: ComponentType<any>,
+export interface WithWrapperHoc {
+  <
+    const WrapperProps,
+    const PickOptions extends string[] = [never],
+    const OmitOptions extends string[] = [never],
+  >(
+    Wrapper: ComponentType<WrapperProps>,
     options?:
       | {
-          pickProps: string[];
+          /**
+           * @example
+           * const NewComponent = withWrapper(Wrapper, { pickProps: ['a', 'b'] })(Component)
+           * <NewComponent a="a" b="b" c="c" />
+           * // is equivalent to
+           * <Wrapper a="a" b="b">
+           *   <Component a="a" b="b" c="c" />
+           * </Wrapper>
+           */
+          pickProps: PickOptions;
           omitProps?: undefined;
         }
       | {
-          omitProps: string[];
+          /**
+           * @example
+           * const NewComponent = withWrapper(Wrapper, { omitProps: ['a', 'b'] })(Component)
+           * <NewComponent a="a" b="b" c="c" />
+           * // is equivalent to
+           * <Wrapper c="c">
+           *   <Component a="a" b="b" c="c" />
+           * </Wrapper>
+           */
+          omitProps: OmitOptions;
           pickProps?: undefined;
         },
-  ): Hoc<[]>;
+  ): PickOptions extends [never]
+    ? OmitOptions extends [never]
+      ? // has none
+        Hoc<[]>
+      : // has omit
+        Hoc<
+          [
+            IntersectionFn<
+              Exclude<
+                ToSchema<WrapperProps>,
+                [OmitOptions[number] | "children", any]
+              >
+            >,
+          ]
+        >
+    : // has pick
+      Hoc<
+        [
+          IntersectionFn<
+            Extract<
+              Exclude<ToSchema<WrapperProps>, ["children", any]>,
+              [PickOptions[number], any]
+            >
+          >,
+        ]
+      >;
 }
 
+/**
+ * Wraps the component with the provided Component Wrapper
+ * ```tsx
+ * const NewComponent = withWrapper(Wrapper)(Component)
+ * <NewComponent a="a" b="b" c="c" />
+ * // is equivalent to
+ * <Wrapper> // by default, it does not bring any prop
+ *   <Component a="a" b="b" c="c" />
+ * </Wrapper>
+ * ```
+ *
+ * @example
+ * const NewComponent = withWrapper(Wrapper, { pickProps: ['a', 'b'] })(Component)
+ * <NewComponent a="a" b="b" c="c" />
+ * // is equivalent to
+ * <Wrapper a="a" b="b">
+ *   <Component a="a" b="b" c="c" />
+ * </Wrapper>
+ * @example
+ * const NewComponent = withWrapper(Wrapper, { omitProps: ['a', 'b'] })(Component)
+ * <NewComponent a="a" b="b" c="c" />
+ * // is equivalent to
+ * <Wrapper c="c">
+ *   <Component a="a" b="b" c="c" />
+ * </Wrapper>
+ * @example
+ * // to carry all props, use omitProps with empty array
+ * const NewComponent = withWrapper(Wrapper, { omitProps: [] })(Component)
+ * <NewComponent a="a" b="b" c="c" />
+ * // is equivalent to
+ * <Wrapper a="a" b="b" c="c">
+ *   <Component a="a" b="b" c="c" />
+ * </Wrapper>
+ */
 export const withWrapper = newHoc<WithWrapperHoc>(function withWrapper(
   Component: ComponentType<any>,
   Wrapper: ComponentType<any>,
