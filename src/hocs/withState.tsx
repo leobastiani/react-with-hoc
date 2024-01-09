@@ -1,5 +1,4 @@
-import React from "react";
-import { ComponentType, FunctionComponent, useState } from "react";
+import React, { ComponentType, FunctionComponent, useState } from "react";
 import { Fn, IntersectionFn, Pipe, SetOptionalFn, ToSchema } from "../types/Fn";
 import { Hoc } from "../types/Hoc";
 import { newHoc } from "../utils/newHoc";
@@ -30,10 +29,16 @@ type WithStateHoc = <
   Props extends object = {},
 >(
   stateName: StateName,
-  {
-    init,
-    setterName,
-  }?: {
+  options?: {
+    /**
+     * the initial value
+     * @example
+     * // initial state from a constant
+     * {init: "initial value"}
+     * @example
+     * // initial state will be derived from someProp
+     * {init: ({ someProp }: {someProp: number}) => someProp + 1}
+     */
     init?: Exclude<PropValue, Function> | ((props: Props) => PropValue);
     setterName?: SetterName;
   },
@@ -41,6 +46,31 @@ type WithStateHoc = <
 
 function noop(): void {}
 
+/**
+ * like `useState` or you can pass properties to the component to make it controllable
+ * @example
+ * const CounterWithState = withState("count", { init: 0 })(function Counter({count, setCount}: {count: number; setCount: Dispatch<SetStateAction<number>>}) {
+ *   return <button onClick={() => setCount(count + 1)}>{count}</button>;
+ * });
+ * // using CounterWithState as self controlled
+ * function IndependentCounters() {
+ *   return <>
+ *     <CounterWithState />
+ *     <CounterWithState />
+ *   </>;
+ * }
+ * <IndependentCounters /> // will render 2 buttons that can count independently
+ *
+ * // using CounterWithState as parent controlled
+ * function SameCounters() {
+ *   const [count, setCount] = useState(0);
+ *   return <>
+ *     <CounterWithState count={count} setCount={setCount} />
+ *     <CounterWithState count={count} setCount={setCount} />
+ *   </>;
+ * }
+ * <SameCounters /> // will render 2 buttons with the same count
+ */
 export const withState = newHoc<WithStateHoc>(function withState(
   Component: ComponentType,
   stateName: string,
