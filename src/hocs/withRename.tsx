@@ -13,11 +13,53 @@ interface WithRenameFn<NewProp extends string, OldProp extends string>
     : this["arg0"];
 }
 
-type WithRenameHoc = <NewProp extends string, OldProp extends string>(
+type WithRenameHoc = <
+  const NewProp extends string,
+  const OldProp extends string,
+>(
+  /**
+   * ```tsx
+   * function Box({ handleClick }: { handleClick: () => void }) {
+   *   ...
+   * }
+   * const NewBox = withRename("onClick", "handleClick")(Box);
+   * //                         ↑ this will be the property
+   * <NewBox onClick={() => {}} />
+   * //      ↑ onClick is the new prop
+   * // is equivalent to
+   * <Box handleClick={() => {}} />
+   * ```
+   */
   newProp: NewProp,
+  /**
+   * ```tsx
+   * function Box({ handleClick }: { handleClick: () => void }) {
+   *   ...
+   * }
+   * const NewBox = withRename("onClick", "handleClick")(Box);
+   * //                                    ↑ this is the old prop
+   * <NewBox onClick={() => {}} />
+   * // is equivalent to
+   * <Box handleClick={() => {}} />
+   * //   ↑ this is the old prop
+   * ```
+   */
   oldProp: OldProp,
 ) => Hoc<[WithRenameFn<NewProp, OldProp>]>;
 
+/**
+ * Make your component receive a new prop by renaming it.
+ *
+ * @see {@link withRenames}
+ * @example
+ * function Box({ handleClick }: { handleClick: () => void }) {
+ *   ...
+ * }
+ * const NewBox = withRename("onClick", "handleClick")(Box);
+ * <NewBox onClick={() => {}} />
+ * // is equivalent to
+ * <Box handleClick={() => {}} />
+ */
 export const withRename = newHoc<WithRenameHoc>(
   createHocNameFunction(
     (newProp: string, oldProp: string) => `${newProp}→${oldProp}`,

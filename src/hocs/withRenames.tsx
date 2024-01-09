@@ -15,10 +15,44 @@ interface WithRenamesFn<T extends [string | number | symbol, string]>
 }
 
 type WithRenamesHoc = <const Map extends Record<string, string>>(
+  /**
+   * ```tsx
+   * function Box({ handleClick, handleHover }: { handleClick: () => void; handleHover: () => void }) {
+   *   ...
+   * }
+   * const NewBox = withRenames({
+   *   onClick: "handleClick",
+   *   onMouseOver: "handleHover"
+   *   //           ↑ oldProps goes to right
+   *   // ↑ newProps goes to left
+   * })(Box);
+   * <NewBox onClick={() => {}} onMouseOver={() => {}} />
+   * // is equivalent to
+   * <Box handleClick={() => {}} handleHover={() => {}} />
+   * ```
+   */
   map: Map,
 ) => Hoc<[WithRenamesFn<ToSchema<Map>>]>;
 
-export const withRenames = newHoc<WithRenamesHoc>(
+/**
+ * Make your component receive new props by renaming them.
+ *
+ * @see {@link withRename}
+ * @example
+ * function Box({ handleClick, handleHover }: { handleClick: () => void; handleHover: () => void }) {
+ *   ...
+ * }
+ * const NewBox = withRenames({
+ *   onClick: "handleClick",
+ *   onMouseOver: "handleHover"
+ *   //           ↑ oldProps goes to right
+ *   // ↑ newProps goes to left
+ * })(Box);
+ * <NewBox onClick={() => {}} onMouseOver={() => {}} />
+ * // is equivalent to
+ * <Box handleClick={() => {}} handleHover={() => {}} />
+ */
+export const withRenames: WithRenamesHoc = newHoc<WithRenamesHoc>(
   createHocNameFunction((map: object) =>
     Object.entries(map)
       .map(([from, to]) => `${from}→${to}`)

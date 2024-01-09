@@ -32,12 +32,16 @@ type WithStateHoc = <
   options?: {
     /**
      * the initial value
-     * @example
+     *
+     *  ```tsx
      * // initial state from a constant
      * {init: "initial value"}
-     * @example
+     * ```ts
+     *
+     * ```tsx
      * // initial state will be derived from someProp
      * {init: ({ someProp }: {someProp: number}) => someProp + 1}
+     * ```ts
      */
     init?: Exclude<PropValue, Function> | ((props: Props) => PropValue);
     setterName?: SetterName;

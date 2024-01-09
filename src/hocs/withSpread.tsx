@@ -24,18 +24,6 @@ interface WithSpreadFn<PropName extends string, Names extends string>
 
 interface WithSpreadHoc {
   <PropName extends string, Names extends string>(
-    /**
-     * The property name to be spread to the component
-     * @example
-     * // in this example, the propName is "profile"
-     * function Profile({ name, age, city }: {...}) {
-     *   ...
-     * }
-     * const NewProfile = withSpread<"profile", "name" | "age" | "city">("profile")(Profile)
-     * <NewProfile profile={{ name: "Some Name", age: 20, city: "Some City" }} />
-     * // is equivalent to
-     * <Profile name="Some Name" age={20} city="Some City" />
-     */
     propName: PropName,
   ): Hoc<[WithSpreadFn<PropName, Names>]>;
 }
