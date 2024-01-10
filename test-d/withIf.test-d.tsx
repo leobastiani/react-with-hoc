@@ -2,12 +2,9 @@ import { FunctionComponent } from "react";
 import { expectType } from "tsd";
 import { withIf } from "../src";
 
-// with prop name
-{
-  // with matching prop
-  {
-    // required
-    {
+/* with prop name */ {
+  /* with matching prop */ {
+    /* required */ {
       const BeforeHoc: React.FC<{
         matchingProp: number;
         nonRelatedProp: string;
@@ -16,8 +13,7 @@ import { withIf } from "../src";
       expectType<typeof BeforeHoc>(AfterHoc);
     }
 
-    // optional
-    {
+    /* optional */ {
       const BeforeHoc: React.FC<{
         matchingProp?: number;
         nonRelatedProp: string;
@@ -27,23 +23,36 @@ import { withIf } from "../src";
     }
   }
 
-  // with new prop
-  {
-    const BeforeHoc: React.FC<{
-      nonRelatedProp: string;
-    }> = undefined as any;
-    const AfterHoc = withIf("newProp")(BeforeHoc);
-    expectType<
-      FunctionComponent<{
-        newProp: unknown;
+  /* with new prop */ {
+    /* as unknown type */ {
+      const BeforeHoc: React.FC<{
         nonRelatedProp: string;
-      }>
-    >(AfterHoc);
+      }> = undefined as any;
+      const AfterHoc = withIf("newProp")(BeforeHoc);
+      expectType<
+        FunctionComponent<{
+          newProp: unknown;
+          nonRelatedProp: string;
+        }>
+      >(AfterHoc);
+    }
+
+    /* as specific type */ {
+      const BeforeHoc: React.FC<{
+        nonRelatedProp: string;
+      }> = undefined as any;
+      const AfterHoc = withIf<"newProp", boolean>("newProp")(BeforeHoc);
+      expectType<
+        FunctionComponent<{
+          newProp: boolean;
+          nonRelatedProp: string;
+        }>
+      >(AfterHoc);
+    }
   }
 }
 
-// with function prop
-{
+/* with function prop */ {
   const BeforeHoc: React.FC<{
     matchingProp1: number;
     matchingProp2?: number | string;

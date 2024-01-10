@@ -1,23 +1,22 @@
-import React from "react";
-import { ComponentType, FunctionComponent, useMemo } from "react";
+import React, { ComponentType, FunctionComponent, useMemo } from "react";
 import { DependencyNames } from "../types/DependencyNames";
 import { Fn, IntersectionFn, ToSchema } from "../types/Fn";
 import { Hoc } from "../types/Hoc";
 import { newHoc } from "../utils/newHoc";
 
-interface WithIfFn<PropName extends string> extends Fn {
+interface WithIfFn<PropName extends string, PropValue> extends Fn {
   return: [PropName, any] extends this["arg0"]
     ? this["arg0"]
-    : this["arg0"] | [PropName, unknown];
+    : this["arg0"] | [PropName, PropValue];
 }
 
 interface WithIfHoc {
-  <PropName extends string>(
+  <PropName extends string, PropValue = unknown>(
     propName: PropName,
     options?: {
       Else?: ComponentType<any>;
     },
-  ): Hoc<[WithIfFn<PropName>]>;
+  ): Hoc<[WithIfFn<PropName, PropValue>]>;
 
   <
     DependencyProps extends {},
