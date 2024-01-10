@@ -1,12 +1,12 @@
-import React from "react";
 import { render } from "@testing-library/react";
+import React from "react";
 import { componentDisplayName } from "../utils/componentDisplayName";
 import { withPick } from "./withPick";
 
 interface ExampleProps {
-  a: number;
-  b: number;
-  c: number;
+  a?: number;
+  b?: number;
+  c?: number;
 }
 
 function Example(props: ExampleProps): JSX.Element {

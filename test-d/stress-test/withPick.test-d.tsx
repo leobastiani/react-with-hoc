@@ -17,6 +17,7 @@ const AfterHoc = withHocs(
 expectType<
   FunctionComponent<{
     a: string;
-    b: number;
+    b: never;
+    c: never;
   }>
 >(AfterHoc);

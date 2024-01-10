@@ -2,9 +2,7 @@ import { FunctionComponent } from "react";
 import { expectType } from "tsd";
 import { withOmit } from "../src";
 
-{
-  // with empty list
-
+/* with empty list */ {
   const BeforeHoc: React.FC<{
     ignored: string;
     ignoredOptional?: number;
@@ -22,9 +20,7 @@ import { withOmit } from "../src";
   >(AfterHoc);
 }
 
-{
-  // with elements outside of the list
-
+/* with elements outside of the list */ {
   const BeforeHoc: React.FC<{
     ignored: string;
     ignoredOptional?: number;
@@ -42,9 +38,7 @@ import { withOmit } from "../src";
   >(AfterHoc);
 }
 
-{
-  // with elements inside the list
-
+/* with elements inside the list */ {
   const BeforeHoc: React.FC<{
     ignored: string;
     ignoredOptional?: number;
@@ -52,14 +46,17 @@ import { withOmit } from "../src";
     includedOptional?: symbol;
   }> = undefined as any;
   const AfterHoc = withOmit(["included", "includedOptional"])(BeforeHoc);
-  expectType<FunctionComponent<{ ignored: string; ignoredOptional?: number }>>(
-    AfterHoc,
-  );
+  expectType<
+    FunctionComponent<{
+      ignored: string;
+      ignoredOptional?: number;
+      // i can't omit included
+      included: never;
+    }>
+  >(AfterHoc);
 }
 
-{
-  // with elements inside and outside of the list
-
+/* with elements inside and outside of the list */ {
   const BeforeHoc: React.FC<{
     ignored: string;
     ignoredOptional?: number;
@@ -73,6 +70,8 @@ import { withOmit } from "../src";
     FunctionComponent<{
       ignored: string;
       ignoredOptional?: number;
+      // i can't omit included
+      included: never;
     }>
   >(AfterHoc);
 }
