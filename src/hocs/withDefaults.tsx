@@ -15,6 +15,28 @@ type WithDefaultsHoc = <Map extends Record<string, unknown>>(
   map: Map,
 ) => Hoc<[WithDefaultsFn<ToSchema<Map>>]>;
 
+/**
+ * adds default values to many props, so they can still receive values but they now have a default
+ * @see {@link withDefault} {@link withFactory} {@link withOverrides} {@link withOverride}
+ * @example
+ * function Card({ content, icon, border }: {
+ *   content: string;
+ *   icon: "star" | "heart" | ...;
+ *   border: "none" | "dashed" | ...
+ * }) {
+ *   return <>...</>
+ * }
+ * const StandardCard = withDefaults({icon: "star", border: "rounded"})(Card);
+ *
+ * <StandardCard content="some content" />
+ * // is equivalent to
+ * <CardWithIcon icon="star" border="rounded" content="some content" />
+ *
+ * // but
+ * <StandardCard content="some content" icon="heart" border="dashed" />
+ * // is equivalent to
+ * <CardWithIcon content="some content" icon="heart" border="dashed" /> // it propagates the new value
+ */
 export const withDefaults = newHoc<WithDefaultsHoc>(function withDefaults(
   Component: ComponentType,
   map: object,

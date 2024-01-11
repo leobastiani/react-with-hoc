@@ -43,6 +43,27 @@ type WithFactoryHoc = <
   dependencyNames: TDependencyName,
 ) => Hoc<[WithFactoryFn<PropName, PropValue, ToSchema<DependencyProps>>]>;
 
+/**
+ * add value to a prop based on a function and/or other props
+ * @see {@link withDefaults} {@link withDefault} {@link withOverride} {@link withOverrides}
+ * @example
+ * function Card({ content, icon, border }: {
+ *   content: string;
+ *   icon?: "star" | "heart" | ...;
+ * }) {
+ *   return <>...</>
+ * }
+ * const StandardCard = withFactory<{content: string; icon?: Icon}>("icon", ({content, icon}) => content.includes("star") ? "star" : icon)(Card);
+ *
+ * <StandardCard content="some content with star" icon="heart" />
+ * // is equivalent to
+ * <CardWithIcon content="some content with star" icon="star" />
+ *
+ * // and
+ * <StandardCard content="some content" icon="heart" />
+ * // is equivalent to
+ * <CardWithIcon content="some content" icon="heart" />
+ */
 export const withFactory = newHoc<WithFactoryHoc>(function withFactory(
   Component: ComponentType,
   propName: string,
