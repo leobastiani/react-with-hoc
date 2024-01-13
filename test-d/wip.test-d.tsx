@@ -1,10 +1,13 @@
-import React, { ComponentType } from "react";
+import React, { ComponentProps, ComponentType, FunctionComponent } from "react";
+import { Simplify } from "../src";
 
 type WithComponents<
   Components extends Record<string, ComponentType<any>>,
   T,
 > = {
-  [K in keyof Components]: Components[K];
+  [K in keyof Components]: ComponentType<
+    Simplify<ComponentProps<Components[K]>>
+  >;
 };
 
 declare const Avatar: React.FunctionComponent<{
@@ -15,29 +18,23 @@ declare const Avatar: React.FunctionComponent<{
 }>;
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-function addComponents<
-  const Components extends Record<string, ComponentType<any>>,
-  T,
-  NewComponents = WithComponents<Components, T>,
+function addComponents<T>(): <
+  Components extends Record<string, ComponentType<any>>,
 >(
   components: Components,
-  getComponent: (components: NewComponents) => ComponentType<T>,
-) {
-  return getComponent(components as any);
+  getComponent: FunctionComponent<T & WithComponents<Components, T>>,
+) => ComponentType<Simplify<Omit<T, "fontSize">>> {
+  throw new Error("never");
 }
 
-export const Profile = addComponents({ Avatar }, ({ Avatar }) => {
-  const Profile: React.FunctionComponent<{
-    fontSize: number | string;
-    background: string;
-  }> = ({ fontSize }) => {
-    return (
-      <div>
-        <Avatar size={10} fontSize={20} background="red" />
-        Profile: {fontSize}
-      </div>
-    );
-  };
-
-  return Profile;
+export const Profile = addComponents<{
+  fontSize: number | string;
+  background: string;
+}>()({ Avatar }, function Profile({ fontSize, background, Avatar }) {
+  return (
+    <div>
+      <Avatar background={background} fontSize={20} size={100} sharp />
+      Profile
+    </div>
+  );
 });
