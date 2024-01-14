@@ -1,6 +1,5 @@
-import React from "react";
 import { act, render } from "@testing-library/react";
-import { Dispatch, FunctionComponent, SetStateAction } from "react";
+import React, { Dispatch, FunctionComponent, SetStateAction } from "react";
 import { componentDisplayName } from "../utils/componentDisplayName";
 import { withState } from "./withState";
 
@@ -27,7 +26,9 @@ it("withState name", () => {
 });
 
 it("withState", () => {
-  const Component = withState("someState", { init: 0 })(Example);
+  const Component = withState("someState", {
+    init: 0,
+  })(Example);
   render(<Component />);
   expect(document.body.children[0].innerHTML).toBe(
     '<pre>{"someState":0}</pre>',
@@ -53,6 +54,25 @@ it("withState init as function", () => {
   });
   expect(document.body.children[0].innerHTML).toBe(
     '<pre>{"someState":1,"a":10}</pre>',
+  );
+});
+
+it("withState with different setterName", () => {
+  function Example(props: {
+    someState: number;
+    setState: Dispatch<SetStateAction<number>>;
+  }): JSX.Element {
+    props.setState(10);
+    return <pre>{JSON.stringify(props)}</pre>;
+  }
+
+  const Component = withState<number, "someState", "setState">("someState", {
+    setterName: "setState",
+  })(Example);
+  const mock = jest.fn();
+  render(<Component someState={20} setState={mock} />);
+  expect(document.body.children[0].innerHTML).toBe(
+    '<pre>{"someState":20}</pre>',
   );
 });
 

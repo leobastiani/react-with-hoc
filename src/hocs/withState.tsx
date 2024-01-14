@@ -33,17 +33,24 @@ type WithStateHoc = <
     /**
      * the initial value
      *
-     *  ```tsx
+     *  @example
      * // initial state from a constant
      * {init: "initial value"}
-     * ```ts
      *
-     * ```tsx
+     * @example
      * // initial state will be derived from someProp
      * {init: ({ someProp }: {someProp: number}) => someProp + 1}
-     * ```ts
      */
     init?: Exclude<PropValue, Function> | ((props: Props) => PropValue);
+    /**
+     * the setter's name property, usually you want to the default which is `set${Capitalize<StateName>}`
+     * @default `set${Capitalize<StateName>}`
+     * @example
+     * withState("someState", {
+     *   init: 0,
+     *   setterName: "setSomeState" // default
+     * })(Example)
+     */
     setterName?: SetterName;
   },
 ) => Hoc<[WithStateFn<PropValue, StateName, SetterName, ToSchema<Props>>]>;
