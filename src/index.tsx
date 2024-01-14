@@ -1,7 +1,5 @@
 // Hocs
 export { withBody } from "./hocs/withBody";
-export { withComponent } from "./hocs/withComponent";
-export { withComponents } from "./hocs/withComponents";
 export { withDefault } from "./hocs/withDefault";
 export { withDefaults } from "./hocs/withDefaults";
 export { withDisplayName } from "./hocs/withDisplayName";
@@ -41,7 +39,6 @@ export {
 } from "./types/Fn";
 export { Hoc } from "./types/Hoc";
 export { PartialComponent } from "./types/PartialComponent";
-export { WithComponent } from "./types/WithComponent";
 
 // Utils
 export { componentDisplayName } from "./utils/componentDisplayName";

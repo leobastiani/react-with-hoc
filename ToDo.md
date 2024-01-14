@@ -1,4 +1,3 @@
 - documenting
 - withIf => withRenderCondition
-- withComponent => review pickProps
 - withDisplayName should not mutate
