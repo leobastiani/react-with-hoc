@@ -21,6 +21,12 @@ it("applied withHocs with a string name", () => {
   expect(componentDisplayName.get(Component)).toBe("SomeName");
 });
 
+it("does not mutate", () => {
+  const Component = withDisplayName("SomeName", Example);
+  expect(componentDisplayName.get(Component)).toBe("SomeName");
+  expect(componentDisplayName.get(Example)).toBe("Example");
+});
+
 it("applied withHocs with a factory name", () => {
   const Component = withHocs([
     withDisplayName((C) => "SomeName." + componentDisplayName.get(C)),
