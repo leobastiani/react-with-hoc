@@ -17,10 +17,10 @@ type WithHocsFlat<
 
 /**
  * Apply multiple hocs
- * ```tsx
+ *
+ *  @example
  * const NewComponent = withHocs([withWrapper(...), withWrapper(...)])(MyComponent)
  * <NewComponent ... />
- * ```
  *
  * @example
  * const MyComponent = (() => {
@@ -29,6 +29,7 @@ type WithHocsFlat<
  *   }
  *   return withHocs([ ... ])(MyComponent);
  * })();
+ *
  * @example
  * import { withHoc1, withHoc1 } from 'my-hocs'
  * // `withHoc1_2` can be used somewhere else

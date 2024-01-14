@@ -16,7 +16,7 @@ interface WithRenamesFn<T extends [string | number | symbol, string]>
 
 type WithRenamesHoc = <const Map extends Record<string, string>>(
   /**
-   * ```tsx
+   * @example
    * function Box({ handleClick, handleHover }: { handleClick: () => void; handleHover: () => void }) {
    *   ...
    * }
@@ -29,7 +29,6 @@ type WithRenamesHoc = <const Map extends Record<string, string>>(
    * <NewBox onClick={() => {}} onMouseOver={() => {}} />
    * // is equivalent to
    * <Box handleClick={() => {}} handleHover={() => {}} />
-   * ```
    */
   map: Map,
 ) => Hoc<[WithRenamesFn<ToSchema<Map>>]>;

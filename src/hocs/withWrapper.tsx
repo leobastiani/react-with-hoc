@@ -67,14 +67,14 @@ export interface WithWrapperHoc {
 
 /**
  * Wraps the component with the provided Component Wrapper
- * ```tsx
+ *
+ * @example
  * const NewComponent = withWrapper(Wrapper)(Component)
  * <NewComponent a="a" b="b" c="c" />
  * // is equivalent to
  * <Wrapper> // by default, it does not bring any prop
  *   <Component a="a" b="b" c="c" />
  * </Wrapper>
- * ```
  *
  * @example
  * const NewComponent = withWrapper(Wrapper, { pickProps: ['a', 'b'] })(Component)
@@ -83,6 +83,7 @@ export interface WithWrapperHoc {
  * <Wrapper a="a" b="b">
  *   <Component a="a" b="b" c="c" />
  * </Wrapper>
+ *
  * @example
  * const NewComponent = withWrapper(Wrapper, { omitProps: ['a', 'b'] })(Component)
  * <NewComponent a="a" b="b" c="c" />
@@ -90,6 +91,7 @@ export interface WithWrapperHoc {
  * <Wrapper c="c">
  *   <Component a="a" b="b" c="c" />
  * </Wrapper>
+ *
  * @example
  * // to carry all props, use omitProps with empty array
  * const NewComponent = withWrapper(Wrapper, { omitProps: [] })(Component)

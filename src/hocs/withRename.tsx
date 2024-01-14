@@ -18,7 +18,7 @@ type WithRenameHoc = <
   const OldProp extends string,
 >(
   /**
-   * ```tsx
+   * @example
    * function Box({ handleClick }: { handleClick: () => void }) {
    *   ...
    * }
@@ -28,11 +28,10 @@ type WithRenameHoc = <
    * //      ↑ onClick is the new prop
    * // is equivalent to
    * <Box handleClick={() => {}} />
-   * ```
    */
   newProp: NewProp,
   /**
-   * ```tsx
+   * @example
    * function Box({ handleClick }: { handleClick: () => void }) {
    *   ...
    * }
@@ -42,7 +41,6 @@ type WithRenameHoc = <
    * // is equivalent to
    * <Box handleClick={() => {}} />
    * //   ↑ this is the old prop
-   * ```
    */
   oldProp: OldProp,
 ) => Hoc<[WithRenameFn<NewProp, OldProp>]>;
