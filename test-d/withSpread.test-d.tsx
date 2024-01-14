@@ -2,9 +2,7 @@ import { FunctionComponent } from "react";
 import { expectType } from "tsd";
 import { withSpread } from "../src";
 
-{
-  // with perfect match
-
+/* with perfect match */ {
   const BeforeHoc: React.FC<{
     name: string;
     age: number;
@@ -27,31 +25,32 @@ import { withSpread } from "../src";
   >(AfterHoc);
 }
 
-{
-  // with missing prop in new object
-
+/* with missing prop in new object */ {
   const BeforeHoc: React.FC<{
     name: string;
     age: number;
     address: string;
+    phone?: string;
   }> = undefined as any;
-  const AfterHoc = withSpread<"user", "name" | "address">("user")(BeforeHoc);
+  const AfterHoc = withSpread<"user", "name" | "address" | "phone">("user")(
+    BeforeHoc,
+  );
   expectType<
     FunctionComponent<{
       user: {
         name: string;
         address: string;
+        phone?: string | undefined;
       };
       name?: string;
       age: number;
       address?: string;
+      phone?: string | undefined;
     }>
   >(AfterHoc);
 }
 
-{
-  // with imperfect match
-
+/* with imperfect match */ {
   const BeforeHoc: React.FC<{
     name: string;
     age: number;

@@ -33,6 +33,9 @@ interface WithIfHoc {
 
 /**
  * renders conditionally
+ *
+ * @experimental It could have a better name
+ *
  * @example
  * const AdminDashboard: React.FC = () => {
  *   return <>...</>

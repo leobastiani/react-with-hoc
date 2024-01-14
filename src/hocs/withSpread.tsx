@@ -30,6 +30,9 @@ interface WithSpreadHoc {
 
 /**
  * Start receiving an object and spread all properties to Component
+ *
+ * @experimental It uses the same mechanism as {@link withDefaults} but it could also have the same mechanism as {@link withOverrides}
+ *
  * @example
  * function Profile({ name, age, city }: {...}) {
  *   ...
