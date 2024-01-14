@@ -1,12 +1,20 @@
 import React, { ComponentProps, ComponentType, FunctionComponent } from "react";
 import { Simplify } from "../src";
 
+type Mix<P, T> = {
+  [K in keyof P as K extends keyof T
+    ? T[K] extends P[K]
+      ? never
+      : K
+    : K]: P[K];
+};
+
 type WithComponents<
   Components extends Record<string, ComponentType<any>>,
   T,
 > = {
   [K in keyof Components]: ComponentType<
-    Simplify<ComponentProps<Components[K]>>
+    Simplify<Mix<ComponentProps<Components[K]>, T>>
   >;
 };
 
@@ -14,6 +22,7 @@ declare const Avatar: React.FunctionComponent<{
   size: number;
   fontSize: number;
   background: string | boolean;
+  darkMode: boolean;
   sharp?: boolean;
 }>;
 
@@ -30,10 +39,12 @@ function addComponents<T>(): <
 export const Profile = addComponents<{
   fontSize: number | string;
   background: string;
+  darkMode: boolean;
+  sharp?: string;
 }>()({ Avatar }, function Profile({ fontSize, background, Avatar }) {
   return (
     <div>
-      <Avatar background={background} fontSize={20} size={100} sharp />
+      <Avatar fontSize={20} size={100} />
       Profile
     </div>
   );
