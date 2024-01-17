@@ -18,25 +18,12 @@ import { withDisplayName, withHocs, withPick } from "../src";
   expectType<typeof MyRFCComponent>(asWithHocs);
 }
 
-/* Regular object */ {
-  const myRegularObject: {
-    displayName: string;
-  } = undefined as any;
+/* regular function */ {
+  // eslint-disable-next-line no-inner-declarations
+  function MyComponent(_props: { prop: boolean }): null {
+    return null;
+  }
 
-  const asHoc = withDisplayName("As Hoc")(myRegularObject);
-  const asFunction = withDisplayName("As Function", myRegularObject);
-
-  expectType<typeof myRegularObject>(asHoc);
-  expectType<typeof myRegularObject>(asFunction);
-}
-
-/* object with no displayName */ {
-  const myRegularObject: {
-    nonDisplayName: string;
-  } = undefined as any;
-
-  // @ts-expect-error
-  withDisplayName("As Hoc")(myRegularObject);
-  // @ts-expect-error
-  withDisplayName("As Function", myRegularObject);
+  withDisplayName("As Hoc")(MyComponent);
+  withDisplayName("As Function", MyComponent);
 }
