@@ -86,6 +86,39 @@ export default withWrapper(
 ### Clock
 
 - [Demo](https://leobastiani.github.io/react-with-hoc/example/)
-- [Source](https://github.com/leobastiani/react-with-hoc/tree/main/example)
+- [Source](https://github.com/leobastiani/react-with-hoc/tree/main/example/src/App.tsx)
 
 Check out an entire project with react-with-hoc, see the [demo](https://leobastiani.github.io/react-with-hoc/example/) and try to imagine creating a reusable component with the same flexibility
+
+Take a look on how simple it's the final result
+
+```tsx
+const RedHour = withOverride("color", "red")(HourPointer);
+
+const Square = withStyle({
+  borderRadius: 0,
+})(ClockCircle);
+
+function App(): JSX.Element {
+  return (
+    <>
+      <div>
+        <h1>The default clock</h1>
+        <Clock />
+      </div>
+      <div>
+        <h1>#1 Variant: without minute marks</h1>
+        <Clock MinuteMarks={null} />
+      </div>
+      <div>
+        <h1>#2 With a red hour pointer</h1>
+        <Clock HourPointer={(): typeof RedHour => RedHour} />
+      </div>
+      <div>
+        <h1>#3 Inside a square</h1>
+        <Clock Circle={(): typeof Square => Square} />
+      </div>
+    </>
+  );
+}
+```

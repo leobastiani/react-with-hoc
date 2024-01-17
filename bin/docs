@@ -1,0 +1,22 @@
+#!/bin/bash
+
+cd "$(dirname "$0")"
+cd ..
+
+set -e -o pipefail
+
+cmd() {
+  set -x
+  if "$@"; then
+    { set +x; } 2>/dev/null
+  else
+    { local exit_code=$?; } 2>/dev/null
+    { set +x; } 2>/dev/null
+    return $exit_code
+  fi
+}
+export -f cmd
+
+cmd npx typedoc src/index.tsx --excludeNotDocumented
+
+(cmd cd example && cmd yarn build)
