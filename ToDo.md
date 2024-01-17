@@ -1,3 +1,3 @@
 - documenting
+- update example folder to latest version
 - withIf => withRenderCondition
-- withDisplayName should not mutate
