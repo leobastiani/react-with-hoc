@@ -1,7 +1,7 @@
 # react-with-hoc <!-- omit in toc -->
 
 <a href="https://leobastiani.github.io/react-with-hoc/">
-  <img src="./.github/logo/logo.png" />
+  <img src="https://raw.githubusercontent.com/leobastiani/react-with-hoc/main/.github/logo/logo.png" />
 </a>
 
 **Type safe** and **Zero-cost** React library to work with higher-order components (HOCs)
