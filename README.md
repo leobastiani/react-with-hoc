@@ -16,6 +16,7 @@
 
 - [Getting Started](#getting-started)
 - [Usage example](#usage-example)
+  - [Hello World](#hello-world)
   - [Example with react-query](#example-with-react-query)
   - [Clock](#clock)
 
@@ -36,6 +37,28 @@ yarn add react-with-hoc
 ```
 
 ## Usage example
+
+### Hello World
+
+```tsx
+import { withDefault, withOverride, withHocs } from "react-with-hoc";
+
+export const Hello = (() => {
+  function Hello({ name }: { name: string }) {
+    return <div>Hello {name}!</div>;
+  }
+
+  return withHocs([withDefault({ name: "World" })])(Hello);
+})();
+
+// <Hello /> is equivalent to <div>Hello World!</div>
+// <Hello name="You" /> is equivalent to <div>Hello You!</div>
+
+export const HelloYou = withOverride("name", "You")(Hello);
+
+// <HelloYou /> is equivalent to <div>Hello You!</div>
+// <HelloYou name="..." /> is typescript error ❌
+```
 
 ### Example with react-query
 
@@ -82,6 +105,29 @@ export default withWrapper(
 // for didactic purpose, the following code could also be applied
 // const MyQueryClientProvider = withOverride({ client: queryClient })(QueryClientProvider)
 // export default withWrapper(MyQueryClientProvider)(App);
+```
+
+Using [IIFE](https://developer.mozilla.org/pt-BR/docs/Glossary/IIFE)
+
+```tsx
+import { withWrapper, withOverride, withHocs } from "react-with-hoc";
+
+const queryClient = new QueryClient();
+
+const App = (() => {
+  function App() {
+    // ✅
+    const query = useQuery({...});
+
+    return <>...</>;
+  }
+
+  return withHocs([
+    withWrapper(withOverride({ client: queryClient })(QueryClientProvider)),
+  ])(App);
+})();
+
+export default App;
 ```
 
 ### Clock

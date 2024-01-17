@@ -19,8 +19,12 @@ type WithHocsFlat<
  * Apply multiple hocs
  *
  *  @example
- * const NewComponent = withHocs([withWrapper(...), withWrapper(...)])(MyComponent)
- * <NewComponent ... />
+ * const NewComponent = withHocs([withWrapper(A), withWrapper(B)])(MyComponent)
+ * <A>
+ *   <B>
+ *     <NewComponent ... />
+ *   </B>
+ * </A>
  *
  * @example
  * const MyComponent = (() => {
