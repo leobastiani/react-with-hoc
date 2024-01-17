@@ -6,6 +6,7 @@
 
 **Type safe** and **Zero-cost** React library to work with higher-order components (HOCs)
 
+[![Documentation](https://img.shields.io/badge/docs-blue)](https://leobastiani.github.io/react-with-hoc/)
 [![NPM version](https://img.shields.io/npm/v/react-with-hoc)](https://www.npmjs.com/package/react-with-hoc)
 [![Build](https://github.com/leobastiani/react-with-hoc/actions/workflows/test.yml/badge.svg)](https://github.com/leobastiani/react-with-hoc/actions/workflows/test.yml)
 ![Typescript](https://img.shields.io/npm/types/react-with-hoc)
