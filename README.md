@@ -16,6 +16,7 @@
 - [Getting Started](#getting-started)
 - [Usage example](#usage-example)
   - [Example with react-query](#example-with-react-query)
+  - [Clock](#clock)
 
 ## Getting Started
 
@@ -81,3 +82,10 @@ export default withWrapper(
 // const MyQueryClientProvider = withOverride({ client: queryClient })(QueryClientProvider)
 // export default withWrapper(MyQueryClientProvider)(App);
 ```
+
+### Clock
+
+- [Demo](https://leobastiani.github.io/react-with-hoc/example/)
+- [Source](https://github.com/leobastiani/react-with-hoc/tree/main/example)
+
+Check out an entire project with react-with-hoc, see the [demo](https://leobastiani.github.io/react-with-hoc/example/) and try to imagine creating a reusable component with the same flexibility
