@@ -3,3 +3,6 @@ dist
 yarn-error.log
 *.json
 lib/
+example/
+playground/
+docs/

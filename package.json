@@ -37,7 +37,7 @@
     "build": "yarn clean && bin/build-cjs && bin/build-esm && yarn build:types && bin/generate-mappings",
     "build:types": "npx tsc --outDir lib/module --emitDeclarationOnly --project tsconfig.build.json",
     "clean": "rimraf lib",
-    "lint": "eslint . --max-warnings=0",
+    "lint": "eslint . --max-warnings=0 --report-unused-disable-directives",
     "prepublishOnly": "yarn clean && yarn build && yarn test && yarn tsc && yarn lint && yarn tsd",
     "test": "jest",
     "tsc": "tsc --noEmit",
