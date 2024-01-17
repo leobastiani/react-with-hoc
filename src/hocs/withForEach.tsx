@@ -1,8 +1,10 @@
 import React, {
   ComponentType,
+  Fragment,
   FunctionComponent,
   Key,
   ReactNode,
+  createElement,
   isValidElement,
 } from "react";
 import { SetOptionalFn } from "../types/Fn";
@@ -139,52 +141,58 @@ export const withForEach = newHoc<WithForEachHoc>(function withForEach(
   }
 
   return function WithForEach(props: any): ReactNode {
-    if (typeof target === "number") {
-      return Array.from({ length: target }).map((_v, i) =>
-        componentWithKey({ ...props, [indexName]: i }),
-      );
-    }
-
-    if (Array.isArray(target)) {
-      if (target.length === 0) {
-        return target as ReactNode[];
-      }
-
-      if (isReactNode(target[0])) {
-        return target.map((v, i) =>
-          componentWithKey({ ...props, [indexName]: i, [valueName]: v }),
+    const children = ((): ReactNode[] => {
+      if (typeof target === "number") {
+        return Array.from({ length: target }).map((_v, i) =>
+          componentWithKey({ ...props, [indexName]: i }),
         );
       }
 
-      return target.map((v, i) =>
-        componentWithKey({ ...v, ...props, [indexName]: i }),
-      );
-    }
+      if (Array.isArray(target)) {
+        if (target.length === 0) {
+          return [];
+        }
 
-    if (typeof target === "object" && target !== null) {
-      if (Object.keys(target).length === 0) {
-        return null;
+        if (isReactNode(target[0])) {
+          return target.map((v, i) =>
+            componentWithKey({ ...props, [indexName]: i, [valueName]: v }),
+          );
+        }
+
+        return target.map((v, i) =>
+          componentWithKey({ ...v, ...props, [indexName]: i }),
+        );
       }
 
-      if (isReactNode(Object.values(target)[0])) {
-        return Object.entries(target).map(([index, value]) => {
-          return componentWithKey({
-            ...props,
-            [indexName]: index,
-            [valueName]: value,
+      if (typeof target === "object" && target !== null) {
+        if (Object.keys(target).length === 0) {
+          return [];
+        }
+
+        if (isReactNode(Object.values(target)[0])) {
+          return Object.entries(target).map(([index, value]) => {
+            return componentWithKey({
+              ...props,
+              [indexName]: index,
+              [valueName]: value,
+            });
           });
+        }
+
+        return Object.entries(target).map(([index, value]) => {
+          return componentWithKey({ ...value, ...props, [indexName]: index });
         });
       }
 
-      return Object.entries(target).map(([index, value]) => {
-        return componentWithKey({ ...value, ...props, [indexName]: index });
-      });
-    }
+      if (process.env.NODE_ENV !== "production") {
+        const never: never = target;
+        never;
+      }
+      throw new Error(
+        "withForEach: should be used with number, Array or object",
+      );
+    })();
 
-    if (process.env.NODE_ENV !== "production") {
-      const never: never = target;
-      never;
-    }
-    throw new Error("withForEach: should be used with number, Array or object");
+    return createElement(Fragment, null, ...children);
   };
 });
