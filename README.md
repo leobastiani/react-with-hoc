@@ -4,7 +4,7 @@
   <img src="https://raw.githubusercontent.com/leobastiani/react-with-hoc/main/.github/logo/logo.png" />
 </a>
 
-**Type safe** and **Zero-cost** React library to work with higher-order components (HOCs)
+**Type safe** and **Zero-cost** React library to work with higher-order component (HOC)
 
 [![Documentation](https://img.shields.io/badge/docs-blue)](https://leobastiani.github.io/react-with-hoc/)
 [![NPM version](https://img.shields.io/npm/v/react-with-hoc)](https://www.npmjs.com/package/react-with-hoc)
@@ -57,7 +57,7 @@ export const Hello = (() => {
 export const HelloYou = withOverride("name", "You")(Hello);
 
 // <HelloYou /> is equivalent to <div>Hello You!</div>
-// <HelloYou name="..." /> is typescript error ❌
+// <HelloYou name="..." /> is a typescript error ❌
 ```
 
 ### Example with react-query
