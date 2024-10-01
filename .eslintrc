@@ -18,6 +18,22 @@
     "react-hooks",
     "jest"
   ],
+  "overrides": [
+    {
+      "files": [
+        "src/**/*.ts",
+        "src/**/*.tsx"
+      ],
+      "parserOptions": {
+        "project": [
+          "./tsconfig.json"
+        ]
+      },
+      "rules": {
+        "@typescript-eslint/consistent-type-exports": "error"
+      }
+    }
+  ],
   "rules": {
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/ban-ts-comment": "off",

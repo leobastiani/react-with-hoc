@@ -18,8 +18,8 @@ export { withState } from "./hocs/withState";
 export { withWrapper } from "./hocs/withWrapper";
 
 // Types
-export { DependencyNames } from "./types/DependencyNames";
-export {
+export type { DependencyNames } from "./types/DependencyNames";
+export type {
   Call,
   Fn,
   FromSchema,
@@ -37,19 +37,15 @@ export {
   ToSchema,
   UnionFn,
 } from "./types/Fn";
-export { Hoc } from "./types/Hoc";
-export { PartialComponent } from "./types/PartialComponent";
+export type { Hoc } from "./types/Hoc";
+export type { PartialComponent } from "./types/PartialComponent";
 
 // Utils
 export { componentDisplayName } from "./utils/componentDisplayName";
+export type { HocNameFactory } from "./utils/hocNameForWithStyle";
 export {
-  HocNameFactory,
   createHocNameFunction,
   defaultHocName,
 } from "./utils/hocNameForWithStyle";
-export {
-  GetHocArgs,
-  HocDefinition,
-  NewHocReturn,
-  newHoc,
-} from "./utils/newHoc";
+export type { GetHocArgs, HocDefinition, NewHocReturn } from "./utils/newHoc";
+export { newHoc } from "./utils/newHoc";
